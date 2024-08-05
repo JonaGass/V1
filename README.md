@@ -1,0 +1,1 @@
+- Entwurf neuer 1-Fenster GUI
