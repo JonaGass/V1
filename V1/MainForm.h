@@ -255,14 +255,14 @@ namespace V1 {
 		}
 
 
-		// Validate mandatory fields before saving
 // Validate mandatory fields before saving
 		bool ValidateEntry()
 		{
+			bool state = true;
 			if (cmbType->SelectedIndex == -1)
 			{
 				MessageBox::Show("Please select an entry type.");
-				return false;
+				state = false;
 			}
 
 			String^ selectedType = cmbType->SelectedItem->ToString();
@@ -281,99 +281,105 @@ namespace V1 {
 			if (selectedTypeFields == nullptr)
 			{
 				MessageBox::Show("Invalid entry type selected.");
-				return false;
+				state = false;
 			}
-
+			String^ errorMessage = "";
 			// Check each required field
 			for each (String^ field in selectedTypeFields->RequiredFields)
 			{
 				if (field == "keyword" && txtKeyword->Text->Trim() == String::Empty) {
-					MessageBox::Show("Please fill in the keyword field.");
-					return false;
+					errorMessage += "Please fill in the keyword field.\n";
+					state = false;
 				}
 				if (field == "author" && txtAuthor->Text->Trim() == String::Empty) {
-					MessageBox::Show("Please fill in the author field.");
-					return false;
+					errorMessage += "Please fill in the author field.\n";
+					state = false;
 				}
 				if (field == "title" && txtTitle->Text->Trim() == String::Empty) {
-					MessageBox::Show("Please fill in the title field.");
-					return false;
+					errorMessage += "Please fill in the title field.\n";
+					state = false;
 				}
-				if (field == "year" && txtYear->Text->Trim() == String::Empty) {
-					MessageBox::Show("Please fill in the year field.");
-					return false;
+				int year;
+				if ((field == "year" && txtYear->Text->Trim() == String::Empty) || (field == "year" && !Int32::TryParse(txtYear->Text, year))) {
+					errorMessage += "Please enter a number into the year field.\n";
+					state = false;
 				}
 				if (field == "journal" && txtJournal->Text->Trim() == String::Empty) {
-					MessageBox::Show("Please fill in the journal field.");
-					return false;
+					errorMessage += "Please fill in the journal field.\n";
+					state = false;
 				}
-				if (field == "volume" && txtVolume->Text->Trim() == String::Empty) {
-					MessageBox::Show("Please fill in the volume field.");
-					return false;
+				int volume;
+				if ((field == "volume" && txtVolume->Text->Trim() == String::Empty) || (field == "volume" && !Int32::TryParse(txtVolume->Text, volume))) {
+					errorMessage += "Please enter a number into the volume field.\n";
+					state = false;
 				}
-				if (field == "number" && txtNumber->Text->Trim() == String::Empty) {
-					MessageBox::Show("Please fill in the number field.");
-					return false;
+				int number;
+				if ((field == "number" && txtNumber->Text->Trim() == String::Empty) || (field == "number" && !Int32::TryParse(txtNumber->Text, number))) {
+					errorMessage += "Please enter a number into the number field.\n";
+					state = false;
 				}
-				if (field == "pages" && txtPages->Text->Trim() == String::Empty) {
-					MessageBox::Show("Please fill in the pages field.");
-					return false;
+				int pages;
+				if ((field == "pages" && txtPages->Text->Trim() == String::Empty) || (field == "pages" && !Int32::TryParse(txtPages->Text, pages))) {
+					errorMessage += "Please enter a number into the pages field.\n";
+					state = false;
 				}
 				if (field == "month" && txtMonth->Text->Trim() == String::Empty) {
-					MessageBox::Show("Please fill in the month field.");
-					return false;
+					errorMessage += "Please fill in the month field.\n";
+					state = false;
 				}
 				if (field == "note" && txtNote->Text->Trim() == String::Empty) {
-					MessageBox::Show("Please fill in the note field.");
-					return false;
+					errorMessage += "Please fill in the note field.\n";
+					state = false;
 				}
 				if (field == "publisher" && txtPublisher->Text->Trim() == String::Empty) {
-					MessageBox::Show("Please fill in the publisher field.");
-					return false;
+					errorMessage += "Please fill in the publisher field.\n";
+					state = false;
 				}
 				if (field == "series" && txtSeries->Text->Trim() == String::Empty) {
-					MessageBox::Show("Please fill in the series field.");
-					return false;
+					errorMessage += "Please fill in the series field.\n";
+					state = false;
 				}
 				if (field == "address" && txtAddress->Text->Trim() == String::Empty) {
-					MessageBox::Show("Please fill in the address field.");
-					return false;
+					errorMessage += "Please fill in the address field.\n";
+					state = false;
 				}
 				if (field == "edition" && txtEdition->Text->Trim() == String::Empty) {
-					MessageBox::Show("Please fill in the edition field.");
-					return false;
+					errorMessage += "Please fill in the edition field.\n";
+					state = false;
 				}
 				if (field == "howpublished" && txtHowpublished->Text->Trim() == String::Empty) {
-					MessageBox::Show("Please fill in the how published field.");
-					return false;
+					errorMessage += "Please fill in the how published field.\n";
+					state = false;
 				}
 				if (field == "booktitle" && txtBooktitle->Text->Trim() == String::Empty) {
-					MessageBox::Show("Please fill in the book title field.");
-					return false;
+					errorMessage += "Please fill in the book title field.\n";
+					state = false;
 				}
 				if (field == "editor" && txtEditor->Text->Trim() == String::Empty) {
-					MessageBox::Show("Please fill in the editor field.");
-					return false;
+					errorMessage += "Please fill in the editor field.\n";
+					state = false;
 				}
 				if (field == "chapter" && txtChapter->Text->Trim() == String::Empty) {
-					MessageBox::Show("Please fill in the chapter field.");
-					return false;
+					errorMessage += "Please fill in the chapter field.\n";
+					state = false;
 				}
 				if (field == "school" && txtSchool->Text->Trim() == String::Empty) {
-					MessageBox::Show("Please fill in the school field.");
-					return false;
+					errorMessage += "Please fill in the school field.\n";
+					state = false;
 				}
 				if (field == "institution" && txtInstitution->Text->Trim() == String::Empty) {
-					MessageBox::Show("Please fill in the institution field.");
-					return false;
+					errorMessage += "Please fill in the institution field.\n";
+					state = false;
 				}
 				if (field == "organization" && txtOrganization->Text->Trim() == String::Empty) {
-					MessageBox::Show("Please fill in the organization field.");
-					return false;
+					errorMessage += "Please fill in the organization field.\n";
+					state = false;
 				}
 			}
-
-			return true;
+			if (!state) {
+				MessageBox::Show(errorMessage, "Missing Input", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			}
+			return state;
 		}
 
 		void InitializeComponent(void)
