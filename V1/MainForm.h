@@ -19,6 +19,7 @@ namespace V1 {
 			InitializeDataTypes();
 			PopulateTypeDropdown();
 			entries = gcnew List<DataArray^>();
+			displayedEntryIndices = gcnew List<int>();
 			HideAllFields();
 			UpdateUIState(false);
 		}
@@ -32,6 +33,8 @@ namespace V1 {
 
 
 	private:
+	private:
+		List<int>^ displayedEntryIndices; // To store the indices of displayed entries after searching
 	private:
 		System::Windows::Forms::TextBox^ txtSearch;
 		System::Windows::Forms::Button^ btnSearch;
@@ -1063,11 +1066,14 @@ namespace V1 {
 		// Event handler for ListView selection change
 		void listViewEntries_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 			if (listViewEntries->SelectedIndices->Count > 0 && !isEditMode) {
-				int index = listViewEntries->SelectedIndices[0];
-				currentEntry = entries[index];
-				DisplayEntryDetails(currentEntry);
-				btnEdit->Enabled = true;
-				btnDelete->Enabled = true;
+				int selectedIndex = listViewEntries->SelectedIndices[0];
+				if (selectedIndex >= 0 && selectedIndex < displayedEntryIndices->Count) {
+					int originalIndex = displayedEntryIndices[selectedIndex]; // Get the original index
+					currentEntry = entries[originalIndex]; // Access the entry from the original list
+					DisplayEntryDetails(currentEntry);
+					btnEdit->Enabled = true;
+					btnDelete->Enabled = true;
+				}
 			}
 			else {
 				btnEdit->Enabled = false;
@@ -1093,16 +1099,20 @@ namespace V1 {
 
 		void PerformSearch(String^ searchTerm) {
 			listViewEntries->Items->Clear(); // Clear existing entries
+			displayedEntryIndices->Clear(); // Clear previous indices
 
-			for each (DataArray^ entry in entries) {
-				// Using IndexOf to perform a case-insensitive search
+			for (int i = 0; i < entries->Count; i++) {
+				DataArray^ entry = entries[i];
 				if ((entry->keyword->IndexOf(searchTerm, StringComparison::CurrentCultureIgnoreCase) >= 0) ||
 					(entry->title->IndexOf(searchTerm, StringComparison::CurrentCultureIgnoreCase) >= 0) ||
 					(entry->author->IndexOf(searchTerm, StringComparison::CurrentCultureIgnoreCase) >= 0)) {
 
 					// If a match is found, add to the ListView
-					String^ itemText = entry->keyword; // Update according to how you want to display it
+					String^ itemText = entry->keyword;
 					listViewEntries->Items->Add(gcnew ListViewItem(itemText));
+
+					// Store the original index for the displayed entry
+					displayedEntryIndices->Add(i);
 				}
 			}
 		}
