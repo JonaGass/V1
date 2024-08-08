@@ -4,7 +4,7 @@ using namespace System;
 using namespace System::Collections::Generic; // For List<T>
 
 namespace DataNamespace {
-
+	[Serializable]
 	// Define DataArray as a managed type
 	public ref class DataArray {
 	public:
