@@ -1061,7 +1061,7 @@ namespace V1 {
 			}
 			catch (Exception^ ex) {
 				MessageBox::Show("Error saving entries: " + ex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-			}
+			} //Fehlermeldung wenn speichern nicht erfolgreich
 			finally{
 				fs->Close();
 			}
