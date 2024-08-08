@@ -36,9 +36,7 @@ namespace V1 {
 	private:
 		List<int>^ displayedEntryIndices; // To store the indices of displayed entries after searching
 	private:
-		System::Windows::Forms::Button^ btnResetSearch;
 		System::Windows::Forms::TextBox^ txtSearch;
-		System::Windows::Forms::Button^ btnSearch;
 		System::ComponentModel::Container^ components;
 		System::Windows::Forms::ListView^ listViewEntries;
 		System::Windows::Forms::Button^ btnNew;
@@ -549,9 +547,7 @@ namespace V1 {
 			this->lblOrganization = (gcnew System::Windows::Forms::Label());
 			this->btnSave = (gcnew System::Windows::Forms::Button());
 			this->btnCancel = (gcnew System::Windows::Forms::Button());
-			this->btnSearch = (gcnew System::Windows::Forms::Button());
 			this->txtSearch = (gcnew System::Windows::Forms::TextBox());
-			this->btnResetSearch = (gcnew System::Windows::Forms::Button());
 			this->panelDetails->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -1006,36 +1002,17 @@ namespace V1 {
 			this->btnCancel->Text = L"Cancel";
 			this->btnCancel->Click += gcnew System::EventHandler(this, &MainForm::btnCancel_Click);
 			// 
-			// btnSearch
-			// 
-			this->btnSearch->Location = System::Drawing::Point(606, 537);
-			this->btnSearch->Name = L"btnSearch";
-			this->btnSearch->Size = System::Drawing::Size(75, 23);
-			this->btnSearch->TabIndex = 6;
-			this->btnSearch->Text = L"Search";
-			this->btnSearch->Click += gcnew System::EventHandler(this, &MainForm::btnSearch_Click);
-			// 
 			// txtSearch
 			// 
 			this->txtSearch->Location = System::Drawing::Point(400, 537);
 			this->txtSearch->Name = L"txtSearch";
 			this->txtSearch->Size = System::Drawing::Size(200, 20);
 			this->txtSearch->TabIndex = 5;
-			// 
-			// btnResetSearch
-			// 
-			this->btnResetSearch->Location = System::Drawing::Point(686, 537);
-			this->btnResetSearch->Name = L"btnResetSearch";
-			this->btnResetSearch->Size = System::Drawing::Size(75, 23);
-			this->btnResetSearch->TabIndex = 7;
-			this->btnResetSearch->Text = L"Reset";
-			this->btnResetSearch->Click += gcnew System::EventHandler(this, &MainForm::btnResetSearch_Click);
+			this->txtSearch->TextChanged += gcnew System::EventHandler(this, &MainForm::txtSearch_TextChanged);
 			// 
 			// MainForm
 			// 
 			this->ClientSize = System::Drawing::Size(831, 591);
-			this->Controls->Add(this->btnResetSearch);
-			this->Controls->Add(this->btnSearch);
 			this->Controls->Add(this->txtSearch);
 			this->Controls->Add(this->listViewEntries);
 			this->Controls->Add(this->btnNew);
@@ -1101,16 +1078,6 @@ namespace V1 {
 				RefreshListView();
 				ClearEntryDetails();
 			}
-		}
-		// Event handler for Reset button click
-		void btnResetSearch_Click(System::Object^ sender, System::EventArgs^ e) {
-			txtSearch->Clear(); // Clear the search field
-			RefreshListView();  // Show all entries in the list view
-		}
-		// Event handler for Search button click
-		void btnSearch_Click(System::Object^ sender, System::EventArgs^ e) {
-			String^ searchTerm = txtSearch->Text->Trim();
-			PerformSearch(searchTerm);
 		}
 
 		void PerformSearch(String^ searchTerm) {
@@ -1458,5 +1425,9 @@ namespace V1 {
 	private: System::Void MainForm_Load(System::Object^  sender, System::EventArgs^  e) {
 	}
 
+private: System::Void txtSearch_TextChanged(System::Object^  sender, System::EventArgs^  e) { //wird automatisch durchsucht wenn etwas eingegeben wird
+	String^ searchTerm = txtSearch->Text->Trim();
+	PerformSearch(searchTerm);
+}
 };
 }
