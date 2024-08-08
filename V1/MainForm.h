@@ -1050,7 +1050,8 @@ namespace V1 {
 		}
 
 		void SaveEntries(String^ filename) {
-			using namespace System::IO; using namespace System::Runtime::Serialization::Formatters::Binary;
+			using namespace System::IO;
+			using namespace System::Runtime::Serialization::Formatters::Binary;
 			FileStream^ fs = gcnew FileStream(filename, FileMode::Create, FileAccess::Write);
 			BinaryFormatter^ formatter = gcnew BinaryFormatter();
 
@@ -1068,7 +1069,8 @@ namespace V1 {
 
 
 		void LoadEntries(String^ filename) {
-			using namespace System::IO; using namespace System::Runtime::Serialization::Formatters::Binary;
+			using namespace System::IO;
+			using namespace System::Runtime::Serialization::Formatters::Binary;
 			if (File::Exists(filename)) {
 				FileStream^ fs = gcnew FileStream(filename, FileMode::Open, FileAccess::Read);
 				BinaryFormatter^ formatter = gcnew BinaryFormatter();
