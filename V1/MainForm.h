@@ -19,6 +19,7 @@ namespace V1 {
 			InitializeDataTypes();
 			PopulateTypeDropdown();
 			entries = gcnew List<DataArray^>();
+			displayedEntryIndices = gcnew List<int>();
 			HideAllFields();
 			UpdateUIState(false);
 		}
@@ -32,6 +33,10 @@ namespace V1 {
 
 
 	private:
+	private:
+		List<int>^ displayedEntryIndices; // To store the indices of displayed entries after searching
+	private:
+		System::Windows::Forms::TextBox^ txtSearch;
 		System::ComponentModel::Container^ components;
 		System::Windows::Forms::ListView^ listViewEntries;
 		System::Windows::Forms::Button^ btnNew;
@@ -540,9 +545,9 @@ namespace V1 {
 			this->lblSchool = (gcnew System::Windows::Forms::Label());
 			this->lblInstitution = (gcnew System::Windows::Forms::Label());
 			this->lblOrganization = (gcnew System::Windows::Forms::Label());
-
 			this->btnSave = (gcnew System::Windows::Forms::Button());
 			this->btnCancel = (gcnew System::Windows::Forms::Button());
+			this->txtSearch = (gcnew System::Windows::Forms::TextBox());
 			this->panelDetails->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -629,8 +634,6 @@ namespace V1 {
 			this->panelDetails->Controls->Add(this->lblSchool);
 			this->panelDetails->Controls->Add(this->lblInstitution);
 			this->panelDetails->Controls->Add(this->lblOrganization);
-
-
 			this->panelDetails->Location = System::Drawing::Point(320, 50);
 			this->panelDetails->Name = L"panelDetails";
 			this->panelDetails->Size = System::Drawing::Size(450, 400);
@@ -791,177 +794,195 @@ namespace V1 {
 			this->txtOrganization->Name = L"txtOrganization";
 			this->txtOrganization->Size = System::Drawing::Size(100, 20);
 			this->txtOrganization->TabIndex = 0;
-
+			// 
 			// lblKeyword
+			// 
 			this->lblKeyword->AutoSize = true;
 			this->lblKeyword->Location = System::Drawing::Point(10, 10);
 			this->lblKeyword->Name = L"lblKeyword";
-			this->lblKeyword->Size = System::Drawing::Size(56, 13);
+			this->lblKeyword->Size = System::Drawing::Size(51, 13);
 			this->lblKeyword->TabIndex = 1;
 			this->lblKeyword->Text = L"Keyword:";
-
+			// 
 			// lblAuthor
+			// 
 			this->lblAuthor->AutoSize = true;
 			this->lblAuthor->Location = System::Drawing::Point(10, 40);
 			this->lblAuthor->Name = L"lblAuthor";
-			this->lblAuthor->Size = System::Drawing::Size(48, 13);
+			this->lblAuthor->Size = System::Drawing::Size(41, 13);
 			this->lblAuthor->TabIndex = 2;
 			this->lblAuthor->Text = L"Author:";
-
+			// 
 			// lblTitle
+			// 
 			this->lblTitle->AutoSize = true;
 			this->lblTitle->Location = System::Drawing::Point(10, 70);
 			this->lblTitle->Name = L"lblTitle";
 			this->lblTitle->Size = System::Drawing::Size(30, 13);
 			this->lblTitle->TabIndex = 3;
 			this->lblTitle->Text = L"Title:";
-
+			// 
 			// lblYear
+			// 
 			this->lblYear->AutoSize = true;
 			this->lblYear->Location = System::Drawing::Point(10, 100);
 			this->lblYear->Name = L"lblYear";
 			this->lblYear->Size = System::Drawing::Size(32, 13);
 			this->lblYear->TabIndex = 4;
 			this->lblYear->Text = L"Year:";
-
+			// 
 			// lblJournal
+			// 
 			this->lblJournal->AutoSize = true;
 			this->lblJournal->Location = System::Drawing::Point(10, 130);
 			this->lblJournal->Name = L"lblJournal";
-			this->lblJournal->Size = System::Drawing::Size(45, 13);
+			this->lblJournal->Size = System::Drawing::Size(44, 13);
 			this->lblJournal->TabIndex = 5;
 			this->lblJournal->Text = L"Journal:";
-
+			// 
 			// lblVolume
+			// 
 			this->lblVolume->AutoSize = true;
 			this->lblVolume->Location = System::Drawing::Point(10, 160);
 			this->lblVolume->Name = L"lblVolume";
 			this->lblVolume->Size = System::Drawing::Size(45, 13);
 			this->lblVolume->TabIndex = 6;
 			this->lblVolume->Text = L"Volume:";
-
+			// 
 			// lblNumber
+			// 
 			this->lblNumber->AutoSize = true;
 			this->lblNumber->Location = System::Drawing::Point(10, 190);
 			this->lblNumber->Name = L"lblNumber";
 			this->lblNumber->Size = System::Drawing::Size(47, 13);
 			this->lblNumber->TabIndex = 7;
 			this->lblNumber->Text = L"Number:";
-
+			// 
 			// lblPages
+			// 
 			this->lblPages->AutoSize = true;
 			this->lblPages->Location = System::Drawing::Point(10, 220);
 			this->lblPages->Name = L"lblPages";
 			this->lblPages->Size = System::Drawing::Size(40, 13);
 			this->lblPages->TabIndex = 8;
 			this->lblPages->Text = L"Pages:";
-
+			// 
 			// lblMonth
+			// 
 			this->lblMonth->AutoSize = true;
 			this->lblMonth->Location = System::Drawing::Point(10, 250);
 			this->lblMonth->Name = L"lblMonth";
 			this->lblMonth->Size = System::Drawing::Size(40, 13);
 			this->lblMonth->TabIndex = 9;
 			this->lblMonth->Text = L"Month:";
-
+			// 
 			// lblNote
+			// 
 			this->lblNote->AutoSize = true;
 			this->lblNote->Location = System::Drawing::Point(10, 280);
 			this->lblNote->Name = L"lblNote";
 			this->lblNote->Size = System::Drawing::Size(33, 13);
 			this->lblNote->TabIndex = 10;
 			this->lblNote->Text = L"Note:";
-
+			// 
 			// lblPublisher
+			// 
 			this->lblPublisher->AutoSize = true;
 			this->lblPublisher->Location = System::Drawing::Point(10, 310);
 			this->lblPublisher->Name = L"lblPublisher";
-			this->lblPublisher->Size = System::Drawing::Size(56, 13);
+			this->lblPublisher->Size = System::Drawing::Size(53, 13);
 			this->lblPublisher->TabIndex = 11;
 			this->lblPublisher->Text = L"Publisher:";
-
+			// 
 			// lblSeries
+			// 
 			this->lblSeries->AutoSize = true;
 			this->lblSeries->Location = System::Drawing::Point(10, 340);
 			this->lblSeries->Name = L"lblSeries";
 			this->lblSeries->Size = System::Drawing::Size(39, 13);
 			this->lblSeries->TabIndex = 12;
 			this->lblSeries->Text = L"Series:";
-
+			// 
 			// lblAddress
+			// 
 			this->lblAddress->AutoSize = true;
 			this->lblAddress->Location = System::Drawing::Point(10, 370);
 			this->lblAddress->Name = L"lblAddress";
 			this->lblAddress->Size = System::Drawing::Size(48, 13);
 			this->lblAddress->TabIndex = 13;
 			this->lblAddress->Text = L"Address:";
-
+			// 
 			// lblEdition
+			// 
 			this->lblEdition->AutoSize = true;
 			this->lblEdition->Location = System::Drawing::Point(10, 400);
 			this->lblEdition->Name = L"lblEdition";
 			this->lblEdition->Size = System::Drawing::Size(42, 13);
 			this->lblEdition->TabIndex = 14;
 			this->lblEdition->Text = L"Edition:";
-
+			// 
 			// lblHowpublished
+			// 
 			this->lblHowpublished->AutoSize = true;
 			this->lblHowpublished->Location = System::Drawing::Point(10, 430);
 			this->lblHowpublished->Name = L"lblHowpublished";
-			this->lblHowpublished->Size = System::Drawing::Size(74, 13);
+			this->lblHowpublished->Size = System::Drawing::Size(80, 13);
 			this->lblHowpublished->TabIndex = 15;
 			this->lblHowpublished->Text = L"How published:";
-
-			// lblBooktitle
+			// 
+			// lblABooktitle
+			// 
 			this->lblABooktitle->AutoSize = true;
 			this->lblABooktitle->Location = System::Drawing::Point(10, 460);
 			this->lblABooktitle->Name = L"lblABooktitle";
-			this->lblABooktitle->Size = System::Drawing::Size(54, 13);
+			this->lblABooktitle->Size = System::Drawing::Size(51, 13);
 			this->lblABooktitle->TabIndex = 16;
 			this->lblABooktitle->Text = L"Booktitle:";
-
+			// 
 			// lblEditor
+			// 
 			this->lblEditor->AutoSize = true;
 			this->lblEditor->Location = System::Drawing::Point(10, 490);
 			this->lblEditor->Name = L"lblEditor";
 			this->lblEditor->Size = System::Drawing::Size(37, 13);
 			this->lblEditor->TabIndex = 17;
 			this->lblEditor->Text = L"Editor:";
-
+			// 
 			// lblChapter
+			// 
 			this->lblChapter->AutoSize = true;
 			this->lblChapter->Location = System::Drawing::Point(10, 520);
 			this->lblChapter->Name = L"lblChapter";
-			this->lblChapter->Size = System::Drawing::Size(46, 13);
+			this->lblChapter->Size = System::Drawing::Size(47, 13);
 			this->lblChapter->TabIndex = 18;
 			this->lblChapter->Text = L"Chapter:";
-
+			// 
 			// lblSchool
+			// 
 			this->lblSchool->AutoSize = true;
 			this->lblSchool->Location = System::Drawing::Point(10, 550);
 			this->lblSchool->Name = L"lblSchool";
 			this->lblSchool->Size = System::Drawing::Size(43, 13);
 			this->lblSchool->TabIndex = 19;
 			this->lblSchool->Text = L"School:";
-
+			// 
 			// lblInstitution
+			// 
 			this->lblInstitution->AutoSize = true;
 			this->lblInstitution->Location = System::Drawing::Point(10, 580);
 			this->lblInstitution->Name = L"lblInstitution";
-			this->lblInstitution->Size = System::Drawing::Size(56, 13);
+			this->lblInstitution->Size = System::Drawing::Size(55, 13);
 			this->lblInstitution->TabIndex = 20;
 			this->lblInstitution->Text = L"Institution:";
-
+			// 
 			// lblOrganization
+			// 
 			this->lblOrganization->AutoSize = true;
 			this->lblOrganization->Location = System::Drawing::Point(10, 610);
 			this->lblOrganization->Name = L"lblOrganization";
-			this->lblOrganization->Size = System::Drawing::Size(70, 13);
+			this->lblOrganization->Size = System::Drawing::Size(69, 13);
 			this->lblOrganization->TabIndex = 21;
 			this->lblOrganization->Text = L"Organization:";
-
-
-
 			// 
 			// btnSave
 			// 
@@ -981,9 +1002,18 @@ namespace V1 {
 			this->btnCancel->Text = L"Cancel";
 			this->btnCancel->Click += gcnew System::EventHandler(this, &MainForm::btnCancel_Click);
 			// 
+			// txtSearch
+			// 
+			this->txtSearch->Location = System::Drawing::Point(400, 537);
+			this->txtSearch->Name = L"txtSearch";
+			this->txtSearch->Size = System::Drawing::Size(200, 20);
+			this->txtSearch->TabIndex = 5;
+			this->txtSearch->TextChanged += gcnew System::EventHandler(this, &MainForm::txtSearch_TextChanged);
+			// 
 			// MainForm
 			// 
-			this->ClientSize = System::Drawing::Size(816, 540);
+			this->ClientSize = System::Drawing::Size(831, 591);
+			this->Controls->Add(this->txtSearch);
 			this->Controls->Add(this->listViewEntries);
 			this->Controls->Add(this->btnNew);
 			this->Controls->Add(this->btnEdit);
@@ -997,6 +1027,7 @@ namespace V1 {
 			this->panelDetails->ResumeLayout(false);
 			this->panelDetails->PerformLayout();
 			this->ResumeLayout(false);
+			this->PerformLayout();
 
 		}
 
@@ -1024,11 +1055,14 @@ namespace V1 {
 		// Event handler for ListView selection change
 		void listViewEntries_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 			if (listViewEntries->SelectedIndices->Count > 0 && !isEditMode) {
-				int index = listViewEntries->SelectedIndices[0];
-				currentEntry = entries[index];
-				DisplayEntryDetails(currentEntry);
-				btnEdit->Enabled = true;
-				btnDelete->Enabled = true;
+				int selectedIndex = listViewEntries->SelectedIndices[0];
+				if (selectedIndex >= 0 && selectedIndex < displayedEntryIndices->Count) {
+					int originalIndex = displayedEntryIndices[selectedIndex]; // Get the original index
+					currentEntry = entries[originalIndex]; // Access the entry from the original list
+					DisplayEntryDetails(currentEntry);
+					btnEdit->Enabled = true;
+					btnDelete->Enabled = true;
+				}
 			}
 			else {
 				btnEdit->Enabled = false;
@@ -1043,6 +1077,26 @@ namespace V1 {
 				entries->RemoveAt(index);
 				RefreshListView();
 				ClearEntryDetails();
+			}
+		}
+
+		void PerformSearch(String^ searchTerm) {
+			listViewEntries->Items->Clear(); // Clear existing entries
+			displayedEntryIndices->Clear(); // Clear previous indices
+
+			for (int i = 0; i < entries->Count; i++) {
+				DataArray^ entry = entries[i];
+				if ((entry->keyword->IndexOf(searchTerm, StringComparison::CurrentCultureIgnoreCase) >= 0) ||
+					(entry->title->IndexOf(searchTerm, StringComparison::CurrentCultureIgnoreCase) >= 0) ||
+					(entry->author->IndexOf(searchTerm, StringComparison::CurrentCultureIgnoreCase) >= 0)) {
+
+					// If a match is found, add to the ListView
+					String^ itemText = entry->keyword;
+					listViewEntries->Items->Add(gcnew ListViewItem(itemText));
+
+					// Store the original index for the displayed entry
+					displayedEntryIndices->Add(i);
+				}
 			}
 		}
 
@@ -1371,5 +1425,9 @@ namespace V1 {
 	private: System::Void MainForm_Load(System::Object^  sender, System::EventArgs^  e) {
 	}
 
+private: System::Void txtSearch_TextChanged(System::Object^  sender, System::EventArgs^  e) { //wird automatisch durchsucht wenn etwas eingegeben wird
+	String^ searchTerm = txtSearch->Text->Trim();
+	PerformSearch(searchTerm);
+}
 };
 }
