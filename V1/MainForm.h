@@ -1483,14 +1483,14 @@ namespace V1 {
 		RefreshListView(); // Refresh the ListView to show loaded entries
 	}
 
-private: System::Void btnSaveHDD_Click(System::Object^  sender, System::EventArgs^  e) {
-	SaveEntries("entries.bin");
-	MessageBox::Show("Entries saved successfully to HDD.", "Information", MessageBoxButtons::OK, MessageBoxIcon::Information);
-}
-private: System::Void txtSearch_TextChanged(System::Object^  sender, System::EventArgs^  e) { //wird automatisch durchsucht wenn etwas eingegeben wird
-	String^ searchTerm = txtSearch->Text->Trim();
-	PerformSearch(searchTerm);
-}
-}
-};
+	private: System::Void btnSaveHDD_Click(System::Object^  sender, System::EventArgs^  e) {
+		SaveEntries("entries.bin");
+		MessageBox::Show("Entries saved successfully to HDD.", "Information", MessageBoxButtons::OK, MessageBoxIcon::Information);
+	}
+	private: System::Void txtSearch_TextChanged(System::Object^  sender, System::EventArgs^  e) { //wird automatisch durchsucht wenn etwas eingegeben wird
+		String^ searchTerm = txtSearch->Text->Trim();
+		PerformSearch(searchTerm);
+	
+	}
+	};
 }
