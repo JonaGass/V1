@@ -19,6 +19,7 @@ namespace V1 {
 			InitializeDataTypes();
 			PopulateTypeDropdown();
 			entries = gcnew List<DataArray^>();
+			displayedEntryIndices = gcnew List<int>();
 			HideAllFields();
 			UpdateUIState(false);
 		}
@@ -32,6 +33,10 @@ namespace V1 {
 
 
 	private:
+	private:
+		List<int>^ displayedEntryIndices; // To store the indices of displayed entries after searching
+	private:
+		System::Windows::Forms::TextBox^ txtSearch;
 		System::ComponentModel::Container^ components;
 		System::Windows::Forms::ListView^ listViewEntries;
 		System::Windows::Forms::Button^ btnNew;
@@ -415,13 +420,13 @@ namespace V1 {
 			for each (String^ field in selectedTypeFields->OptionalFields)
 			{
 				if (field == "keyword") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 				if (field == "author") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 				if (field == "title") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 				int year;
 				if (field == "year" && !Int32::TryParse(txtYear->Text, year) && !(txtYear->Text->Trim() == String::Empty)) {
@@ -429,7 +434,7 @@ namespace V1 {
 					errorMessageOptional += "Year must be a number.\n";
 				}
 				if (field == "journal") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 				int volume;
 				if (field == "volume" && !Int32::TryParse(txtVolume->Text, volume) && !(txtVolume->Text->Trim() == String::Empty)) {
@@ -447,43 +452,43 @@ namespace V1 {
 					errorMessageOptional += "Pages must be a number.\n";
 				}
 				if (field == "month") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 				if (field == "note") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 				if (field == "publisher") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 				if (field == "series") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 				if (field == "address") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 				if (field == "edition") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 				if (field == "howpublished") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 				if (field == "booktitle") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 				if (field == "editor") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 				if (field == "chapter") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 				if (field == "school") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 				if (field == "institution") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 				if (field == "organization") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 			}
 			if (!stateOptional) {
@@ -544,6 +549,7 @@ namespace V1 {
 			this->btnSave = (gcnew System::Windows::Forms::Button());
 			this->btnCancel = (gcnew System::Windows::Forms::Button());
 			this->btnSaveHDD = (gcnew System::Windows::Forms::Button());
+			this->txtSearch = (gcnew System::Windows::Forms::TextBox());
 			this->panelDetails->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -1006,12 +1012,20 @@ namespace V1 {
 			this->btnSaveHDD->TabIndex = 7;
 			this->btnSaveHDD->Text = L"Save HDD";
 			this->btnSaveHDD->UseVisualStyleBackColor = true;
-			this->btnSaveHDD->Click += gcnew System::EventHandler(this, &MainForm::btnSaveHDD_Click);
+			this->btnSaveHDD->Click += gcnew System::EventHandler(this, &MainForm::btnSaveHDD_Click); 
+			this->Controls->Add(this->btnSaveHDD);
+			// txtSearch
+			// 
+			this->txtSearch->Location = System::Drawing::Point(400, 537);
+			this->txtSearch->Name = L"txtSearch";
+			this->txtSearch->Size = System::Drawing::Size(200, 20);
+			this->txtSearch->TabIndex = 5;
+			this->txtSearch->TextChanged += gcnew System::EventHandler(this, &MainForm::txtSearch_TextChanged);
 			// 
 			// MainForm
 			// 
-			this->ClientSize = System::Drawing::Size(816, 540);
-			this->Controls->Add(this->btnSaveHDD);
+			this->ClientSize = System::Drawing::Size(831, 591);
+			this->Controls->Add(this->txtSearch);
 			this->Controls->Add(this->listViewEntries);
 			this->Controls->Add(this->btnNew);
 			this->Controls->Add(this->btnEdit);
@@ -1025,6 +1039,7 @@ namespace V1 {
 			this->panelDetails->ResumeLayout(false);
 			this->panelDetails->PerformLayout();
 			this->ResumeLayout(false);
+			this->PerformLayout();
 
 		}
 
@@ -1095,11 +1110,14 @@ namespace V1 {
 		// Event handler for ListView selection change
 		void listViewEntries_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 			if (listViewEntries->SelectedIndices->Count > 0 && !isEditMode) {
-				int index = listViewEntries->SelectedIndices[0];
-				currentEntry = entries[index];
-				DisplayEntryDetails(currentEntry);
-				btnEdit->Enabled = true;
-				btnDelete->Enabled = true;
+				int selectedIndex = listViewEntries->SelectedIndices[0];
+				if (selectedIndex >= 0 && selectedIndex < displayedEntryIndices->Count) {
+					int originalIndex = displayedEntryIndices[selectedIndex]; // Get the original index
+					currentEntry = entries[originalIndex]; // Access the entry from the original list
+					DisplayEntryDetails(currentEntry);
+					btnEdit->Enabled = true;
+					btnDelete->Enabled = true;
+				}
 			}
 			else {
 				btnEdit->Enabled = false;
@@ -1114,6 +1132,26 @@ namespace V1 {
 				entries->RemoveAt(index);
 				RefreshListView();
 				ClearEntryDetails();
+			}
+		}
+
+		void PerformSearch(String^ searchTerm) {
+			listViewEntries->Items->Clear(); // Clear existing entries
+			displayedEntryIndices->Clear(); // Clear previous indices
+
+			for (int i = 0; i < entries->Count; i++) {
+				DataArray^ entry = entries[i];
+				if ((entry->keyword->IndexOf(searchTerm, StringComparison::CurrentCultureIgnoreCase) >= 0) ||
+					(entry->title->IndexOf(searchTerm, StringComparison::CurrentCultureIgnoreCase) >= 0) ||
+					(entry->author->IndexOf(searchTerm, StringComparison::CurrentCultureIgnoreCase) >= 0)) {
+
+					// If a match is found, add to the ListView
+					String^ itemText = entry->keyword;
+					listViewEntries->Items->Add(gcnew ListViewItem(itemText));
+
+					// Store the original index for the displayed entry
+					displayedEntryIndices->Add(i);
+				}
 			}
 		}
 
@@ -1448,7 +1486,11 @@ namespace V1 {
 private: System::Void btnSaveHDD_Click(System::Object^  sender, System::EventArgs^  e) {
 	SaveEntries("entries.bin");
 	MessageBox::Show("Entries saved successfully to HDD.", "Information", MessageBoxButtons::OK, MessageBoxIcon::Information);
-
+}
+private: System::Void txtSearch_TextChanged(System::Object^  sender, System::EventArgs^  e) { //wird automatisch durchsucht wenn etwas eingegeben wird
+	String^ searchTerm = txtSearch->Text->Trim();
+	PerformSearch(searchTerm);
+}
 }
 };
 }
