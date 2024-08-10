@@ -1,6 +1,6 @@
 #pragma once
-
 #include "Data.h"
+#include <fstream>
 
 using namespace DataNamespace; 
 
@@ -92,7 +92,8 @@ namespace V1 {
 		List<DataArray^>^ entries;
 		DataArray^ currentEntry;
 		array<DataTypeFields^>^ dataTypes;
-		bool isEditMode;
+	private: System::Windows::Forms::Button^  btnSaveHDD;
+			 bool isEditMode;
 
 
 		void InitializeDataTypes() {
@@ -419,13 +420,13 @@ namespace V1 {
 			for each (String^ field in selectedTypeFields->OptionalFields)
 			{
 				if (field == "keyword") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 				if (field == "author") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 				if (field == "title") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 				int year;
 				if (field == "year" && !Int32::TryParse(txtYear->Text, year) && !(txtYear->Text->Trim() == String::Empty)) {
@@ -433,7 +434,7 @@ namespace V1 {
 					errorMessageOptional += "Year must be a number.\n";
 				}
 				if (field == "journal") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 				int volume;
 				if (field == "volume" && !Int32::TryParse(txtVolume->Text, volume) && !(txtVolume->Text->Trim() == String::Empty)) {
@@ -451,43 +452,43 @@ namespace V1 {
 					errorMessageOptional += "Pages must be a number.\n";
 				}
 				if (field == "month") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 				if (field == "note") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 				if (field == "publisher") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 				if (field == "series") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 				if (field == "address") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 				if (field == "edition") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 				if (field == "howpublished") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 				if (field == "booktitle") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 				if (field == "editor") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 				if (field == "chapter") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 				if (field == "school") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 				if (field == "institution") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 				if (field == "organization") {
-					// zu ergänzen
+					// zu ergÃ¤nzen
 				}
 			}
 			if (!stateOptional) {
@@ -547,6 +548,7 @@ namespace V1 {
 			this->lblOrganization = (gcnew System::Windows::Forms::Label());
 			this->btnSave = (gcnew System::Windows::Forms::Button());
 			this->btnCancel = (gcnew System::Windows::Forms::Button());
+			this->btnSaveHDD = (gcnew System::Windows::Forms::Button());
 			this->txtSearch = (gcnew System::Windows::Forms::TextBox());
 			this->panelDetails->SuspendLayout();
 			this->SuspendLayout();
@@ -1002,6 +1004,16 @@ namespace V1 {
 			this->btnCancel->Text = L"Cancel";
 			this->btnCancel->Click += gcnew System::EventHandler(this, &MainForm::btnCancel_Click);
 			// 
+			// btnSaveHDD
+			// 
+			this->btnSaveHDD->Location = System::Drawing::Point(558, 505);
+			this->btnSaveHDD->Name = L"btnSaveHDD";
+			this->btnSaveHDD->Size = System::Drawing::Size(75, 23);
+			this->btnSaveHDD->TabIndex = 7;
+			this->btnSaveHDD->Text = L"Save HDD";
+			this->btnSaveHDD->UseVisualStyleBackColor = true;
+			this->btnSaveHDD->Click += gcnew System::EventHandler(this, &MainForm::btnSaveHDD_Click); 
+			this->Controls->Add(this->btnSaveHDD);
 			// txtSearch
 			// 
 			this->txtSearch->Location = System::Drawing::Point(400, 537);
@@ -1049,6 +1061,49 @@ namespace V1 {
 				String^ itemText = entry->keyword;
 				listViewEntries->Items->Add(gcnew ListViewItem(itemText));
 				//Console::WriteLine("Added: {0}", itemText);
+			}
+		}
+
+		void SaveEntries(String^ filename) {
+			using namespace System::IO;
+			using namespace System::Runtime::Serialization::Formatters::Binary;
+			FileStream^ fs = gcnew FileStream(filename, FileMode::Create, FileAccess::Write);
+			BinaryFormatter^ formatter = gcnew BinaryFormatter();
+
+			try {
+				// Serialize the entries to the file stream
+				formatter->Serialize(fs, entries);
+			}
+			catch (Exception^ ex) {
+				MessageBox::Show("Error saving entries: " + ex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			} //Fehlermeldung wenn speichern nicht erfolgreich
+			finally{
+				fs->Close();
+			}
+		}
+
+
+		void LoadEntries(String^ filename) {
+			using namespace System::IO;
+			using namespace System::Runtime::Serialization::Formatters::Binary;
+			if (File::Exists(filename)) {
+				FileStream^ fs = gcnew FileStream(filename, FileMode::Open, FileAccess::Read);
+				BinaryFormatter^ formatter = gcnew BinaryFormatter();
+
+				try {
+					// Deserialize the file stream into the entries list
+					entries = (List<DataArray^>^)formatter->Deserialize(fs);
+				}
+				catch (Exception^ ex) {
+					MessageBox::Show("Error loading entries: " + ex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				}
+				finally{
+					fs->Close();
+				}
+			}
+			else {
+				MessageBox::Show("No entries file found. Starting with an empty list.", "Information", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				entries = gcnew List<DataArray^>(); // Initialize if file does not exist
 			}
 		}
 
@@ -1423,11 +1478,19 @@ namespace V1 {
 		}
 
 	private: System::Void MainForm_Load(System::Object^  sender, System::EventArgs^  e) {
+
+		LoadEntries("entries.bin"); // Load entries from a specified file
+		RefreshListView(); // Refresh the ListView to show loaded entries
 	}
 
+private: System::Void btnSaveHDD_Click(System::Object^  sender, System::EventArgs^  e) {
+	SaveEntries("entries.bin");
+	MessageBox::Show("Entries saved successfully to HDD.", "Information", MessageBoxButtons::OK, MessageBoxIcon::Information);
+}
 private: System::Void txtSearch_TextChanged(System::Object^  sender, System::EventArgs^  e) { //wird automatisch durchsucht wenn etwas eingegeben wird
 	String^ searchTerm = txtSearch->Text->Trim();
 	PerformSearch(searchTerm);
+}
 }
 };
 }
