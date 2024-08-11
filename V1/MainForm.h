@@ -1,6 +1,5 @@
 #pragma once
 #include "Data.h"
-#include <fstream>
 
 using namespace DataNamespace; 
 
@@ -36,6 +35,9 @@ namespace V1 {
 	private:
 		List<int>^ displayedEntryIndices; // To store the indices of displayed entries after searching
 	private:
+		System::Windows::Forms::TextBox^ txtFirstName;
+		System::Windows::Forms::TextBox^ txtLastName;
+		System::Windows::Forms::Button^ btnSetAuthor;
 		System::Windows::Forms::TextBox^ txtSearch;
 		System::ComponentModel::Container^ components;
 		System::Windows::Forms::ListView^ listViewEntries;
@@ -67,6 +69,8 @@ namespace V1 {
 		System::Windows::Forms::TextBox^ txtOrganization;
 		System::Windows::Forms::Button^ btnSave;
 		System::Windows::Forms::Button^ btnCancel;
+		System::Windows::Forms::Label^ lblLastName;
+		System::Windows::Forms::Label^ lblFirstName;
 		System::Windows::Forms::Label^ lblKeyword;
 		System::Windows::Forms::Label^ lblAuthor;
 		System::Windows::Forms::Label^ lblTitle;
@@ -498,6 +502,9 @@ namespace V1 {
 		}
 		void InitializeComponent(void)
 		{
+			this->txtFirstName = (gcnew System::Windows::Forms::TextBox());
+			this->txtLastName = (gcnew System::Windows::Forms::TextBox());
+			this->btnSetAuthor = (gcnew System::Windows::Forms::Button());
 			this->listViewEntries = (gcnew System::Windows::Forms::ListView());
 			this->btnNew = (gcnew System::Windows::Forms::Button());
 			this->btnEdit = (gcnew System::Windows::Forms::Button());
@@ -525,6 +532,8 @@ namespace V1 {
 			this->txtSchool = (gcnew System::Windows::Forms::TextBox());
 			this->txtInstitution = (gcnew System::Windows::Forms::TextBox());
 			this->txtOrganization = (gcnew System::Windows::Forms::TextBox());
+			this->lblFirstName = (gcnew System::Windows::Forms::Label());
+			this->lblLastName = (gcnew System::Windows::Forms::Label());
 			this->lblKeyword = (gcnew System::Windows::Forms::Label());
 			this->lblAuthor = (gcnew System::Windows::Forms::Label());
 			this->lblTitle = (gcnew System::Windows::Forms::Label());
@@ -552,6 +561,29 @@ namespace V1 {
 			this->txtSearch = (gcnew System::Windows::Forms::TextBox());
 			this->panelDetails->SuspendLayout();
 			this->SuspendLayout();
+			// 
+			// txtFirstName
+			// 
+			this->txtFirstName->Location = System::Drawing::Point(322, 500);
+			this->txtFirstName->Name = L"txtFirstName";
+			this->txtFirstName->Size = System::Drawing::Size(100, 20);
+			this->txtFirstName->TabIndex = 0;
+			// 
+			// txtLastName
+			// 
+			this->txtLastName->Location = System::Drawing::Point(432, 500);
+			this->txtLastName->Name = L"txtLastName";
+			this->txtLastName->Size = System::Drawing::Size(100, 20);
+			this->txtLastName->TabIndex = 0;
+			// 
+			// btnSetAuthor
+			// 
+			this->btnSetAuthor->Location = System::Drawing::Point(542, 500);
+			this->btnSetAuthor->Name = L"btnSetAuthor";
+			this->btnSetAuthor->Size = System::Drawing::Size(75, 23);
+			this->btnSetAuthor->TabIndex = 1;
+			this->btnSetAuthor->Text = L"Set";
+			this->btnSetAuthor->Click += gcnew System::EventHandler(this, &MainForm::btnSetAuthor_Click);
 			// 
 			// listViewEntries
 			// 
@@ -797,6 +829,22 @@ namespace V1 {
 			this->txtOrganization->Size = System::Drawing::Size(100, 20);
 			this->txtOrganization->TabIndex = 0;
 			// 
+			// lblFirstName
+			// 
+			this->lblFirstName->Location = System::Drawing::Point(322, 480);
+			this->lblFirstName->Name = L"lblFirstName";
+			this->lblFirstName->Size = System::Drawing::Size(100, 23);
+			this->lblFirstName->TabIndex = 2;
+			this->lblFirstName->Text = L"First Name:";
+			// 
+			// lblLastName
+			// 
+			this->lblLastName->Location = System::Drawing::Point(432, 480);
+			this->lblLastName->Name = L"lblLastName";
+			this->lblLastName->Size = System::Drawing::Size(100, 23);
+			this->lblLastName->TabIndex = 3;
+			this->lblLastName->Text = L"Last Name:";
+			// 
 			// lblKeyword
 			// 
 			this->lblKeyword->AutoSize = true;
@@ -988,7 +1036,7 @@ namespace V1 {
 			// 
 			// btnSave
 			// 
-			this->btnSave->Location = System::Drawing::Point(320, 480);
+			this->btnSave->Location = System::Drawing::Point(320, 586);
 			this->btnSave->Name = L"btnSave";
 			this->btnSave->Size = System::Drawing::Size(75, 23);
 			this->btnSave->TabIndex = 4;
@@ -997,7 +1045,7 @@ namespace V1 {
 			// 
 			// btnCancel
 			// 
-			this->btnCancel->Location = System::Drawing::Point(400, 480);
+			this->btnCancel->Location = System::Drawing::Point(400, 586);
 			this->btnCancel->Name = L"btnCancel";
 			this->btnCancel->Size = System::Drawing::Size(75, 23);
 			this->btnCancel->TabIndex = 5;
@@ -1006,17 +1054,17 @@ namespace V1 {
 			// 
 			// btnSaveHDD
 			// 
-			this->btnSaveHDD->Location = System::Drawing::Point(558, 505);
+			this->btnSaveHDD->Location = System::Drawing::Point(558, 611);
 			this->btnSaveHDD->Name = L"btnSaveHDD";
 			this->btnSaveHDD->Size = System::Drawing::Size(75, 23);
 			this->btnSaveHDD->TabIndex = 7;
 			this->btnSaveHDD->Text = L"Save HDD";
 			this->btnSaveHDD->UseVisualStyleBackColor = true;
-			this->btnSaveHDD->Click += gcnew System::EventHandler(this, &MainForm::btnSaveHDD_Click); 
-			this->Controls->Add(this->btnSaveHDD);
+			this->btnSaveHDD->Click += gcnew System::EventHandler(this, &MainForm::btnSaveHDD_Click);
+			// 
 			// txtSearch
 			// 
-			this->txtSearch->Location = System::Drawing::Point(400, 537);
+			this->txtSearch->Location = System::Drawing::Point(400, 643);
 			this->txtSearch->Name = L"txtSearch";
 			this->txtSearch->Size = System::Drawing::Size(200, 20);
 			this->txtSearch->TabIndex = 5;
@@ -1024,8 +1072,12 @@ namespace V1 {
 			// 
 			// MainForm
 			// 
-			this->ClientSize = System::Drawing::Size(831, 591);
+			this->ClientSize = System::Drawing::Size(920, 693);
+			this->Controls->Add(this->txtFirstName);
+			this->Controls->Add(this->btnSaveHDD);
+			this->Controls->Add(this->txtLastName);
 			this->Controls->Add(this->txtSearch);
+			this->Controls->Add(this->btnSetAuthor);
 			this->Controls->Add(this->listViewEntries);
 			this->Controls->Add(this->btnNew);
 			this->Controls->Add(this->btnEdit);
@@ -1033,6 +1085,8 @@ namespace V1 {
 			this->Controls->Add(this->btnSave);
 			this->Controls->Add(this->btnCancel);
 			this->Controls->Add(this->panelDetails);
+			this->Controls->Add(this->lblLastName);
+			this->Controls->Add(this->lblFirstName);
 			this->Name = L"MainForm";
 			this->Text = L"BibTexPro";
 			this->Load += gcnew System::EventHandler(this, &MainForm::MainForm_Load);
@@ -1125,6 +1179,8 @@ namespace V1 {
 			}
 		}
 
+		
+		
 		// Event handler for Delete button click
 		void btnDelete_Click(System::Object^ sender, System::EventArgs^ e) {
 			if (listViewEntries->SelectedIndices->Count > 0) {
@@ -1491,6 +1547,19 @@ namespace V1 {
 		String^ searchTerm = txtSearch->Text->Trim();
 		PerformSearch(searchTerm);
 	
+	}
+	private: System::Void btnSetAuthor_Click(System::Object^ sender, System::EventArgs^ e) {
+		String^ firstName = txtFirstName->Text->Trim();
+		String^ lastName = txtLastName->Text->Trim();
+
+		if (firstName->Length > 0 && lastName->Length > 0) {
+			// Combine last name and first name
+			txtAuthor->Text += (txtAuthor->Text->Length > 0 ? " and " : "") + lastName + ", " + firstName;
+		}
+		else {
+			MessageBox::Show("Please enter both first name and last name.", "Input Error",
+				MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		}
 	}
 	};
 }
