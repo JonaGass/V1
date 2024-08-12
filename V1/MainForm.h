@@ -1164,14 +1164,11 @@ namespace V1 {
 		// Event handler for ListView selection change
 		void listViewEntries_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 			if (listViewEntries->SelectedIndices->Count > 0 && !isEditMode) {
-				int selectedIndex = listViewEntries->SelectedIndices[0];
-				if (selectedIndex >= 0 && selectedIndex < displayedEntryIndices->Count) {
-					int originalIndex = displayedEntryIndices[selectedIndex]; // Get the original index
-					currentEntry = entries[originalIndex]; // Access the entry from the original list
-					DisplayEntryDetails(currentEntry);
-					btnEdit->Enabled = true;
-					btnDelete->Enabled = true;
-				}
+				int index = listViewEntries->SelectedIndices[0];
+				currentEntry = entries[index];
+				DisplayEntryDetails(currentEntry);
+				btnEdit->Enabled = true;
+				btnDelete->Enabled = true;
 			}
 			else {
 				btnEdit->Enabled = false;
