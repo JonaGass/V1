@@ -97,6 +97,7 @@ namespace V1 {
 		DataArray^ currentEntry;
 		array<DataTypeFields^>^ dataTypes;
 	private: System::Windows::Forms::Button^  btnSaveHDD;
+	private: System::Windows::Forms::Button^  btnClearAuthor;
 			 bool isEditMode;
 
 
@@ -532,8 +533,6 @@ namespace V1 {
 			this->txtSchool = (gcnew System::Windows::Forms::TextBox());
 			this->txtInstitution = (gcnew System::Windows::Forms::TextBox());
 			this->txtOrganization = (gcnew System::Windows::Forms::TextBox());
-			this->lblFirstName = (gcnew System::Windows::Forms::Label());
-			this->lblLastName = (gcnew System::Windows::Forms::Label());
 			this->lblKeyword = (gcnew System::Windows::Forms::Label());
 			this->lblAuthor = (gcnew System::Windows::Forms::Label());
 			this->lblTitle = (gcnew System::Windows::Forms::Label());
@@ -555,10 +554,13 @@ namespace V1 {
 			this->lblSchool = (gcnew System::Windows::Forms::Label());
 			this->lblInstitution = (gcnew System::Windows::Forms::Label());
 			this->lblOrganization = (gcnew System::Windows::Forms::Label());
+			this->lblFirstName = (gcnew System::Windows::Forms::Label());
+			this->lblLastName = (gcnew System::Windows::Forms::Label());
 			this->btnSave = (gcnew System::Windows::Forms::Button());
 			this->btnCancel = (gcnew System::Windows::Forms::Button());
 			this->btnSaveHDD = (gcnew System::Windows::Forms::Button());
 			this->txtSearch = (gcnew System::Windows::Forms::TextBox());
+			this->btnClearAuthor = (gcnew System::Windows::Forms::Button());
 			this->panelDetails->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -829,22 +831,6 @@ namespace V1 {
 			this->txtOrganization->Size = System::Drawing::Size(100, 20);
 			this->txtOrganization->TabIndex = 0;
 			// 
-			// lblFirstName
-			// 
-			this->lblFirstName->Location = System::Drawing::Point(322, 480);
-			this->lblFirstName->Name = L"lblFirstName";
-			this->lblFirstName->Size = System::Drawing::Size(100, 23);
-			this->lblFirstName->TabIndex = 2;
-			this->lblFirstName->Text = L"First Name:";
-			// 
-			// lblLastName
-			// 
-			this->lblLastName->Location = System::Drawing::Point(432, 480);
-			this->lblLastName->Name = L"lblLastName";
-			this->lblLastName->Size = System::Drawing::Size(100, 23);
-			this->lblLastName->TabIndex = 3;
-			this->lblLastName->Text = L"Last Name:";
-			// 
 			// lblKeyword
 			// 
 			this->lblKeyword->AutoSize = true;
@@ -1034,6 +1020,22 @@ namespace V1 {
 			this->lblOrganization->TabIndex = 21;
 			this->lblOrganization->Text = L"Organization:";
 			// 
+			// lblFirstName
+			// 
+			this->lblFirstName->Location = System::Drawing::Point(322, 480);
+			this->lblFirstName->Name = L"lblFirstName";
+			this->lblFirstName->Size = System::Drawing::Size(100, 23);
+			this->lblFirstName->TabIndex = 2;
+			this->lblFirstName->Text = L"First Name:";
+			// 
+			// lblLastName
+			// 
+			this->lblLastName->Location = System::Drawing::Point(432, 480);
+			this->lblLastName->Name = L"lblLastName";
+			this->lblLastName->Size = System::Drawing::Size(100, 23);
+			this->lblLastName->TabIndex = 3;
+			this->lblLastName->Text = L"Last Name:";
+			// 
 			// btnSave
 			// 
 			this->btnSave->Location = System::Drawing::Point(320, 586);
@@ -1070,9 +1072,19 @@ namespace V1 {
 			this->txtSearch->TabIndex = 5;
 			this->txtSearch->TextChanged += gcnew System::EventHandler(this, &MainForm::txtSearch_TextChanged);
 			// 
+			// btnClearAuthor
+			// 
+			this->btnClearAuthor->Location = System::Drawing::Point(623, 500);
+			this->btnClearAuthor->Name = L"btnClearAuthor";
+			this->btnClearAuthor->Size = System::Drawing::Size(75, 23);
+			this->btnClearAuthor->TabIndex = 8;
+			this->btnClearAuthor->Text = L"Clear";
+			this->btnClearAuthor->Click += gcnew System::EventHandler(this, &MainForm::btnClearAuthor_Click);
+			// 
 			// MainForm
 			// 
 			this->ClientSize = System::Drawing::Size(920, 693);
+			this->Controls->Add(this->btnClearAuthor);
 			this->Controls->Add(this->txtFirstName);
 			this->Controls->Add(this->btnSaveHDD);
 			this->Controls->Add(this->txtLastName);
@@ -1107,6 +1119,8 @@ namespace V1 {
 			btnDelete->Enabled = !inEditMode && listViewEntries->SelectedItems->Count > 0;
 
 			SetFieldsReadOnly(!inEditMode);
+			txtAuthor->ReadOnly = !inEditMode;
+
 		}
 
 		void RefreshListView() {
@@ -1558,5 +1572,8 @@ namespace V1 {
 				MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		}
 	}
-	};
+	private: System::Void btnClearAuthor_Click(System::Object^  sender, System::EventArgs^  e) {
+		txtAuthor->Clear(); // Clears the author field
+	}
+};
 }
