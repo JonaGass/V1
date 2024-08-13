@@ -1,6 +1,9 @@
 #pragma once
 #include "Data.h"
 #include <fstream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 using namespace DataNamespace; 
 
@@ -36,6 +39,10 @@ namespace V1 {
 	private:
 		List<int>^ displayedEntryIndices; // To store the indices of displayed entries after searching
 	private:
+		System::Windows::Forms::TextBox^ txtFirstName;
+		System::Windows::Forms::TextBox^ txtLastName;
+		System::Windows::Forms::Button^ button1;
+		System::Windows::Forms::Button^ btnSetAuthor;
 		System::Windows::Forms::TextBox^ txtSearch;
 		System::ComponentModel::Container^ components;
 		System::Windows::Forms::ListView^ listViewEntries;
@@ -67,6 +74,8 @@ namespace V1 {
 		System::Windows::Forms::TextBox^ txtOrganization;
 		System::Windows::Forms::Button^ btnSave;
 		System::Windows::Forms::Button^ btnCancel;
+		System::Windows::Forms::Label^ lblLastName;
+		System::Windows::Forms::Label^ lblFirstName;
 		System::Windows::Forms::Label^ lblKeyword;
 		System::Windows::Forms::Label^ lblAuthor;
 		System::Windows::Forms::Label^ lblTitle;
@@ -93,6 +102,7 @@ namespace V1 {
 		DataArray^ currentEntry;
 		array<DataTypeFields^>^ dataTypes;
 	private: System::Windows::Forms::Button^  btnSaveHDD;
+	private: System::Windows::Forms::Button^  btnClearAuthor;
 			 bool isEditMode;
 
 
@@ -171,7 +181,7 @@ namespace V1 {
 		void SetFieldsReadOnly(bool readOnly)
 		{
 			txtKeyword->ReadOnly = readOnly;
-			txtAuthor->ReadOnly = readOnly;
+			// txtAuthor->ReadOnly = readOnly;
 			txtTitle->ReadOnly = readOnly;
 			txtYear->ReadOnly = readOnly;
 			txtJournal->ReadOnly = readOnly;
@@ -498,7 +508,11 @@ namespace V1 {
 		}
 		void InitializeComponent(void)
 		{
+			this->txtFirstName = (gcnew System::Windows::Forms::TextBox());
+			this->txtLastName = (gcnew System::Windows::Forms::TextBox());
+			this->btnSetAuthor = (gcnew System::Windows::Forms::Button());
 			this->listViewEntries = (gcnew System::Windows::Forms::ListView());
+			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->btnNew = (gcnew System::Windows::Forms::Button());
 			this->btnEdit = (gcnew System::Windows::Forms::Button());
 			this->btnDelete = (gcnew System::Windows::Forms::Button());
@@ -546,12 +560,48 @@ namespace V1 {
 			this->lblSchool = (gcnew System::Windows::Forms::Label());
 			this->lblInstitution = (gcnew System::Windows::Forms::Label());
 			this->lblOrganization = (gcnew System::Windows::Forms::Label());
+			this->lblFirstName = (gcnew System::Windows::Forms::Label());
+			this->lblLastName = (gcnew System::Windows::Forms::Label());
 			this->btnSave = (gcnew System::Windows::Forms::Button());
 			this->btnCancel = (gcnew System::Windows::Forms::Button());
 			this->btnSaveHDD = (gcnew System::Windows::Forms::Button());
 			this->txtSearch = (gcnew System::Windows::Forms::TextBox());
+			this->btnClearAuthor = (gcnew System::Windows::Forms::Button());
 			this->panelDetails->SuspendLayout();
 			this->SuspendLayout();
+			// 
+			// txtFirstName
+			// 
+			this->txtFirstName->Location = System::Drawing::Point(322, 500);
+			this->txtFirstName->Name = L"txtFirstName";
+			this->txtFirstName->Size = System::Drawing::Size(100, 20);
+			this->txtFirstName->TabIndex = 0;
+			// 
+			// txtLastName
+			// 
+			this->txtLastName->Location = System::Drawing::Point(432, 500);
+			this->txtLastName->Name = L"txtLastName";
+			this->txtLastName->Size = System::Drawing::Size(100, 20);
+			this->txtLastName->TabIndex = 0;
+			// 
+			// button1
+			// 
+			this->button1->Location = System::Drawing::Point(611, 10);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(75, 23);
+			this->button1->TabIndex = 8;
+			this->button1->Text = L"Export to bib";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &MainForm::button1_Click);
+			// 
+			// btnSetAuthor
+			// 
+			this->btnSetAuthor->Location = System::Drawing::Point(542, 500);
+			this->btnSetAuthor->Name = L"btnSetAuthor";
+			this->btnSetAuthor->Size = System::Drawing::Size(75, 23);
+			this->btnSetAuthor->TabIndex = 1;
+			this->btnSetAuthor->Text = L"Set";
+			this->btnSetAuthor->Click += gcnew System::EventHandler(this, &MainForm::btnSetAuthor_Click);
 			// 
 			// listViewEntries
 			// 
@@ -986,9 +1036,25 @@ namespace V1 {
 			this->lblOrganization->TabIndex = 21;
 			this->lblOrganization->Text = L"Organization:";
 			// 
+			// lblFirstName
+			// 
+			this->lblFirstName->Location = System::Drawing::Point(322, 480);
+			this->lblFirstName->Name = L"lblFirstName";
+			this->lblFirstName->Size = System::Drawing::Size(100, 23);
+			this->lblFirstName->TabIndex = 2;
+			this->lblFirstName->Text = L"First Name:";
+			// 
+			// lblLastName
+			// 
+			this->lblLastName->Location = System::Drawing::Point(432, 480);
+			this->lblLastName->Name = L"lblLastName";
+			this->lblLastName->Size = System::Drawing::Size(100, 23);
+			this->lblLastName->TabIndex = 3;
+			this->lblLastName->Text = L"Last Name:";
+			// 
 			// btnSave
 			// 
-			this->btnSave->Location = System::Drawing::Point(320, 480);
+			this->btnSave->Location = System::Drawing::Point(320, 586);
 			this->btnSave->Name = L"btnSave";
 			this->btnSave->Size = System::Drawing::Size(75, 23);
 			this->btnSave->TabIndex = 4;
@@ -997,7 +1063,7 @@ namespace V1 {
 			// 
 			// btnCancel
 			// 
-			this->btnCancel->Location = System::Drawing::Point(400, 480);
+			this->btnCancel->Location = System::Drawing::Point(400, 586);
 			this->btnCancel->Name = L"btnCancel";
 			this->btnCancel->Size = System::Drawing::Size(75, 23);
 			this->btnCancel->TabIndex = 5;
@@ -1006,26 +1072,42 @@ namespace V1 {
 			// 
 			// btnSaveHDD
 			// 
-			this->btnSaveHDD->Location = System::Drawing::Point(558, 505);
+			this->btnSaveHDD->Location = System::Drawing::Point(558, 611);
 			this->btnSaveHDD->Name = L"btnSaveHDD";
 			this->btnSaveHDD->Size = System::Drawing::Size(75, 23);
 			this->btnSaveHDD->TabIndex = 7;
 			this->btnSaveHDD->Text = L"Save HDD";
 			this->btnSaveHDD->UseVisualStyleBackColor = true;
-			this->btnSaveHDD->Click += gcnew System::EventHandler(this, &MainForm::btnSaveHDD_Click); 
-			this->Controls->Add(this->btnSaveHDD);
+			this->btnSaveHDD->Click += gcnew System::EventHandler(this, &MainForm::btnSaveHDD_Click);
+			// 
 			// txtSearch
 			// 
-			this->txtSearch->Location = System::Drawing::Point(400, 537);
+			this->txtSearch->Location = System::Drawing::Point(400, 643);
 			this->txtSearch->Name = L"txtSearch";
 			this->txtSearch->Size = System::Drawing::Size(200, 20);
 			this->txtSearch->TabIndex = 5;
 			this->txtSearch->TextChanged += gcnew System::EventHandler(this, &MainForm::txtSearch_TextChanged);
 			// 
+			// btnClearAuthor
+			// 
+			this->btnClearAuthor->Location = System::Drawing::Point(623, 500);
+			this->btnClearAuthor->Name = L"btnClearAuthor";
+			this->btnClearAuthor->Size = System::Drawing::Size(75, 23);
+			this->btnClearAuthor->TabIndex = 8;
+			this->btnClearAuthor->Text = L"Clear";
+			this->btnClearAuthor->Click += gcnew System::EventHandler(this, &MainForm::btnClearAuthor_Click);
+			// 
 			// MainForm
 			// 
-			this->ClientSize = System::Drawing::Size(831, 591);
+			this->ClientSize = System::Drawing::Size(920, 693);
+
+			this->Controls->Add(this->button1);
+			this->Controls->Add(this->btnClearAuthor);
+			this->Controls->Add(this->txtFirstName);
+			this->Controls->Add(this->btnSaveHDD);
+			this->Controls->Add(this->txtLastName);
 			this->Controls->Add(this->txtSearch);
+			this->Controls->Add(this->btnSetAuthor);
 			this->Controls->Add(this->listViewEntries);
 			this->Controls->Add(this->btnNew);
 			this->Controls->Add(this->btnEdit);
@@ -1033,6 +1115,8 @@ namespace V1 {
 			this->Controls->Add(this->btnSave);
 			this->Controls->Add(this->btnCancel);
 			this->Controls->Add(this->panelDetails);
+			this->Controls->Add(this->lblLastName);
+			this->Controls->Add(this->lblFirstName);
 			this->Name = L"MainForm";
 			this->Text = L"BibTexPro";
 			this->Load += gcnew System::EventHandler(this, &MainForm::MainForm_Load);
@@ -1053,6 +1137,9 @@ namespace V1 {
 			btnDelete->Enabled = !inEditMode && listViewEntries->SelectedItems->Count > 0;
 
 			SetFieldsReadOnly(!inEditMode);
+			txtAuthor->ReadOnly = true;
+
+
 		}
 
 		void RefreshListView() {
@@ -1122,6 +1209,8 @@ namespace V1 {
 			}
 		}
 
+		
+		
 		// Event handler for Delete button click
 		void btnDelete_Click(System::Object^ sender, System::EventArgs^ e) {
 			if (listViewEntries->SelectedIndices->Count > 0) {
@@ -1219,6 +1308,14 @@ namespace V1 {
 			lblSchool->Visible = false;
 			lblInstitution->Visible = false;
 			lblOrganization->Visible = false;
+			//TEST
+			lblFirstName->Visible = false;
+			lblLastName->Visible = false;
+			txtFirstName->Visible = false;
+			txtLastName->Visible = false;
+			btnSetAuthor->Visible = false;
+			btnClearAuthor->Visible = false;
+			//TEST
 		}
 
 
@@ -1240,6 +1337,12 @@ namespace V1 {
 				if (mandatoryField == "author") {
 					txtAuthor->Visible = true;
 					lblAuthor->Visible = true;
+					lblFirstName->Visible = true;
+					lblLastName->Visible = true;
+					txtFirstName->Visible = true;
+					txtLastName->Visible = true;
+					btnSetAuthor->Visible = true;
+					btnClearAuthor->Visible = true;
 				}
 				if (mandatoryField == "title") {
 					txtTitle->Visible = true;
@@ -1489,5 +1592,67 @@ namespace V1 {
 		PerformSearch(searchTerm);
 	
 	}
-	};
+	private: System::Void btnSetAuthor_Click(System::Object^ sender, System::EventArgs^ e) {
+		String^ firstName = txtFirstName->Text->Trim();
+		String^ lastName = txtLastName->Text->Trim();
+
+		if (firstName->Length > 0 && lastName->Length > 0) {
+			// Combine last name and first name
+			txtAuthor->Text += (txtAuthor->Text->Length > 0 ? " and " : "") + lastName + ", " + firstName;
+			txtFirstName->Clear();
+			txtLastName->Clear();
+		}
+		else {
+			MessageBox::Show("Please enter both first name and last name.", "Input Error",
+				MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		}
+	}
+	private: System::Void btnClearAuthor_Click(System::Object^  sender, System::EventArgs^  e) {
+		txtAuthor->Clear(); // Clears the author field
+	}
+	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
+
+		int n;
+		n = 0;
+		int size = entries->Count;
+
+		MessageBox::Show("Die Größe des Arrays beträgt: " + size.ToString());
+
+		FILE* Quelle;
+		Quelle = fopen("Quelle.bib", "w");
+
+		while (n < size)
+		{
+
+			fprintf(Quelle, "@%s{%s", entries[n]->type, entries[n]->keyword);
+			if (entries[n]->title != "") { fprintf(Quelle, ",\ntitle = {{%s}}", entries[n]->title); }
+			if (entries[n]->journal != "") { fprintf(Quelle, ",\njournal = {%s}", entries[n]->journal); }
+			if (entries[n]->year != "") { fprintf(Quelle, ",\nyear = {%s}", entries[n]->year); }
+			if (entries[n]->author != "") { fprintf(Quelle, ",\nauthor = {%s}", entries[n]->author); }
+			if (entries[n]->volume != "") { fprintf(Quelle, ",\nvolume = {%s}", entries[n]->volume); }
+			if (entries[n]->number != "") { fprintf(Quelle, ",\nnumber = {%s}", entries[n]->number); }
+			if (entries[n]->pages != "") { fprintf(Quelle, ",\npages = {%s}", entries[n]->pages); }
+			if (entries[n]->month != "") { fprintf(Quelle, ",\nmonth = {%s}", entries[n]->month); }
+			if (entries[n]->note != "") { fprintf(Quelle, ",\nnote = {%s}", entries[n]->note); }
+			if (entries[n]->publisher != "") { fprintf(Quelle, ",\npublisher = {%s}", entries[n]->publisher); }
+			if (entries[n]->series != "") { fprintf(Quelle, ",\nseries = {%s}", entries[n]->series); }
+			if (entries[n]->address != "") { fprintf(Quelle, ",\naddress = {%s}", entries[n]->address); }
+			if (entries[n]->edition != "") { fprintf(Quelle, ",\nedition = {%s}", entries[n]->edition); }
+			if (entries[n]->howpublished != "") { fprintf(Quelle, ",\nhowpublished = {%s}", entries[n]->howpublished); }
+			if (entries[n]->booktitle != "") { fprintf(Quelle, ",\nbooktitle = {%s}", entries[n]->booktitle); }
+			if (entries[n]->editor != "") { fprintf(Quelle, ",\neditor = {%s}", entries[n]->editor); }
+			if (entries[n]->chapter != "") { fprintf(Quelle, ",\nchapter = {%s}", entries[n]->chapter); }
+			if (entries[n]->school != "") { fprintf(Quelle, ",\nschool = {%s}", entries[n]->school); }
+			if (entries[n]->institution != "") { fprintf(Quelle, ",\ninstitution = {%s}", entries[n]->institution); }
+			if (entries[n]->organization != "") { fprintf(Quelle, ",\norganization = {%s}", entries[n]->organization); }
+
+			fprintf(Quelle, "\n}\n\n");
+
+			n++;
+
+		}
+		fclose(Quelle);
+
+	}
+};
 }
