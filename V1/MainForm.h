@@ -271,7 +271,7 @@ namespace V1 {
 		}
 
 
-// Validate mandatory fields before saving
+
 		bool ValidateEntry()
 		{
 			bool stateMandatory = true;
@@ -299,7 +299,13 @@ namespace V1 {
 				MessageBox::Show("Invalid entry type selected.");
 				stateMandatory = false;
 			}
+
 			String^ errorMessage = "";
+			bool hasAuthor = false;
+			bool hasEditor = false;
+			bool AuthorMandatory = false;
+			bool EditorMandatory = false;
+
 			// Check each required field
 			for each (String^ field in selectedTypeFields->RequiredFields)
 			{
@@ -307,9 +313,15 @@ namespace V1 {
 					errorMessage += "Please fill in the keyword field.\n";
 					stateMandatory = false;
 				}
-				if (field == "author" && txtAuthor->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the author field.\n";
-					stateMandatory = false;
+				if (field == "author") {
+					AuthorMandatory = true;
+					if (txtAuthor->Text->Trim() == String::Empty) {
+						//errorMessage += "Please fill in the author field.\n";
+						//stateMandatory = false;
+					}
+					else {
+						hasAuthor = true; // Author is present
+					}
 				}
 				if (field == "title" && txtTitle->Text->Trim() == String::Empty) {
 					errorMessage += "Please fill in the title field.\n";
@@ -371,9 +383,15 @@ namespace V1 {
 					errorMessage += "Please fill in the book title field.\n";
 					stateMandatory = false;
 				}
-				if (field == "editor" && txtEditor->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the editor field.\n";
-					stateMandatory = false;
+				if (field == "editor") {
+					EditorMandatory = true;
+					if (txtEditor->Text->Trim() == String::Empty) {
+						//errorMessage += "Please fill in the editor field.\n";
+						//stateMandatory = false;
+					}
+					else {
+						hasEditor = true; // Editor is present
+					}
 				}
 				if (field == "chapter" && txtChapter->Text->Trim() == String::Empty) {
 					errorMessage += "Please fill in the chapter field.\n";
@@ -392,11 +410,34 @@ namespace V1 {
 					stateMandatory = false;
 				}
 			}
+
+			// Check if either author or editor is filled if both are mandatory
+			if (AuthorMandatory && EditorMandatory)
+			{
+				if (!hasAuthor && !hasEditor) {
+					errorMessage += "Please fill in either the author or the editor field.\n";
+					stateMandatory = false;
+				}
+			}
+			else if (AuthorMandatory){
+				if (txtAuthor->Text->Trim() == String::Empty) {
+					errorMessage += "Please fill in the author field.\n";
+					stateMandatory = false;
+				}
+			}
+			else {
+				if (txtEditor->Text->Trim() == String::Empty) {
+					errorMessage += "Please fill in the editor field.\n";
+					stateMandatory = false;
+				}
+			}
+
 			if (!stateMandatory) {
 				MessageBox::Show(errorMessage, "Missing Input", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			}
 			return stateMandatory;
 		}
+
 		bool ValidateOptional()
 		{
 			bool stateOptional = true;
