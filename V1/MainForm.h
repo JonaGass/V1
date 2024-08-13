@@ -1,5 +1,9 @@
 #pragma once
 #include "Data.h"
+#include <fstream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 using namespace DataNamespace; 
 
@@ -37,6 +41,7 @@ namespace V1 {
 	private:
 		System::Windows::Forms::TextBox^ txtFirstName;
 		System::Windows::Forms::TextBox^ txtLastName;
+		System::Windows::Forms::Button^ button1;
 		System::Windows::Forms::Button^ btnSetAuthor;
 		System::Windows::Forms::TextBox^ txtSearch;
 		System::ComponentModel::Container^ components;
@@ -507,6 +512,7 @@ namespace V1 {
 			this->txtLastName = (gcnew System::Windows::Forms::TextBox());
 			this->btnSetAuthor = (gcnew System::Windows::Forms::Button());
 			this->listViewEntries = (gcnew System::Windows::Forms::ListView());
+			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->btnNew = (gcnew System::Windows::Forms::Button());
 			this->btnEdit = (gcnew System::Windows::Forms::Button());
 			this->btnDelete = (gcnew System::Windows::Forms::Button());
@@ -577,6 +583,16 @@ namespace V1 {
 			this->txtLastName->Name = L"txtLastName";
 			this->txtLastName->Size = System::Drawing::Size(100, 20);
 			this->txtLastName->TabIndex = 0;
+			// 
+			// button1
+			// 
+			this->button1->Location = System::Drawing::Point(611, 10);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(75, 23);
+			this->button1->TabIndex = 8;
+			this->button1->Text = L"Export to bib";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &MainForm::button1_Click);
 			// 
 			// btnSetAuthor
 			// 
@@ -1084,6 +1100,8 @@ namespace V1 {
 			// MainForm
 			// 
 			this->ClientSize = System::Drawing::Size(920, 693);
+
+			this->Controls->Add(this->button1);
 			this->Controls->Add(this->btnClearAuthor);
 			this->Controls->Add(this->txtFirstName);
 			this->Controls->Add(this->btnSaveHDD);
@@ -1574,6 +1592,50 @@ namespace V1 {
 	}
 	private: System::Void btnClearAuthor_Click(System::Object^  sender, System::EventArgs^  e) {
 		txtAuthor->Clear(); // Clears the author field
+	}
+	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
+
+		int n;
+		n = 0;
+		int size = entries->Count;
+
+		MessageBox::Show("Die Größe des Arrays beträgt: " + size.ToString());
+
+		FILE* Quelle;
+		Quelle = fopen("Quelle.bib", "w");
+
+		while (n < size)
+		{
+
+			fprintf(Quelle, "@%s{%s", entries[n]->type, entries[n]->keyword);
+			if (entries[n]->title != "") { fprintf(Quelle, ",\ntitle = {{%s}}", entries[n]->title); }
+			if (entries[n]->journal != "") { fprintf(Quelle, ",\njournal = {%s}", entries[n]->journal); }
+			if (entries[n]->year != "") { fprintf(Quelle, ",\nyear = {%s}", entries[n]->year); }
+			if (entries[n]->author != "") { fprintf(Quelle, ",\nauthor = {%s}", entries[n]->author); }
+			if (entries[n]->volume != "") { fprintf(Quelle, ",\nvolume = {%s}", entries[n]->volume); }
+			if (entries[n]->number != "") { fprintf(Quelle, ",\nnumber = {%s}", entries[n]->number); }
+			if (entries[n]->pages != "") { fprintf(Quelle, ",\npages = {%s}", entries[n]->pages); }
+			if (entries[n]->month != "") { fprintf(Quelle, ",\nmonth = {%s}", entries[n]->month); }
+			if (entries[n]->note != "") { fprintf(Quelle, ",\nnote = {%s}", entries[n]->note); }
+			if (entries[n]->publisher != "") { fprintf(Quelle, ",\npublisher = {%s}", entries[n]->publisher); }
+			if (entries[n]->series != "") { fprintf(Quelle, ",\nseries = {%s}", entries[n]->series); }
+			if (entries[n]->address != "") { fprintf(Quelle, ",\naddress = {%s}", entries[n]->address); }
+			if (entries[n]->edition != "") { fprintf(Quelle, ",\nedition = {%s}", entries[n]->edition); }
+			if (entries[n]->howpublished != "") { fprintf(Quelle, ",\nhowpublished = {%s}", entries[n]->howpublished); }
+			if (entries[n]->booktitle != "") { fprintf(Quelle, ",\nbooktitle = {%s}", entries[n]->booktitle); }
+			if (entries[n]->editor != "") { fprintf(Quelle, ",\neditor = {%s}", entries[n]->editor); }
+			if (entries[n]->chapter != "") { fprintf(Quelle, ",\nchapter = {%s}", entries[n]->chapter); }
+			if (entries[n]->school != "") { fprintf(Quelle, ",\nschool = {%s}", entries[n]->school); }
+			if (entries[n]->institution != "") { fprintf(Quelle, ",\ninstitution = {%s}", entries[n]->institution); }
+			if (entries[n]->organization != "") { fprintf(Quelle, ",\norganization = {%s}", entries[n]->organization); }
+
+			fprintf(Quelle, "\n}\n\n");
+
+			n++;
+
+		}
+		fclose(Quelle);
+
 	}
 };
 }
