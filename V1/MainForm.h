@@ -1599,6 +1599,8 @@ namespace V1 {
 		if (firstName->Length > 0 && lastName->Length > 0) {
 			// Combine last name and first name
 			txtAuthor->Text += (txtAuthor->Text->Length > 0 ? " and " : "") + lastName + ", " + firstName;
+			txtFirstName->Clear();
+			txtLastName->Clear();
 		}
 		else {
 			MessageBox::Show("Please enter both first name and last name.", "Input Error",
