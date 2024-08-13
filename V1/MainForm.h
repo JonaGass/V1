@@ -1137,7 +1137,7 @@ namespace V1 {
 			btnDelete->Enabled = !inEditMode && listViewEntries->SelectedItems->Count > 0;
 
 			SetFieldsReadOnly(!inEditMode);
-			txtAuthor->ReadOnly = !inEditMode;
+
 
 		}
 
@@ -1307,6 +1307,14 @@ namespace V1 {
 			lblSchool->Visible = false;
 			lblInstitution->Visible = false;
 			lblOrganization->Visible = false;
+			//TEST
+			lblFirstName->Visible = false;
+			lblLastName->Visible = false;
+			txtFirstName->Visible = false;
+			txtLastName->Visible = false;
+			btnSetAuthor->Visible = false;
+			btnClearAuthor->Visible = false;
+			//TEST
 		}
 
 
@@ -1328,6 +1336,12 @@ namespace V1 {
 				if (mandatoryField == "author") {
 					txtAuthor->Visible = true;
 					lblAuthor->Visible = true;
+					lblFirstName->Visible = true;
+					lblLastName->Visible = true;
+					txtFirstName->Visible = true;
+					txtLastName->Visible = true;
+					btnSetAuthor->Visible = true;
+					btnClearAuthor->Visible = true;
 				}
 				if (mandatoryField == "title") {
 					txtTitle->Visible = true;
