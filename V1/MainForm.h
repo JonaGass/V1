@@ -181,7 +181,7 @@ namespace V1 {
 		void SetFieldsReadOnly(bool readOnly)
 		{
 			txtKeyword->ReadOnly = readOnly;
-			txtAuthor->ReadOnly = readOnly;
+			// txtAuthor->ReadOnly = readOnly;
 			txtTitle->ReadOnly = readOnly;
 			txtYear->ReadOnly = readOnly;
 			txtJournal->ReadOnly = readOnly;
@@ -1137,6 +1137,7 @@ namespace V1 {
 			btnDelete->Enabled = !inEditMode && listViewEntries->SelectedItems->Count > 0;
 
 			SetFieldsReadOnly(!inEditMode);
+			txtAuthor->ReadOnly = true;
 
 
 		}
