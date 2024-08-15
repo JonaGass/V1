@@ -1509,8 +1509,8 @@ namespace V1 {
 
 private: System::Void btnSaveHDD_Click(System::Object^ sender, System::EventArgs^ e) {
 	
-	bool success = SaveEntries("entries.bin");
-	/*bool success = SaveEntries("C:\\Program Files\\entries.bin");*/ //Test fehler
+	/*bool success = SaveEntries("entries.bin");*/
+	bool success = SaveEntries("C:\\Program Files\\entries.bin"); //Test fehler
 	if (success) {
 		MessageBox::Show("Entries saved successfully to HDD.", "Information", MessageBoxButtons::OK, MessageBoxIcon::Information);
 	}
