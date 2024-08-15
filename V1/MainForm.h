@@ -103,6 +103,8 @@ namespace V1 {
 		array<DataTypeFields^>^ dataTypes;
 	private: System::Windows::Forms::Button^  btnSaveHDD;
 	private: System::Windows::Forms::Button^  btnClearAuthor;
+	private: System::Windows::Forms::RadioButton^  rbtnAuthor;
+	private: System::Windows::Forms::RadioButton^  rbtnEditor;
 			 bool isEditMode;
 
 
@@ -660,36 +662,28 @@ namespace V1 {
 			this->btnSaveHDD = (gcnew System::Windows::Forms::Button());
 			this->txtSearch = (gcnew System::Windows::Forms::TextBox());
 			this->btnClearAuthor = (gcnew System::Windows::Forms::Button());
+			this->rbtnAuthor = (gcnew System::Windows::Forms::RadioButton());
+			this->rbtnEditor = (gcnew System::Windows::Forms::RadioButton());
 			this->panelDetails->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// txtFirstName
 			// 
-			this->txtFirstName->Location = System::Drawing::Point(322, 500);
+			this->txtFirstName->Location = System::Drawing::Point(395, 610);
 			this->txtFirstName->Name = L"txtFirstName";
 			this->txtFirstName->Size = System::Drawing::Size(100, 20);
 			this->txtFirstName->TabIndex = 0;
 			// 
 			// txtLastName
 			// 
-			this->txtLastName->Location = System::Drawing::Point(432, 500);
+			this->txtLastName->Location = System::Drawing::Point(505, 610);
 			this->txtLastName->Name = L"txtLastName";
 			this->txtLastName->Size = System::Drawing::Size(100, 20);
 			this->txtLastName->TabIndex = 0;
 			// 
-			// button1
-			// 
-			this->button1->Location = System::Drawing::Point(611, 10);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(75, 23);
-			this->button1->TabIndex = 8;
-			this->button1->Text = L"Export to bib";
-			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &MainForm::button1_Click);
-			// 
 			// btnSetAuthor
 			// 
-			this->btnSetAuthor->Location = System::Drawing::Point(542, 500);
+			this->btnSetAuthor->Location = System::Drawing::Point(615, 610);
 			this->btnSetAuthor->Name = L"btnSetAuthor";
 			this->btnSetAuthor->Size = System::Drawing::Size(75, 23);
 			this->btnSetAuthor->TabIndex = 1;
@@ -706,6 +700,16 @@ namespace V1 {
 			this->listViewEntries->UseCompatibleStateImageBehavior = false;
 			this->listViewEntries->View = System::Windows::Forms::View::List;
 			this->listViewEntries->SelectedIndexChanged += gcnew System::EventHandler(this, &MainForm::listViewEntries_SelectedIndexChanged);
+			// 
+			// button1
+			// 
+			this->button1->Location = System::Drawing::Point(611, 10);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(75, 23);
+			this->button1->TabIndex = 8;
+			this->button1->Text = L"Export to bib";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &MainForm::button1_Click);
 			// 
 			// btnNew
 			// 
@@ -781,7 +785,7 @@ namespace V1 {
 			this->panelDetails->Controls->Add(this->lblOrganization);
 			this->panelDetails->Location = System::Drawing::Point(320, 50);
 			this->panelDetails->Name = L"panelDetails";
-			this->panelDetails->Size = System::Drawing::Size(450, 400);
+			this->panelDetails->Size = System::Drawing::Size(587, 507);
 			this->panelDetails->TabIndex = 6;
 			// 
 			// cmbType
@@ -1131,7 +1135,7 @@ namespace V1 {
 			// 
 			// lblFirstName
 			// 
-			this->lblFirstName->Location = System::Drawing::Point(322, 480);
+			this->lblFirstName->Location = System::Drawing::Point(395, 590);
 			this->lblFirstName->Name = L"lblFirstName";
 			this->lblFirstName->Size = System::Drawing::Size(100, 23);
 			this->lblFirstName->TabIndex = 2;
@@ -1139,7 +1143,7 @@ namespace V1 {
 			// 
 			// lblLastName
 			// 
-			this->lblLastName->Location = System::Drawing::Point(432, 480);
+			this->lblLastName->Location = System::Drawing::Point(505, 590);
 			this->lblLastName->Name = L"lblLastName";
 			this->lblLastName->Size = System::Drawing::Size(100, 23);
 			this->lblLastName->TabIndex = 3;
@@ -1147,7 +1151,7 @@ namespace V1 {
 			// 
 			// btnSave
 			// 
-			this->btnSave->Location = System::Drawing::Point(320, 586);
+			this->btnSave->Location = System::Drawing::Point(301, 667);
 			this->btnSave->Name = L"btnSave";
 			this->btnSave->Size = System::Drawing::Size(75, 23);
 			this->btnSave->TabIndex = 4;
@@ -1156,7 +1160,7 @@ namespace V1 {
 			// 
 			// btnCancel
 			// 
-			this->btnCancel->Location = System::Drawing::Point(400, 586);
+			this->btnCancel->Location = System::Drawing::Point(381, 667);
 			this->btnCancel->Name = L"btnCancel";
 			this->btnCancel->Size = System::Drawing::Size(75, 23);
 			this->btnCancel->TabIndex = 5;
@@ -1165,7 +1169,7 @@ namespace V1 {
 			// 
 			// btnSaveHDD
 			// 
-			this->btnSaveHDD->Location = System::Drawing::Point(558, 611);
+			this->btnSaveHDD->Location = System::Drawing::Point(539, 692);
 			this->btnSaveHDD->Name = L"btnSaveHDD";
 			this->btnSaveHDD->Size = System::Drawing::Size(75, 23);
 			this->btnSaveHDD->TabIndex = 7;
@@ -1175,7 +1179,7 @@ namespace V1 {
 			// 
 			// txtSearch
 			// 
-			this->txtSearch->Location = System::Drawing::Point(400, 643);
+			this->txtSearch->Location = System::Drawing::Point(381, 724);
 			this->txtSearch->Name = L"txtSearch";
 			this->txtSearch->Size = System::Drawing::Size(200, 20);
 			this->txtSearch->TabIndex = 5;
@@ -1183,17 +1187,41 @@ namespace V1 {
 			// 
 			// btnClearAuthor
 			// 
-			this->btnClearAuthor->Location = System::Drawing::Point(623, 500);
+			this->btnClearAuthor->Location = System::Drawing::Point(696, 610);
 			this->btnClearAuthor->Name = L"btnClearAuthor";
 			this->btnClearAuthor->Size = System::Drawing::Size(75, 23);
 			this->btnClearAuthor->TabIndex = 8;
 			this->btnClearAuthor->Text = L"Clear";
 			this->btnClearAuthor->Click += gcnew System::EventHandler(this, &MainForm::btnClearAuthor_Click);
 			// 
+			// rbtnAuthor
+			// 
+			this->rbtnAuthor->AutoSize = true;
+			this->rbtnAuthor->Location = System::Drawing::Point(327, 596);
+			this->rbtnAuthor->Name = L"rbtnAuthor";
+			this->rbtnAuthor->Size = System::Drawing::Size(56, 17);
+			this->rbtnAuthor->TabIndex = 9;
+			this->rbtnAuthor->TabStop = true;
+			this->rbtnAuthor->Text = L"Author";
+			this->rbtnAuthor->UseVisualStyleBackColor = true;
+			this->rbtnAuthor->CheckedChanged += gcnew System::EventHandler(this, &MainForm::rbtnAuthor_CheckedChanged);
+			// 
+			// rbtnEditor
+			// 
+			this->rbtnEditor->AutoSize = true;
+			this->rbtnEditor->Location = System::Drawing::Point(327, 619);
+			this->rbtnEditor->Name = L"rbtnEditor";
+			this->rbtnEditor->Size = System::Drawing::Size(52, 17);
+			this->rbtnEditor->TabIndex = 10;
+			this->rbtnEditor->TabStop = true;
+			this->rbtnEditor->Text = L"Editor";
+			this->rbtnEditor->UseVisualStyleBackColor = true;
+			// 
 			// MainForm
 			// 
-			this->ClientSize = System::Drawing::Size(920, 693);
-
+			this->ClientSize = System::Drawing::Size(1055, 766);
+			this->Controls->Add(this->rbtnEditor);
+			this->Controls->Add(this->rbtnAuthor);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->btnClearAuthor);
 			this->Controls->Add(this->txtFirstName);
@@ -1231,6 +1259,7 @@ namespace V1 {
 
 			SetFieldsReadOnly(!inEditMode);
 			txtAuthor->ReadOnly = true;
+			txtEditor->ReadOnly = true;
 
 
 		}
@@ -1401,13 +1430,15 @@ namespace V1 {
 			lblSchool->Visible = false;
 			lblInstitution->Visible = false;
 			lblOrganization->Visible = false;
-			//TEST
+			//TEST Author Namensblock ausblenden
 			lblFirstName->Visible = false;
 			lblLastName->Visible = false;
 			txtFirstName->Visible = false;
 			txtLastName->Visible = false;
 			btnSetAuthor->Visible = false;
 			btnClearAuthor->Visible = false;
+			rbtnAuthor->Visible = false;
+			rbtnEditor->Visible = false;
 			//TEST
 		}
 
@@ -1418,7 +1449,8 @@ namespace V1 {
 			// Hide all fields initially
 			HideAllFields();
 
-
+			bool Author = false;
+			bool Editor = false;
 
 			// Show only the fields relevant to the selected type
 			for each (String^ mandatoryField in type -> RequiredFields)
@@ -1428,14 +1460,7 @@ namespace V1 {
 					lblKeyword->Visible = true;
 				}
 				if (mandatoryField == "author") {
-					txtAuthor->Visible = true;
-					lblAuthor->Visible = true;
-					lblFirstName->Visible = true;
-					lblLastName->Visible = true;
-					txtFirstName->Visible = true;
-					txtLastName->Visible = true;
-					btnSetAuthor->Visible = true;
-					btnClearAuthor->Visible = true;
+					Author = true;
 				}
 				if (mandatoryField == "title") {
 					txtTitle->Visible = true;
@@ -1494,8 +1519,7 @@ namespace V1 {
 					lblABooktitle->Visible = true;
 				}
 				if (mandatoryField == "editor") {
-					txtEditor->Visible = true;
-					lblEditor->Visible = true;
+					Editor = true;
 				}
 				if (mandatoryField == "chapter") {
 					txtChapter->Visible = true;
@@ -1515,6 +1539,48 @@ namespace V1 {
 				}
 
 			}
+
+			if (Author && Editor) {
+				txtAuthor->Visible = true;
+				lblAuthor->Visible = true;
+				txtEditor->Visible = true;
+				lblEditor->Visible = true;
+				lblFirstName->Visible = true;
+				lblLastName->Visible = true;
+				txtFirstName->Visible = true;
+				txtLastName->Visible = true;
+				btnSetAuthor->Visible = true;
+				btnClearAuthor->Visible = true;
+				rbtnEditor->Visible = true;
+				rbtnAuthor->Visible = true;
+				rbtnAuthor->Checked = false;
+				rbtnEditor->Checked = false;
+			}
+			else if (Author) {
+				txtAuthor->Visible = true;
+				lblAuthor->Visible = true;
+				lblFirstName->Visible = true;
+				lblLastName->Visible = true;
+				txtFirstName->Visible = true;
+				txtLastName->Visible = true;
+				btnSetAuthor->Visible = true;
+				btnClearAuthor->Visible = true;
+				rbtnAuthor->Visible = true;
+				rbtnAuthor->Checked = true;
+			}
+			else if (Editor) {
+				txtEditor->Visible = true;
+				lblEditor->Visible = true;
+				lblFirstName->Visible = true;
+				lblLastName->Visible = true;
+				txtFirstName->Visible = true;
+				txtLastName->Visible = true;
+				btnSetAuthor->Visible = true;
+				btnClearAuthor->Visible = true;
+				rbtnEditor->Visible = true;
+				rbtnEditor->Checked = true;
+			}
+
 
 			for each (String^ optionalField in type -> OptionalFields)
 			{
@@ -1689,19 +1755,46 @@ namespace V1 {
 		String^ firstName = txtFirstName->Text->Trim();
 		String^ lastName = txtLastName->Text->Trim();
 
-		if (firstName->Length > 0 && lastName->Length > 0) {
-			// Combine last name and first name
-			txtAuthor->Text += (txtAuthor->Text->Length > 0 ? " and " : "") + lastName + ", " + firstName;
-			txtFirstName->Clear();
-			txtLastName->Clear();
+		if (rbtnAuthor->Checked) {
+			if (firstName->Length > 0 && lastName->Length > 0) {
+				// Combine last name and first name
+				txtAuthor->Text += (txtAuthor->Text->Length > 0 ? " and " : "") + lastName + ", " + firstName;
+				txtFirstName->Clear();
+				txtLastName->Clear();
+			}
+			else {
+				MessageBox::Show("Please enter both first name and last name.", "Input Error",
+					MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			}
+		}
+		else if (rbtnEditor->Checked) {
+			if (firstName->Length > 0 && lastName->Length > 0) {
+				// Combine last name and first name
+				txtEditor->Text += (txtEditor->Text->Length > 0 ? " and " : "") + lastName + ", " + firstName;
+				txtFirstName->Clear();
+				txtLastName->Clear();
+			}
+			else {
+				MessageBox::Show("Please enter both first name and last name.", "Input Error",
+					MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			}
 		}
 		else {
-			MessageBox::Show("Please enter both first name and last name.", "Input Error",
-				MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			MessageBox::Show("Please select Author or Editor.", "Input Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		}
 	}
 	private: System::Void btnClearAuthor_Click(System::Object^  sender, System::EventArgs^  e) {
-		txtAuthor->Clear(); // Clears the author field
+		
+		if (rbtnAuthor->Checked) {
+			txtAuthor->Clear(); // Clears the author field
+		}
+		else if (rbtnEditor->Checked) {
+			txtEditor->Clear(); // Clears the editor field
+		}
+		else {
+			MessageBox::Show("Select Author or Editor!");
+		}
+		
 	}
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 
@@ -1747,5 +1840,7 @@ namespace V1 {
 		fclose(Quelle);
 
 	}
+private: System::Void rbtnAuthor_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+}
 };
 }
