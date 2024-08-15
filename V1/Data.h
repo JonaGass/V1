@@ -91,7 +91,7 @@ namespace DataNamespace {
 					gcnew array<String^>{"editor", "pages", "organization", "publisher", "address", "month", "note"}
 			),
 				gcnew DataTypeFields("inbook",
-					gcnew array<String^>{"keyword", "title", "chapter/pages", "publisher", "year", "author", "editor"},
+					gcnew array<String^>{"keyword", "title", "chapter", "pages", "publisher", "year", "author", "editor"},
 					gcnew array<String^>{"volume", "series", "address", "edition", "month", "note"}
 			),
 				gcnew DataTypeFields("incollection",

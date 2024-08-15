@@ -305,6 +305,10 @@ namespace V1 {
 			bool hasEditor = false;
 			bool AuthorMandatory = false;
 			bool EditorMandatory = false;
+			bool hasChapter = false;
+			bool hasPages = false;
+			bool ChapterMandatory = false;
+			bool PagesMandatory = false;
 
 			// Check each required field
 			for each (String^ field in selectedTypeFields->RequiredFields)
@@ -347,9 +351,22 @@ namespace V1 {
 					stateMandatory = false;
 				}
 				int pages;
-				if ((field == "pages" && txtPages->Text->Trim() == String::Empty) || (field == "pages" && !Int32::TryParse(txtPages->Text, pages))) {
+				/*if ((field == "pages" && txtPages->Text->Trim() == String::Empty) || (field == "pages" && !Int32::TryParse(txtPages->Text, pages))) {
 					errorMessage += "Please enter a number into the pages field.\n";
 					stateMandatory = false;
+				}*/
+				if (field == "pages") {
+					PagesMandatory = true;
+					if (txtPages->Text->Trim() == String::Empty) {
+						//errorMessage += "Please enter a number into the pages field.\n";
+						//stateMandatory = false;
+					}
+					else if (!Int32::TryParse(txtPages->Text, pages)) {
+						errorMessage += "Please enter a number into the pages field.\n";
+					}
+					else {
+						hasPages = true; // Pages is present
+					}
 				}
 				if (field == "month" && txtMonth->Text->Trim() == String::Empty) {
 					errorMessage += "Please fill in the month field.\n";
@@ -393,10 +410,21 @@ namespace V1 {
 						hasEditor = true; // Editor is present
 					}
 				}
-				if (field == "chapter" && txtChapter->Text->Trim() == String::Empty) {
+				/*if (field == "chapter" && txtChapter->Text->Trim() == String::Empty) {
 					errorMessage += "Please fill in the chapter field.\n";
 					stateMandatory = false;
+				}*/
+				if (field == "chapter") {
+					ChapterMandatory = true;
+					if (txtChapter->Text->Trim() == String::Empty) {
+						//errorMessage += "Please fill in the Chapter field.\n";
+						//stateMandatory = false;
+					}
+					else {
+						hasChapter = true; // Chapter is present
+					}
 				}
+
 				if (field == "school" && txtSchool->Text->Trim() == String::Empty) {
 					errorMessage += "Please fill in the school field.\n";
 					stateMandatory = false;
@@ -418,16 +446,40 @@ namespace V1 {
 					errorMessage += "Please fill in either the author or the editor field.\n";
 					stateMandatory = false;
 				}
+				else if (hasAuthor && hasEditor) {
+					errorMessage += "Cannot have both Author and Editor!\n";
+					stateMandatory = false;
+				}
 			}
 			else if (AuthorMandatory){
-				if (txtAuthor->Text->Trim() == String::Empty) {
+				if (!hasAuthor) {
 					errorMessage += "Please fill in the author field.\n";
 					stateMandatory = false;
 				}
 			}
 			else {
-				if (txtEditor->Text->Trim() == String::Empty) {
+				if (!hasEditor) {
 					errorMessage += "Please fill in the editor field.\n";
+					stateMandatory = false;
+				}
+			}
+
+			if (PagesMandatory && ChapterMandatory)
+			{
+				if (!hasPages && !hasChapter) {
+					errorMessage += "Please fill in either the Pages or the Chapter field.\n";
+					stateMandatory = false;
+				}
+			}
+			else if (PagesMandatory) {
+				if (!hasPages) {
+					errorMessage += "Please fill in the Pages field.\n";
+					stateMandatory = false;
+				}
+			}
+			else if (ChapterMandatory) {
+				if (!hasChapter) {
+					errorMessage += "Please fill in the Chapter field.\n";
 					stateMandatory = false;
 				}
 			}
