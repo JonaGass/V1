@@ -640,6 +640,7 @@ namespace V1 {
 			this->panelDetails->Name = L"panelDetails";
 			this->panelDetails->Size = System::Drawing::Size(450, 400);
 			this->panelDetails->TabIndex = 6;
+			this->panelDetails->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MainForm::panelDetails_Paint);
 			// 
 			// cmbType
 			// 
@@ -1012,8 +1013,8 @@ namespace V1 {
 			this->btnSaveHDD->TabIndex = 7;
 			this->btnSaveHDD->Text = L"Save HDD";
 			this->btnSaveHDD->UseVisualStyleBackColor = true;
-			this->btnSaveHDD->Click += gcnew System::EventHandler(this, &MainForm::btnSaveHDD_Click); 
-			this->Controls->Add(this->btnSaveHDD);
+			this->btnSaveHDD->Click += gcnew System::EventHandler(this, &MainForm::btnSaveHDD_Click);
+			// 
 			// txtSearch
 			// 
 			this->txtSearch->Location = System::Drawing::Point(400, 537);
@@ -1025,6 +1026,7 @@ namespace V1 {
 			// MainForm
 			// 
 			this->ClientSize = System::Drawing::Size(831, 591);
+			this->Controls->Add(this->btnSaveHDD);
 			this->Controls->Add(this->txtSearch);
 			this->Controls->Add(this->listViewEntries);
 			this->Controls->Add(this->btnNew);
@@ -1064,47 +1066,64 @@ namespace V1 {
 			}
 		}
 
-		void SaveEntries(String^ filename) {
+		bool SaveEntries(String^ filename) {
 			using namespace System::IO;
 			using namespace System::Runtime::Serialization::Formatters::Binary;
-			FileStream^ fs = gcnew FileStream(filename, FileMode::Create, FileAccess::Write);
-			BinaryFormatter^ formatter = gcnew BinaryFormatter();
+			FileStream^ fs = nullptr;
+			bool success = false;
 
 			try {
+				fs = gcnew FileStream(filename, FileMode::Create, FileAccess::Write);
+				BinaryFormatter^ formatter = gcnew BinaryFormatter();
 				// Serialize the entries to the file stream
 				formatter->Serialize(fs, entries);
+				success = true; // Wenn keine Ausnahme auftritt, war das Speichern erfolgreich
 			}
 			catch (Exception^ ex) {
 				MessageBox::Show("Error saving entries: " + ex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-			} //Fehlermeldung wenn speichern nicht erfolgreich
-			finally{
-				fs->Close();
+				success = false; // Bei einer Ausnahme war das Speichern nicht erfolgreich
 			}
-		}
-
-
-		void LoadEntries(String^ filename) {
-			using namespace System::IO;
-			using namespace System::Runtime::Serialization::Formatters::Binary;
-			if (File::Exists(filename)) {
-				FileStream^ fs = gcnew FileStream(filename, FileMode::Open, FileAccess::Read);
-				BinaryFormatter^ formatter = gcnew BinaryFormatter();
-
-				try {
-					// Deserialize the file stream into the entries list
-					entries = (List<DataArray^>^)formatter->Deserialize(fs);
-				}
-				catch (Exception^ ex) {
-					MessageBox::Show("Error loading entries: " + ex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-				}
-				finally{
+			finally{
+				if (fs != nullptr) {
 					fs->Close();
 				}
 			}
-			else {
-				MessageBox::Show("No entries file found. Starting with an empty list.", "Information", MessageBoxButtons::OK, MessageBoxIcon::Information);
-				entries = gcnew List<DataArray^>(); // Initialize if file does not exist
+
+			return success; // Gibt den Erfolg oder Misserfolg zurück
+		}
+
+
+
+		bool LoadEntries(String^ filename) {
+			using namespace System::IO;
+			using namespace System::Runtime::Serialization::Formatters::Binary;
+			FileStream^ fs = nullptr;
+			bool success = false;
+
+			try {
+				if (File::Exists(filename)) {
+					fs = gcnew FileStream(filename, FileMode::Open, FileAccess::Read);
+					BinaryFormatter^ formatter = gcnew BinaryFormatter();
+					// Deserialize the file stream into the entries list
+					entries = (List<DataArray^>^)formatter->Deserialize(fs);
+					success = true; // Wenn das Einlesen erfolgreich ist
+				}
+				else {
+					MessageBox::Show("No entries file found. Starting with an empty list.", "Information", MessageBoxButtons::OK, MessageBoxIcon::Information);
+					entries = gcnew List<DataArray^>(); // Initialisiere eine leere Liste, wenn die Datei nicht existiert
+				}
 			}
+			catch (Exception^ ex) {
+				MessageBox::Show("Error loading entries: " + ex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				success = false; // Bei einer Ausnahme war das Einlesen nicht erfolgreich
+			}
+			finally{
+				if (fs != nullptr) {
+					fs->Close();
+				}
+			}
+
+			return success; // Gibt den Erfolg oder Misserfolg zurück
 		}
 
 		// Event handler for ListView selection change
@@ -1476,18 +1495,35 @@ namespace V1 {
 
 	private: System::Void MainForm_Load(System::Object^  sender, System::EventArgs^  e) {
 
-		LoadEntries("entries.bin"); // Load entries from a specified file
+		bool success = LoadEntries("entries.bin"); 
+		/*bool success = LoadEntries("nonexistent_file.bin");*/ //Test Fehler
+		if (success) {
+			MessageBox::Show("Entries loaded successfully from HDD.", "Information", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			RefreshListView(); // Aktualisiere die Anzeige der Einträge, wenn das Laden erfolgreich war
+		}
+		else {
+			MessageBox::Show("Failed to load entries from HDD.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
 		RefreshListView(); // Refresh the ListView to show loaded entries
 	}
 
-	private: System::Void btnSaveHDD_Click(System::Object^  sender, System::EventArgs^  e) {
-		SaveEntries("entries.bin");
+private: System::Void btnSaveHDD_Click(System::Object^ sender, System::EventArgs^ e) {
+	
+	bool success = SaveEntries("entries.bin");
+	/*bool success = SaveEntries("C:\\Program Files\\entries.bin");*/ //Test fehler
+	if (success) {
 		MessageBox::Show("Entries saved successfully to HDD.", "Information", MessageBoxButtons::OK, MessageBoxIcon::Information);
 	}
+	else {
+		MessageBox::Show("Failed to save entries to HDD.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+	}
+}
 	private: System::Void txtSearch_TextChanged(System::Object^  sender, System::EventArgs^  e) { //wird automatisch durchsucht wenn etwas eingegeben wird
 		String^ searchTerm = txtSearch->Text->Trim();
 		PerformSearch(searchTerm);
 	
 	}
-	};
+	private: System::Void panelDetails_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
+	}
+};
 }
