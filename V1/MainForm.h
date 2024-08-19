@@ -459,7 +459,7 @@ namespace V1 {
 					stateMandatory = false;
 				}
 			}
-			else {
+			else if(EditorMandatory) {
 				if (!hasEditor) {
 					errorMessage += "Please fill in the editor field.\n";
 					stateMandatory = false;
