@@ -275,165 +275,168 @@ namespace V1 {
 		bool ValidateEntry()
 		{
 			bool stateMandatory = true;
+
 			if (cmbType->SelectedIndex == -1)
 			{
 				MessageBox::Show("Please select an entry type.");
 				stateMandatory = false;
 			}
-
-			String^ selectedType = cmbType->SelectedItem->ToString();
-			DataTypeFields^ selectedTypeFields = nullptr;
-
-			// Find the selected type in the dataTypes array
-			for each (DataTypeFields^ type in dataTypes)
-			{
-				if (type->TypeName == selectedType)
-				{
-					selectedTypeFields = type;
-					break;
-				}
-			}
-
-			if (selectedTypeFields == nullptr)
-			{
-				MessageBox::Show("Invalid entry type selected.");
-				stateMandatory = false;
-			}
-
-			String^ errorMessage = "";
-			bool hasAuthor = false;
-			bool hasEditor = false;
-			bool AuthorMandatory = false;
-			bool EditorMandatory = false;
-
-			// Check each required field
-			for each (String^ field in selectedTypeFields->RequiredFields)
-			{
-				if (field == "keyword" && txtKeyword->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the keyword field.\n";
-					stateMandatory = false;
-				}
-				if (field == "author") {
-					AuthorMandatory = true;
-					if (txtAuthor->Text->Trim() == String::Empty) {
-						//errorMessage += "Please fill in the author field.\n";
-						//stateMandatory = false;
-					}
-					else {
-						hasAuthor = true; // Author is present
-					}
-				}
-				if (field == "title" && txtTitle->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the title field.\n";
-					stateMandatory = false;
-				}
-				int year;
-				if ((field == "year" && txtYear->Text->Trim() == String::Empty) || (field == "year" && !Int32::TryParse(txtYear->Text, year))) {
-					errorMessage += "Please enter a number into the year field.\n";
-					stateMandatory = false;
-				}
-				if (field == "journal" && txtJournal->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the journal field.\n";
-					stateMandatory = false;
-				}
-				int volume;
-				if ((field == "volume" && txtVolume->Text->Trim() == String::Empty) || (field == "volume" && !Int32::TryParse(txtVolume->Text, volume))) {
-					errorMessage += "Please enter a number into the volume field.\n";
-					stateMandatory = false;
-				}
-				int number;
-				if ((field == "number" && txtNumber->Text->Trim() == String::Empty) || (field == "number" && !Int32::TryParse(txtNumber->Text, number))) {
-					errorMessage += "Please enter a number into the number field.\n";
-					stateMandatory = false;
-				}
-				int pages;
-				if ((field == "pages" && txtPages->Text->Trim() == String::Empty) || (field == "pages" && !Int32::TryParse(txtPages->Text, pages))) {
-					errorMessage += "Please enter a number into the pages field.\n";
-					stateMandatory = false;
-				}
-				if (field == "month" && txtMonth->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the month field.\n";
-					stateMandatory = false;
-				}
-				if (field == "note" && txtNote->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the note field.\n";
-					stateMandatory = false;
-				}
-				if (field == "publisher" && txtPublisher->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the publisher field.\n";
-					stateMandatory = false;
-				}
-				if (field == "series" && txtSeries->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the series field.\n";
-					stateMandatory = false;
-				}
-				if (field == "address" && txtAddress->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the address field.\n";
-					stateMandatory = false;
-				}
-				if (field == "edition" && txtEdition->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the edition field.\n";
-					stateMandatory = false;
-				}
-				if (field == "howpublished" && txtHowpublished->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the how published field.\n";
-					stateMandatory = false;
-				}
-				if (field == "booktitle" && txtBooktitle->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the book title field.\n";
-					stateMandatory = false;
-				}
-				if (field == "editor") {
-					EditorMandatory = true;
-					if (txtEditor->Text->Trim() == String::Empty) {
-						//errorMessage += "Please fill in the editor field.\n";
-						//stateMandatory = false;
-					}
-					else {
-						hasEditor = true; // Editor is present
-					}
-				}
-				if (field == "chapter" && txtChapter->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the chapter field.\n";
-					stateMandatory = false;
-				}
-				if (field == "school" && txtSchool->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the school field.\n";
-					stateMandatory = false;
-				}
-				if (field == "institution" && txtInstitution->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the institution field.\n";
-					stateMandatory = false;
-				}
-				if (field == "organization" && txtOrganization->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the organization field.\n";
-					stateMandatory = false;
-				}
-			}
-
-			// Check if either author or editor is filled if both are mandatory
-			if (AuthorMandatory && EditorMandatory)
-			{
-				if (!hasAuthor && !hasEditor) {
-					errorMessage += "Please fill in either the author or the editor field.\n";
-					stateMandatory = false;
-				}
-			}
-			else if (AuthorMandatory){
-				if (txtAuthor->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the author field.\n";
-					stateMandatory = false;
-				}
-			}
 			else {
-				if (txtEditor->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the editor field.\n";
+
+				String^ selectedType = cmbType->SelectedItem->ToString();
+				DataTypeFields^ selectedTypeFields = nullptr;
+
+				// Find the selected type in the dataTypes array
+				for each (DataTypeFields^ type in dataTypes)
+				{
+					if (type->TypeName == selectedType)
+					{
+						selectedTypeFields = type;
+						break;
+					}
+				}
+
+				if (selectedTypeFields == nullptr)
+				{
+					MessageBox::Show("Invalid entry type selected.");
 					stateMandatory = false;
 				}
-			}
 
-			if (!stateMandatory) {
-				MessageBox::Show(errorMessage, "Missing Input", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				String^ errorMessage = "";
+				bool hasAuthor = false;
+				bool hasEditor = false;
+				bool AuthorMandatory = false;
+				bool EditorMandatory = false;
+
+				// Check each required field
+				for each (String^ field in selectedTypeFields->RequiredFields)
+				{
+					if (field == "keyword" && txtKeyword->Text->Trim() == String::Empty) {
+						errorMessage += "Please fill in the keyword field.\n";
+						stateMandatory = false;
+					}
+					if (field == "author") {
+						AuthorMandatory = true;
+						if (txtAuthor->Text->Trim() == String::Empty) {
+							//errorMessage += "Please fill in the author field.\n";
+							//stateMandatory = false;
+						}
+						else {
+							hasAuthor = true; // Author is present
+						}
+					}
+					if (field == "title" && txtTitle->Text->Trim() == String::Empty) {
+						errorMessage += "Please fill in the title field.\n";
+						stateMandatory = false;
+					}
+					int year;
+					if ((field == "year" && txtYear->Text->Trim() == String::Empty) || (field == "year" && !Int32::TryParse(txtYear->Text, year))) {
+						errorMessage += "Please enter a number into the year field.\n";
+						stateMandatory = false;
+					}
+					if (field == "journal" && txtJournal->Text->Trim() == String::Empty) {
+						errorMessage += "Please fill in the journal field.\n";
+						stateMandatory = false;
+					}
+					int volume;
+					if ((field == "volume" && txtVolume->Text->Trim() == String::Empty) || (field == "volume" && !Int32::TryParse(txtVolume->Text, volume))) {
+						errorMessage += "Please enter a number into the volume field.\n";
+						stateMandatory = false;
+					}
+					int number;
+					if ((field == "number" && txtNumber->Text->Trim() == String::Empty) || (field == "number" && !Int32::TryParse(txtNumber->Text, number))) {
+						errorMessage += "Please enter a number into the number field.\n";
+						stateMandatory = false;
+					}
+					int pages;
+					if ((field == "pages" && txtPages->Text->Trim() == String::Empty) || (field == "pages" && !Int32::TryParse(txtPages->Text, pages))) {
+						errorMessage += "Please enter a number into the pages field.\n";
+						stateMandatory = false;
+					}
+					if (field == "month" && txtMonth->Text->Trim() == String::Empty) {
+						errorMessage += "Please fill in the month field.\n";
+						stateMandatory = false;
+					}
+					if (field == "note" && txtNote->Text->Trim() == String::Empty) {
+						errorMessage += "Please fill in the note field.\n";
+						stateMandatory = false;
+					}
+					if (field == "publisher" && txtPublisher->Text->Trim() == String::Empty) {
+						errorMessage += "Please fill in the publisher field.\n";
+						stateMandatory = false;
+					}
+					if (field == "series" && txtSeries->Text->Trim() == String::Empty) {
+						errorMessage += "Please fill in the series field.\n";
+						stateMandatory = false;
+					}
+					if (field == "address" && txtAddress->Text->Trim() == String::Empty) {
+						errorMessage += "Please fill in the address field.\n";
+						stateMandatory = false;
+					}
+					if (field == "edition" && txtEdition->Text->Trim() == String::Empty) {
+						errorMessage += "Please fill in the edition field.\n";
+						stateMandatory = false;
+					}
+					if (field == "howpublished" && txtHowpublished->Text->Trim() == String::Empty) {
+						errorMessage += "Please fill in the how published field.\n";
+						stateMandatory = false;
+					}
+					if (field == "booktitle" && txtBooktitle->Text->Trim() == String::Empty) {
+						errorMessage += "Please fill in the book title field.\n";
+						stateMandatory = false;
+					}
+					if (field == "editor") {
+						EditorMandatory = true;
+						if (txtEditor->Text->Trim() == String::Empty) {
+							//errorMessage += "Please fill in the editor field.\n";
+							//stateMandatory = false;
+						}
+						else {
+							hasEditor = true; // Editor is present
+						}
+					}
+					if (field == "chapter" && txtChapter->Text->Trim() == String::Empty) {
+						errorMessage += "Please fill in the chapter field.\n";
+						stateMandatory = false;
+					}
+					if (field == "school" && txtSchool->Text->Trim() == String::Empty) {
+						errorMessage += "Please fill in the school field.\n";
+						stateMandatory = false;
+					}
+					if (field == "institution" && txtInstitution->Text->Trim() == String::Empty) {
+						errorMessage += "Please fill in the institution field.\n";
+						stateMandatory = false;
+					}
+					if (field == "organization" && txtOrganization->Text->Trim() == String::Empty) {
+						errorMessage += "Please fill in the organization field.\n";
+						stateMandatory = false;
+					}
+				}
+
+				// Check if either author or editor is filled if both are mandatory
+				if (AuthorMandatory && EditorMandatory)
+				{
+					if (!hasAuthor && !hasEditor) {
+						errorMessage += "Please fill in either the author or the editor field.\n";
+						stateMandatory = false;
+					}
+				}
+				else if (AuthorMandatory) {
+					if (txtAuthor->Text->Trim() == String::Empty) {
+						errorMessage += "Please fill in the author field.\n";
+						stateMandatory = false;
+					}
+				}
+				else {
+					if (txtEditor->Text->Trim() == String::Empty) {
+						errorMessage += "Please fill in the editor field.\n";
+						stateMandatory = false;
+					}
+				}
+
+				if (!stateMandatory) {
+					MessageBox::Show(errorMessage, "Missing Input", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				}
 			}
 			return stateMandatory;
 		}
