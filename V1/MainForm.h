@@ -103,6 +103,8 @@ namespace V1 {
 		array<DataTypeFields^>^ dataTypes;
 	private: System::Windows::Forms::Button^  btnSaveHDD;
 	private: System::Windows::Forms::Button^  btnClearAuthor;
+	private: System::Windows::Forms::RadioButton^  rbtnAuthor;
+	private: System::Windows::Forms::RadioButton^  rbtnEditor;
 			 bool isEditMode;
 
 
@@ -271,132 +273,228 @@ namespace V1 {
 		}
 
 
-// Validate mandatory fields before saving
+
 		bool ValidateEntry()
 		{
 			bool stateMandatory = true;
+
+
 			if (cmbType->SelectedIndex == -1)
 			{
 				MessageBox::Show("Please select an entry type.");
 				stateMandatory = false;
 			}
+			else {
+					String^ selectedType = cmbType->SelectedItem->ToString();
+					DataTypeFields^ selectedTypeFields = nullptr;
 
-			String^ selectedType = cmbType->SelectedItem->ToString();
-			DataTypeFields^ selectedTypeFields = nullptr;
+					// Find the selected type in the dataTypes array
+					for each (DataTypeFields^ type in dataTypes)
+					{
+						if (type->TypeName == selectedType)
+						{
+							selectedTypeFields = type;
+							break;
+						}
+					}
 
-			// Find the selected type in the dataTypes array
-			for each (DataTypeFields^ type in dataTypes)
-			{
-				if (type->TypeName == selectedType)
-				{
-					selectedTypeFields = type;
-					break;
-				}
-			}
+					if (selectedTypeFields == nullptr)
+					{
+						MessageBox::Show("Invalid entry type selected.");
+						stateMandatory = false;
+					}
 
-			if (selectedTypeFields == nullptr)
-			{
-				MessageBox::Show("Invalid entry type selected.");
-				stateMandatory = false;
-			}
-			String^ errorMessage = "";
-			// Check each required field
-			for each (String^ field in selectedTypeFields->RequiredFields)
-			{
-				if (field == "keyword" && txtKeyword->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the keyword field.\n";
-					stateMandatory = false;
+					String^ errorMessage = "";
+					bool hasAuthor = false;
+					bool hasEditor = false;
+					bool AuthorMandatory = false;
+					bool EditorMandatory = false;
+					bool hasChapter = false;
+					bool hasPages = false;
+					bool ChapterMandatory = false;
+					bool PagesMandatory = false;
+
+					// Check each required field
+					for each (String^ field in selectedTypeFields->RequiredFields)
+					{
+						if (field == "keyword" && txtKeyword->Text->Trim() == String::Empty) {
+							errorMessage += "Please fill in the keyword field.\n";
+							stateMandatory = false;
+						}
+						if (field == "author") {
+							AuthorMandatory = true;
+							if (txtAuthor->Text->Trim() == String::Empty) {
+								//errorMessage += "Please fill in the author field.\n";
+								//stateMandatory = false;
+							}
+							else {
+								hasAuthor = true; // Author is present
+							}
+						}
+						if (field == "title" && txtTitle->Text->Trim() == String::Empty) {
+							errorMessage += "Please fill in the title field.\n";
+							stateMandatory = false;
+						}
+						int year;
+						if ((field == "year" && txtYear->Text->Trim() == String::Empty) || (field == "year" && !Int32::TryParse(txtYear->Text, year))) {
+							errorMessage += "Please enter a number into the year field.\n";
+							stateMandatory = false;
+						}
+						if (field == "journal" && txtJournal->Text->Trim() == String::Empty) {
+							errorMessage += "Please fill in the journal field.\n";
+							stateMandatory = false;
+						}
+						int volume;
+						if ((field == "volume" && txtVolume->Text->Trim() == String::Empty) || (field == "volume" && !Int32::TryParse(txtVolume->Text, volume))) {
+							errorMessage += "Please enter a number into the volume field.\n";
+							stateMandatory = false;
+						}
+						int number;
+						if ((field == "number" && txtNumber->Text->Trim() == String::Empty) || (field == "number" && !Int32::TryParse(txtNumber->Text, number))) {
+							errorMessage += "Please enter a number into the number field.\n";
+							stateMandatory = false;
+						}
+						int pages;
+						/*if ((field == "pages" && txtPages->Text->Trim() == String::Empty) || (field == "pages" && !Int32::TryParse(txtPages->Text, pages))) {
+							errorMessage += "Please enter a number into the pages field.\n";
+							stateMandatory = false;
+						}*/
+						if (field == "pages") {
+							PagesMandatory = true;
+							if (txtPages->Text->Trim() == String::Empty) {
+								//errorMessage += "Please enter a number into the pages field.\n";
+								//stateMandatory = false;
+							}
+							else if (!Int32::TryParse(txtPages->Text, pages)) {
+								errorMessage += "Please enter a number into the pages field.\n";
+							}
+							else {
+								hasPages = true; // Pages is present
+							}
+						}
+						if (field == "month" && txtMonth->Text->Trim() == String::Empty) {
+							errorMessage += "Please fill in the month field.\n";
+							stateMandatory = false;
+						}
+						if (field == "note" && txtNote->Text->Trim() == String::Empty) {
+							errorMessage += "Please fill in the note field.\n";
+							stateMandatory = false;
+						}
+						if (field == "publisher" && txtPublisher->Text->Trim() == String::Empty) {
+							errorMessage += "Please fill in the publisher field.\n";
+							stateMandatory = false;
+						}
+						if (field == "series" && txtSeries->Text->Trim() == String::Empty) {
+							errorMessage += "Please fill in the series field.\n";
+							stateMandatory = false;
+						}
+						if (field == "address" && txtAddress->Text->Trim() == String::Empty) {
+							errorMessage += "Please fill in the address field.\n";
+							stateMandatory = false;
+						}
+						if (field == "edition" && txtEdition->Text->Trim() == String::Empty) {
+							errorMessage += "Please fill in the edition field.\n";
+							stateMandatory = false;
+						}
+						if (field == "howpublished" && txtHowpublished->Text->Trim() == String::Empty) {
+							errorMessage += "Please fill in the how published field.\n";
+							stateMandatory = false;
+						}
+						if (field == "booktitle" && txtBooktitle->Text->Trim() == String::Empty) {
+							errorMessage += "Please fill in the book title field.\n";
+							stateMandatory = false;
+						}
+						if (field == "editor") {
+							EditorMandatory = true;
+							if (txtEditor->Text->Trim() == String::Empty) {
+								//errorMessage += "Please fill in the editor field.\n";
+								//stateMandatory = false;
+							}
+							else {
+								hasEditor = true; // Editor is present
+							}
+						}
+						/*if (field == "chapter" && txtChapter->Text->Trim() == String::Empty) {
+							errorMessage += "Please fill in the chapter field.\n";
+							stateMandatory = false;
+						}*/
+						if (field == "chapter") {
+							ChapterMandatory = true;
+							if (txtChapter->Text->Trim() == String::Empty) {
+								//errorMessage += "Please fill in the Chapter field.\n";
+								//stateMandatory = false;
+							}
+							else {
+								hasChapter = true; // Chapter is present
+							}
+						}
+
+						if (field == "school" && txtSchool->Text->Trim() == String::Empty) {
+							errorMessage += "Please fill in the school field.\n";
+							stateMandatory = false;
+						}
+						if (field == "institution" && txtInstitution->Text->Trim() == String::Empty) {
+							errorMessage += "Please fill in the institution field.\n";
+							stateMandatory = false;
+						}
+						if (field == "organization" && txtOrganization->Text->Trim() == String::Empty) {
+							errorMessage += "Please fill in the organization field.\n";
+							stateMandatory = false;
+						}
+					}
+
+					// Check if either author or editor is filled if both are mandatory
+					if (AuthorMandatory && EditorMandatory)
+					{
+						if (!hasAuthor && !hasEditor) {
+							errorMessage += "Please fill in either the author or the editor field.\n";
+							stateMandatory = false;
+						}
+						else if (hasAuthor && hasEditor) {
+							errorMessage += "Cannot have both Author and Editor!\n";
+							stateMandatory = false;
+						}
+					}
+					else if (AuthorMandatory){
+						if (!hasAuthor) {
+							errorMessage += "Please fill in the author field.\n";
+							stateMandatory = false;
+						}
+					}
+					else if(EditorMandatory) {
+						if (!hasEditor) {
+							errorMessage += "Please fill in the editor field.\n";
+							stateMandatory = false;
+						}
+					}
+
+					if (PagesMandatory && ChapterMandatory)
+					{
+						if (!hasPages && !hasChapter) {
+							errorMessage += "Please fill in either the Pages or the Chapter field.\n";
+							stateMandatory = false;
+						}
+					}
+					else if (PagesMandatory) {
+						if (!hasPages) {
+							errorMessage += "Please fill in the Pages field.\n";
+							stateMandatory = false;
+						}
+					}
+					else if (ChapterMandatory) {
+						if (!hasChapter) {
+							errorMessage += "Please fill in the Chapter field.\n";
+							stateMandatory = false;
+						}
+					}
+
+					if (!stateMandatory) {
+						MessageBox::Show(errorMessage, "Missing Input", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+					}
 				}
-				if (field == "author" && txtAuthor->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the author field.\n";
-					stateMandatory = false;
-				}
-				if (field == "title" && txtTitle->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the title field.\n";
-					stateMandatory = false;
-				}
-				int year;
-				if ((field == "year" && txtYear->Text->Trim() == String::Empty) || (field == "year" && !Int32::TryParse(txtYear->Text, year))) {
-					errorMessage += "Please enter a number into the year field.\n";
-					stateMandatory = false;
-				}
-				if (field == "journal" && txtJournal->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the journal field.\n";
-					stateMandatory = false;
-				}
-				int volume;
-				if ((field == "volume" && txtVolume->Text->Trim() == String::Empty) || (field == "volume" && !Int32::TryParse(txtVolume->Text, volume))) {
-					errorMessage += "Please enter a number into the volume field.\n";
-					stateMandatory = false;
-				}
-				int number;
-				if ((field == "number" && txtNumber->Text->Trim() == String::Empty) || (field == "number" && !Int32::TryParse(txtNumber->Text, number))) {
-					errorMessage += "Please enter a number into the number field.\n";
-					stateMandatory = false;
-				}
-				int pages;
-				if ((field == "pages" && txtPages->Text->Trim() == String::Empty) || (field == "pages" && !Int32::TryParse(txtPages->Text, pages))) {
-					errorMessage += "Please enter a number into the pages field.\n";
-					stateMandatory = false;
-				}
-				if (field == "month" && txtMonth->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the month field.\n";
-					stateMandatory = false;
-				}
-				if (field == "note" && txtNote->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the note field.\n";
-					stateMandatory = false;
-				}
-				if (field == "publisher" && txtPublisher->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the publisher field.\n";
-					stateMandatory = false;
-				}
-				if (field == "series" && txtSeries->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the series field.\n";
-					stateMandatory = false;
-				}
-				if (field == "address" && txtAddress->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the address field.\n";
-					stateMandatory = false;
-				}
-				if (field == "edition" && txtEdition->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the edition field.\n";
-					stateMandatory = false;
-				}
-				if (field == "howpublished" && txtHowpublished->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the how published field.\n";
-					stateMandatory = false;
-				}
-				if (field == "booktitle" && txtBooktitle->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the book title field.\n";
-					stateMandatory = false;
-				}
-				if (field == "editor" && txtEditor->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the editor field.\n";
-					stateMandatory = false;
-				}
-				if (field == "chapter" && txtChapter->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the chapter field.\n";
-					stateMandatory = false;
-				}
-				if (field == "school" && txtSchool->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the school field.\n";
-					stateMandatory = false;
-				}
-				if (field == "institution" && txtInstitution->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the institution field.\n";
-					stateMandatory = false;
-				}
-				if (field == "organization" && txtOrganization->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the organization field.\n";
-					stateMandatory = false;
-				}
-			}
-			if (!stateMandatory) {
-				MessageBox::Show(errorMessage, "Missing Input", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			}
 			return stateMandatory;
 		}
+
 		bool ValidateOptional()
 		{
 			bool stateOptional = true;
@@ -567,36 +665,28 @@ namespace V1 {
 			this->btnSaveHDD = (gcnew System::Windows::Forms::Button());
 			this->txtSearch = (gcnew System::Windows::Forms::TextBox());
 			this->btnClearAuthor = (gcnew System::Windows::Forms::Button());
+			this->rbtnAuthor = (gcnew System::Windows::Forms::RadioButton());
+			this->rbtnEditor = (gcnew System::Windows::Forms::RadioButton());
 			this->panelDetails->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// txtFirstName
 			// 
-			this->txtFirstName->Location = System::Drawing::Point(322, 500);
+			this->txtFirstName->Location = System::Drawing::Point(395, 610);
 			this->txtFirstName->Name = L"txtFirstName";
 			this->txtFirstName->Size = System::Drawing::Size(100, 20);
 			this->txtFirstName->TabIndex = 0;
 			// 
 			// txtLastName
 			// 
-			this->txtLastName->Location = System::Drawing::Point(432, 500);
+			this->txtLastName->Location = System::Drawing::Point(505, 610);
 			this->txtLastName->Name = L"txtLastName";
 			this->txtLastName->Size = System::Drawing::Size(100, 20);
 			this->txtLastName->TabIndex = 0;
 			// 
-			// button1
-			// 
-			this->button1->Location = System::Drawing::Point(611, 10);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(75, 23);
-			this->button1->TabIndex = 8;
-			this->button1->Text = L"Export to bib";
-			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &MainForm::button1_Click);
-			// 
 			// btnSetAuthor
 			// 
-			this->btnSetAuthor->Location = System::Drawing::Point(542, 500);
+			this->btnSetAuthor->Location = System::Drawing::Point(615, 610);
 			this->btnSetAuthor->Name = L"btnSetAuthor";
 			this->btnSetAuthor->Size = System::Drawing::Size(75, 23);
 			this->btnSetAuthor->TabIndex = 1;
@@ -613,6 +703,16 @@ namespace V1 {
 			this->listViewEntries->UseCompatibleStateImageBehavior = false;
 			this->listViewEntries->View = System::Windows::Forms::View::List;
 			this->listViewEntries->SelectedIndexChanged += gcnew System::EventHandler(this, &MainForm::listViewEntries_SelectedIndexChanged);
+			// 
+			// button1
+			// 
+			this->button1->Location = System::Drawing::Point(611, 10);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(75, 23);
+			this->button1->TabIndex = 8;
+			this->button1->Text = L"Export to bib";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &MainForm::button1_Click);
 			// 
 			// btnNew
 			// 
@@ -688,7 +788,7 @@ namespace V1 {
 			this->panelDetails->Controls->Add(this->lblOrganization);
 			this->panelDetails->Location = System::Drawing::Point(320, 50);
 			this->panelDetails->Name = L"panelDetails";
-			this->panelDetails->Size = System::Drawing::Size(450, 400);
+			this->panelDetails->Size = System::Drawing::Size(587, 507);
 			this->panelDetails->TabIndex = 6;
 			// 
 			// cmbType
@@ -1038,7 +1138,7 @@ namespace V1 {
 			// 
 			// lblFirstName
 			// 
-			this->lblFirstName->Location = System::Drawing::Point(322, 480);
+			this->lblFirstName->Location = System::Drawing::Point(395, 590);
 			this->lblFirstName->Name = L"lblFirstName";
 			this->lblFirstName->Size = System::Drawing::Size(100, 23);
 			this->lblFirstName->TabIndex = 2;
@@ -1046,7 +1146,7 @@ namespace V1 {
 			// 
 			// lblLastName
 			// 
-			this->lblLastName->Location = System::Drawing::Point(432, 480);
+			this->lblLastName->Location = System::Drawing::Point(505, 590);
 			this->lblLastName->Name = L"lblLastName";
 			this->lblLastName->Size = System::Drawing::Size(100, 23);
 			this->lblLastName->TabIndex = 3;
@@ -1054,7 +1154,7 @@ namespace V1 {
 			// 
 			// btnSave
 			// 
-			this->btnSave->Location = System::Drawing::Point(320, 586);
+			this->btnSave->Location = System::Drawing::Point(301, 667);
 			this->btnSave->Name = L"btnSave";
 			this->btnSave->Size = System::Drawing::Size(75, 23);
 			this->btnSave->TabIndex = 4;
@@ -1063,7 +1163,7 @@ namespace V1 {
 			// 
 			// btnCancel
 			// 
-			this->btnCancel->Location = System::Drawing::Point(400, 586);
+			this->btnCancel->Location = System::Drawing::Point(381, 667);
 			this->btnCancel->Name = L"btnCancel";
 			this->btnCancel->Size = System::Drawing::Size(75, 23);
 			this->btnCancel->TabIndex = 5;
@@ -1072,7 +1172,7 @@ namespace V1 {
 			// 
 			// btnSaveHDD
 			// 
-			this->btnSaveHDD->Location = System::Drawing::Point(558, 611);
+			this->btnSaveHDD->Location = System::Drawing::Point(539, 692);
 			this->btnSaveHDD->Name = L"btnSaveHDD";
 			this->btnSaveHDD->Size = System::Drawing::Size(75, 23);
 			this->btnSaveHDD->TabIndex = 7;
@@ -1082,7 +1182,7 @@ namespace V1 {
 			// 
 			// txtSearch
 			// 
-			this->txtSearch->Location = System::Drawing::Point(400, 643);
+			this->txtSearch->Location = System::Drawing::Point(381, 724);
 			this->txtSearch->Name = L"txtSearch";
 			this->txtSearch->Size = System::Drawing::Size(200, 20);
 			this->txtSearch->TabIndex = 5;
@@ -1090,17 +1190,40 @@ namespace V1 {
 			// 
 			// btnClearAuthor
 			// 
-			this->btnClearAuthor->Location = System::Drawing::Point(623, 500);
+			this->btnClearAuthor->Location = System::Drawing::Point(696, 610);
 			this->btnClearAuthor->Name = L"btnClearAuthor";
 			this->btnClearAuthor->Size = System::Drawing::Size(75, 23);
 			this->btnClearAuthor->TabIndex = 8;
 			this->btnClearAuthor->Text = L"Clear";
 			this->btnClearAuthor->Click += gcnew System::EventHandler(this, &MainForm::btnClearAuthor_Click);
 			// 
+			// rbtnAuthor
+			// 
+			this->rbtnAuthor->AutoSize = true;
+			this->rbtnAuthor->Location = System::Drawing::Point(327, 596);
+			this->rbtnAuthor->Name = L"rbtnAuthor";
+			this->rbtnAuthor->Size = System::Drawing::Size(56, 17);
+			this->rbtnAuthor->TabIndex = 9;
+			this->rbtnAuthor->TabStop = true;
+			this->rbtnAuthor->Text = L"Author";
+			this->rbtnAuthor->UseVisualStyleBackColor = true;
+			// 
+			// rbtnEditor
+			// 
+			this->rbtnEditor->AutoSize = true;
+			this->rbtnEditor->Location = System::Drawing::Point(327, 619);
+			this->rbtnEditor->Name = L"rbtnEditor";
+			this->rbtnEditor->Size = System::Drawing::Size(52, 17);
+			this->rbtnEditor->TabIndex = 10;
+			this->rbtnEditor->TabStop = true;
+			this->rbtnEditor->Text = L"Editor";
+			this->rbtnEditor->UseVisualStyleBackColor = true;
+			// 
 			// MainForm
 			// 
-			this->ClientSize = System::Drawing::Size(920, 693);
-
+			this->ClientSize = System::Drawing::Size(1055, 766);
+			this->Controls->Add(this->rbtnEditor);
+			this->Controls->Add(this->rbtnAuthor);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->btnClearAuthor);
 			this->Controls->Add(this->txtFirstName);
@@ -1138,6 +1261,7 @@ namespace V1 {
 
 			SetFieldsReadOnly(!inEditMode);
 			txtAuthor->ReadOnly = true;
+			txtEditor->ReadOnly = true;
 
 
 		}
@@ -1308,13 +1432,15 @@ namespace V1 {
 			lblSchool->Visible = false;
 			lblInstitution->Visible = false;
 			lblOrganization->Visible = false;
-			//TEST
+			//TEST Author Namensblock ausblenden
 			lblFirstName->Visible = false;
 			lblLastName->Visible = false;
 			txtFirstName->Visible = false;
 			txtLastName->Visible = false;
 			btnSetAuthor->Visible = false;
 			btnClearAuthor->Visible = false;
+			rbtnAuthor->Visible = false;
+			rbtnEditor->Visible = false;
 			//TEST
 		}
 
@@ -1325,7 +1451,8 @@ namespace V1 {
 			// Hide all fields initially
 			HideAllFields();
 
-
+			bool Author = false;
+			bool Editor = false;
 
 			// Show only the fields relevant to the selected type
 			for each (String^ mandatoryField in type -> RequiredFields)
@@ -1335,14 +1462,7 @@ namespace V1 {
 					lblKeyword->Visible = true;
 				}
 				if (mandatoryField == "author") {
-					txtAuthor->Visible = true;
-					lblAuthor->Visible = true;
-					lblFirstName->Visible = true;
-					lblLastName->Visible = true;
-					txtFirstName->Visible = true;
-					txtLastName->Visible = true;
-					btnSetAuthor->Visible = true;
-					btnClearAuthor->Visible = true;
+					Author = true;
 				}
 				if (mandatoryField == "title") {
 					txtTitle->Visible = true;
@@ -1401,8 +1521,7 @@ namespace V1 {
 					lblABooktitle->Visible = true;
 				}
 				if (mandatoryField == "editor") {
-					txtEditor->Visible = true;
-					lblEditor->Visible = true;
+					Editor = true;
 				}
 				if (mandatoryField == "chapter") {
 					txtChapter->Visible = true;
@@ -1422,6 +1541,48 @@ namespace V1 {
 				}
 
 			}
+
+			if (Author && Editor) {
+				txtAuthor->Visible = true;
+				lblAuthor->Visible = true;
+				txtEditor->Visible = true;
+				lblEditor->Visible = true;
+				lblFirstName->Visible = true;
+				lblLastName->Visible = true;
+				txtFirstName->Visible = true;
+				txtLastName->Visible = true;
+				btnSetAuthor->Visible = true;
+				btnClearAuthor->Visible = true;
+				rbtnEditor->Visible = true;
+				rbtnAuthor->Visible = true;
+				rbtnAuthor->Checked = false;
+				rbtnEditor->Checked = false;
+			}
+			else if (Author) {
+				txtAuthor->Visible = true;
+				lblAuthor->Visible = true;
+				lblFirstName->Visible = true;
+				lblLastName->Visible = true;
+				txtFirstName->Visible = true;
+				txtLastName->Visible = true;
+				btnSetAuthor->Visible = true;
+				btnClearAuthor->Visible = true;
+				rbtnAuthor->Visible = true;
+				rbtnAuthor->Checked = true;
+			}
+			else if (Editor) {
+				txtEditor->Visible = true;
+				lblEditor->Visible = true;
+				lblFirstName->Visible = true;
+				lblLastName->Visible = true;
+				txtFirstName->Visible = true;
+				txtLastName->Visible = true;
+				btnSetAuthor->Visible = true;
+				btnClearAuthor->Visible = true;
+				rbtnEditor->Visible = true;
+				rbtnEditor->Checked = true;
+			}
+
 
 			for each (String^ optionalField in type -> OptionalFields)
 			{
@@ -1596,19 +1757,46 @@ namespace V1 {
 		String^ firstName = txtFirstName->Text->Trim();
 		String^ lastName = txtLastName->Text->Trim();
 
-		if (firstName->Length > 0 && lastName->Length > 0) {
-			// Combine last name and first name
-			txtAuthor->Text += (txtAuthor->Text->Length > 0 ? " and " : "") + lastName + ", " + firstName;
-			txtFirstName->Clear();
-			txtLastName->Clear();
+		if (rbtnAuthor->Checked) {
+			if (firstName->Length > 0 && lastName->Length > 0) {
+				// Combine last name and first name
+				txtAuthor->Text += (txtAuthor->Text->Length > 0 ? " and " : "") + lastName + ", " + firstName;
+				txtFirstName->Clear();
+				txtLastName->Clear();
+			}
+			else {
+				MessageBox::Show("Please enter both first name and last name.", "Input Error",
+					MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			}
+		}
+		else if (rbtnEditor->Checked) {
+			if (firstName->Length > 0 && lastName->Length > 0) {
+				// Combine last name and first name
+				txtEditor->Text += (txtEditor->Text->Length > 0 ? " and " : "") + lastName + ", " + firstName;
+				txtFirstName->Clear();
+				txtLastName->Clear();
+			}
+			else {
+				MessageBox::Show("Please enter both first name and last name.", "Input Error",
+					MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			}
 		}
 		else {
-			MessageBox::Show("Please enter both first name and last name.", "Input Error",
-				MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			MessageBox::Show("Please select Author or Editor.", "Input Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		}
 	}
 	private: System::Void btnClearAuthor_Click(System::Object^  sender, System::EventArgs^  e) {
-		txtAuthor->Clear(); // Clears the author field
+		
+		if (rbtnAuthor->Checked) {
+			txtAuthor->Clear(); // Clears the author field
+		}
+		else if (rbtnEditor->Checked) {
+			txtEditor->Clear(); // Clears the editor field
+		}
+		else {
+			MessageBox::Show("Select Author or Editor!");
+		}
+		
 	}
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 
@@ -1616,43 +1804,53 @@ namespace V1 {
 		n = 0;
 		int size = entries->Count;
 
-		MessageBox::Show("Die Größe des Arrays beträgt: " + size.ToString());
+		// MessageBox::Show("Die Größe des Arrays beträgt: " + size.ToString());
 
-		FILE* Quelle;
-		Quelle = fopen("Quelle.bib", "w");
+		//meins
+		SaveFileDialog^ saveFileDialog = gcnew SaveFileDialog();
+		saveFileDialog->Filter = "Bib Dateien (*.bib)|*.bib";
+		saveFileDialog->Title = "Speicher die Bib-Datei";
+		if (saveFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
+			// Der ausgewählte Dateipfad
+			String^ filePath = saveFileDialog->FileName;
+			//meins
 
-		while (n < size)
-		{
+			FILE* Quelle;
+			//Quelle = fopen("Quelle.bib", "w");
+			Quelle = fopen((const char*)(void*)System::Runtime::InteropServices::Marshal::StringToHGlobalAnsi(filePath), "w");
 
-			fprintf(Quelle, "@%s{%s", entries[n]->type, entries[n]->keyword);
-			if (entries[n]->title != "") { fprintf(Quelle, ",\ntitle = {{%s}}", entries[n]->title); }
-			if (entries[n]->journal != "") { fprintf(Quelle, ",\njournal = {%s}", entries[n]->journal); }
-			if (entries[n]->year != "") { fprintf(Quelle, ",\nyear = {%s}", entries[n]->year); }
-			if (entries[n]->author != "") { fprintf(Quelle, ",\nauthor = {%s}", entries[n]->author); }
-			if (entries[n]->volume != "") { fprintf(Quelle, ",\nvolume = {%s}", entries[n]->volume); }
-			if (entries[n]->number != "") { fprintf(Quelle, ",\nnumber = {%s}", entries[n]->number); }
-			if (entries[n]->pages != "") { fprintf(Quelle, ",\npages = {%s}", entries[n]->pages); }
-			if (entries[n]->month != "") { fprintf(Quelle, ",\nmonth = {%s}", entries[n]->month); }
-			if (entries[n]->note != "") { fprintf(Quelle, ",\nnote = {%s}", entries[n]->note); }
-			if (entries[n]->publisher != "") { fprintf(Quelle, ",\npublisher = {%s}", entries[n]->publisher); }
-			if (entries[n]->series != "") { fprintf(Quelle, ",\nseries = {%s}", entries[n]->series); }
-			if (entries[n]->address != "") { fprintf(Quelle, ",\naddress = {%s}", entries[n]->address); }
-			if (entries[n]->edition != "") { fprintf(Quelle, ",\nedition = {%s}", entries[n]->edition); }
-			if (entries[n]->howpublished != "") { fprintf(Quelle, ",\nhowpublished = {%s}", entries[n]->howpublished); }
-			if (entries[n]->booktitle != "") { fprintf(Quelle, ",\nbooktitle = {%s}", entries[n]->booktitle); }
-			if (entries[n]->editor != "") { fprintf(Quelle, ",\neditor = {%s}", entries[n]->editor); }
-			if (entries[n]->chapter != "") { fprintf(Quelle, ",\nchapter = {%s}", entries[n]->chapter); }
-			if (entries[n]->school != "") { fprintf(Quelle, ",\nschool = {%s}", entries[n]->school); }
-			if (entries[n]->institution != "") { fprintf(Quelle, ",\ninstitution = {%s}", entries[n]->institution); }
-			if (entries[n]->organization != "") { fprintf(Quelle, ",\norganization = {%s}", entries[n]->organization); }
+			while (n < size)
+			{
 
-			fprintf(Quelle, "\n}\n\n");
+				fprintf(Quelle, "@%s{%s", entries[n]->type, entries[n]->keyword);
+				if (entries[n]->title != "") { fprintf(Quelle, ",\ntitle = {{%s}}", entries[n]->title); }
+				if (entries[n]->journal != "") { fprintf(Quelle, ",\njournal = {%s}", entries[n]->journal); }
+				if (entries[n]->year != "") { fprintf(Quelle, ",\nyear = {%s}", entries[n]->year); }
+				if (entries[n]->author != "") { fprintf(Quelle, ",\nauthor = {%s}", entries[n]->author); }
+				if (entries[n]->volume != "") { fprintf(Quelle, ",\nvolume = {%s}", entries[n]->volume); }
+				if (entries[n]->number != "") { fprintf(Quelle, ",\nnumber = {%s}", entries[n]->number); }
+				if (entries[n]->pages != "") { fprintf(Quelle, ",\npages = {%s}", entries[n]->pages); }
+				if (entries[n]->month != "") { fprintf(Quelle, ",\nmonth = {%s}", entries[n]->month); }
+				if (entries[n]->note != "") { fprintf(Quelle, ",\nnote = {%s}", entries[n]->note); }
+				if (entries[n]->publisher != "") { fprintf(Quelle, ",\npublisher = {%s}", entries[n]->publisher); }
+				if (entries[n]->series != "") { fprintf(Quelle, ",\nseries = {%s}", entries[n]->series); }
+				if (entries[n]->address != "") { fprintf(Quelle, ",\naddress = {%s}", entries[n]->address); }
+				if (entries[n]->edition != "") { fprintf(Quelle, ",\nedition = {%s}", entries[n]->edition); }
+				if (entries[n]->howpublished != "") { fprintf(Quelle, ",\nhowpublished = {%s}", entries[n]->howpublished); }
+				if (entries[n]->booktitle != "") { fprintf(Quelle, ",\nbooktitle = {%s}", entries[n]->booktitle); }
+				if (entries[n]->editor != "") { fprintf(Quelle, ",\neditor = {%s}", entries[n]->editor); }
+				if (entries[n]->chapter != "") { fprintf(Quelle, ",\nchapter = {%s}", entries[n]->chapter); }
+				if (entries[n]->school != "") { fprintf(Quelle, ",\nschool = {%s}", entries[n]->school); }
+				if (entries[n]->institution != "") { fprintf(Quelle, ",\ninstitution = {%s}", entries[n]->institution); }
+				if (entries[n]->organization != "") { fprintf(Quelle, ",\norganization = {%s}", entries[n]->organization); }
 
-			n++;
+				fprintf(Quelle, "\n}\n\n");
 
+				n++;
+
+			}
+			fclose(Quelle);
 		}
-		fclose(Quelle);
-
 	}
 };
 }
