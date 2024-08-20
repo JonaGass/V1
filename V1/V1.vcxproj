@@ -107,6 +107,7 @@
       <AdditionalDependencies />
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>main</EntryPointSymbol>
+      <EmbedManagedResourceFile>SplashAnimation.html;Startup.wav;%(EmbedManagedResourceFile)</EmbedManagedResourceFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -137,10 +138,14 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainForm.cpp" />
+    <ClCompile Include="SplashScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Data.h" />
     <ClInclude Include="MainForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="SplashScreen.h">
       <FileType>CppForm</FileType>
     </ClInclude>
   </ItemGroup>
@@ -148,6 +153,17 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SplashScreen.resx">
+      <DependentUpon>SplashScreen.h</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="SplashAnimation.html">
+      <FileType>HTML</FileType>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Startup.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

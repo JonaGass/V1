@@ -21,6 +21,9 @@
     <ClCompile Include="main.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="SplashScreen.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainForm.h">
@@ -29,10 +32,26 @@
     <ClInclude Include="Data.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="SplashScreen.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainForm.resx">
       <Filter>Ressourcendateien</Filter>
     </EmbeddedResource>
+    <EmbeddedResource Include="SplashScreen.resx">
+      <Filter>Ressourcendateien</Filter>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="SplashAnimation.html">
+      <Filter>Ressourcendateien</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Startup.wav">
+      <Filter>Ressourcendateien</Filter>
+    </Media>
   </ItemGroup>
 </Project>
