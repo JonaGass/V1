@@ -1,5 +1,6 @@
 #pragma once
 #include "Data.h"
+#include "SplashScreen.h"
 #include <fstream>
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,17 +15,29 @@ namespace V1 {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::Threading;
 
 	public ref class MainForm : public System::Windows::Forms::Form {
 	public:
 		MainForm(void) {
+
+			// Start the splash screen in a separate thread
+			Thread^ t = gcnew Thread(gcnew ThreadStart(this, &MainForm::StartForm));
+			t->SetApartmentState(ApartmentState::STA);
+			t->Start();
+			t->Join(); // Wait for the SplashScreen thread to finish
+
 			InitializeComponent();
+			this->StartPosition = FormStartPosition::CenterScreen;
 			InitializeDataTypes();
 			PopulateTypeDropdown();
 			entries = gcnew List<DataArray^>();
 			displayedEntryIndices = gcnew List<int>();
 			HideAllFields();
 			UpdateUIState(false);
+
+			// Ensure MainForm is shown and brought to the foreground
+			this->Shown += gcnew EventHandler(this, &MainForm::OnShown);
 		}
 
 	protected:
@@ -36,6 +49,16 @@ namespace V1 {
 
 
 	private:
+		void OnShown(System::Object^ sender, System::EventArgs^ e) {
+			this->BringToFront();
+			this->Activate();
+		}
+	public:
+		void StartForm() {
+			V1::SplashScreen^ form = gcnew V1::SplashScreen();
+			form->ShowDialog();
+		}
+
 	private:
 		List<int>^ displayedEntryIndices; // To store the indices of displayed entries after searching
 	private:
