@@ -4,5 +4,6 @@
 - Um resourcen einzubetten:
   - Projekteigenschaften -> Linker -> Verwaltete Ressourcedatei einbetten -> Bearbeiten:
 
-    "SplashAnimation.html
+    SplashAnimation.html
+
     Startup.wav"
