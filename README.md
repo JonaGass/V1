@@ -5,5 +5,4 @@
   - Projekteigenschaften -> Linker -> Verwaltete Ressourcedatei einbetten -> Bearbeiten:
 
     SplashAnimation.html
-
-    Startup.wav"
+    Startup.wav
