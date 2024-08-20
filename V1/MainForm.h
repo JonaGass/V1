@@ -1542,48 +1542,6 @@ namespace V1 {
 
 			}
 
-			if (Author && Editor) {
-				txtAuthor->Visible = true;
-				lblAuthor->Visible = true;
-				txtEditor->Visible = true;
-				lblEditor->Visible = true;
-				lblFirstName->Visible = true;
-				lblLastName->Visible = true;
-				txtFirstName->Visible = true;
-				txtLastName->Visible = true;
-				btnSetAuthor->Visible = true;
-				btnClearAuthor->Visible = true;
-				rbtnEditor->Visible = true;
-				rbtnAuthor->Visible = true;
-				rbtnAuthor->Checked = false;
-				rbtnEditor->Checked = false;
-			}
-			else if (Author) {
-				txtAuthor->Visible = true;
-				lblAuthor->Visible = true;
-				lblFirstName->Visible = true;
-				lblLastName->Visible = true;
-				txtFirstName->Visible = true;
-				txtLastName->Visible = true;
-				btnSetAuthor->Visible = true;
-				btnClearAuthor->Visible = true;
-				rbtnAuthor->Visible = true;
-				rbtnAuthor->Checked = true;
-			}
-			else if (Editor) {
-				txtEditor->Visible = true;
-				lblEditor->Visible = true;
-				lblFirstName->Visible = true;
-				lblLastName->Visible = true;
-				txtFirstName->Visible = true;
-				txtLastName->Visible = true;
-				btnSetAuthor->Visible = true;
-				btnClearAuthor->Visible = true;
-				rbtnEditor->Visible = true;
-				rbtnEditor->Checked = true;
-			}
-
-
 			for each (String^ optionalField in type -> OptionalFields)
 			{
 				if (optionalField == "keyword") {
@@ -1591,8 +1549,7 @@ namespace V1 {
 					lblKeyword->Visible = true;
 				}
 				if (optionalField == "author") {
-					txtAuthor->Visible = true;
-					lblAuthor->Visible = true;
+					Author = true;
 				}
 				if (optionalField == "title") {
 					txtTitle->Visible = true;
@@ -1651,8 +1608,7 @@ namespace V1 {
 					lblABooktitle->Visible = true;
 				}
 				if (optionalField == "editor") {
-					txtEditor->Visible = true;
-					lblEditor->Visible = true;
+					Editor = true;
 				}
 				if (optionalField == "chapter") {
 					txtChapter->Visible = true;
@@ -1670,6 +1626,48 @@ namespace V1 {
 					txtOrganization->Visible = true;
 					lblOrganization->Visible = true;
 				}
+
+			}
+
+			if (Author && Editor) {
+				txtAuthor->Visible = true;
+				lblAuthor->Visible = true;
+				txtEditor->Visible = true;
+				lblEditor->Visible = true;
+				lblFirstName->Visible = true;
+				lblLastName->Visible = true;
+				txtFirstName->Visible = true;
+				txtLastName->Visible = true;
+				btnSetAuthor->Visible = true;
+				btnClearAuthor->Visible = true;
+				rbtnEditor->Visible = true;
+				rbtnAuthor->Visible = true;
+				rbtnAuthor->Checked = false;
+				rbtnEditor->Checked = false;
+			}
+			else if (Author) {
+				txtAuthor->Visible = true;
+				lblAuthor->Visible = true;
+				lblFirstName->Visible = true;
+				lblLastName->Visible = true;
+				txtFirstName->Visible = true;
+				txtLastName->Visible = true;
+				btnSetAuthor->Visible = true;
+				btnClearAuthor->Visible = true;
+				rbtnAuthor->Visible = true;
+				rbtnAuthor->Checked = true;
+			}
+			else if (Editor) {
+				txtEditor->Visible = true;
+				lblEditor->Visible = true;
+				lblFirstName->Visible = true;
+				lblLastName->Visible = true;
+				txtFirstName->Visible = true;
+				txtLastName->Visible = true;
+				btnSetAuthor->Visible = true;
+				btnClearAuthor->Visible = true;
+				rbtnEditor->Visible = true;
+				rbtnEditor->Checked = true;
 			}
 
 			int mandatoryY = 50;
