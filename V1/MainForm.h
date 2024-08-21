@@ -121,6 +121,8 @@ namespace V1 {
 		System::Windows::Forms::Label^ lblInstitution;
 		System::Windows::Forms::Label^ lblOrganization;
 
+		
+
 		List<DataArray^>^ entries;
 		DataArray^ currentEntry;
 		array<DataTypeFields^>^ dataTypes;
@@ -129,7 +131,10 @@ namespace V1 {
 	private: System::Windows::Forms::RadioButton^  rbtnAuthor;
 	private: System::Windows::Forms::RadioButton^  rbtnEditor;
 			 bool isEditMode;
-
+			
+		//mein
+		private: System::Windows::Forms::ListView^ listViewAuthors;
+		//mein
 
 		void InitializeDataTypes() {
 			dataTypes = GetDataTypes();
@@ -171,6 +176,14 @@ namespace V1 {
 			txtInstitution->Text = entry->institution;
 			txtOrganization->Text = entry->organization;
 			SetFieldsReadOnly(true);
+			//mein
+			listViewAuthors->Items->Clear();
+			array<String^>^ authors = entry->author->Split(gcnew array<String^>{ " and " }, StringSplitOptions::None);
+			for each (String^ author in authors)
+			{
+				listViewAuthors->Items->Add(author->Trim());
+			}
+			//mein	
 		}
 
 		// Function to clear entry details from the panel
@@ -756,6 +769,23 @@ namespace V1 {
 			this->txtSearch = (gcnew System::Windows::Forms::TextBox());
 			this->panelDetails->SuspendLayout();
 			this->SuspendLayout();
+
+			//mein
+			this->listViewAuthors = gcnew System::Windows::Forms::ListView();
+			this->listViewAuthors->Location = System::Drawing::Point(100, 200); // Setze die passende Position
+			this->listViewAuthors->Size = System::Drawing::Size(200, 100); // Setze die passende Größe
+			this->listViewAuthors->View = View::List;
+			this->listViewAuthors->FullRowSelect = true;
+			this->listViewAuthors->HideSelection = false;
+			this->Controls->Add(this->listViewAuthors);
+
+
+			this->listViewAuthors->SelectedIndexChanged += gcnew System::EventHandler(this, &MainForm::listViewAuthors_SelectedIndexChanged);
+			//this->txtFirstName->TextChanged += gcnew System::EventHandler(this, &MainForm::txtFirstName_TextChanged);
+			//this->txtLastName->TextChanged += gcnew System::EventHandler(this, &MainForm::txtLastName_TextChanged);
+
+			//mein
+
 			// 
 			// txtFirstName
 			// 
@@ -765,7 +795,6 @@ namespace V1 {
 			this->txtFirstName->Name = L"txtFirstName";
 			this->txtFirstName->Size = System::Drawing::Size(100, 22);
 			this->txtFirstName->TabIndex = 0;
-			this->txtFirstName->TextChanged += gcnew System::EventHandler(this, &MainForm::txtFirstName_TextChanged);
 			// 
 			// txtLastName
 			// 
@@ -941,7 +970,6 @@ namespace V1 {
 			this->rbtnEditor->TabStop = true;
 			this->rbtnEditor->Text = L"Editor";
 			this->rbtnEditor->UseVisualStyleBackColor = true;
-			this->rbtnEditor->CheckedChanged += gcnew System::EventHandler(this, &MainForm::rbtnEditor_CheckedChanged);
 			// 
 			// cmbType
 			// 
@@ -965,7 +993,6 @@ namespace V1 {
 			this->rbtnAuthor->TabStop = true;
 			this->rbtnAuthor->Text = L"Author";
 			this->rbtnAuthor->UseVisualStyleBackColor = true;
-			this->rbtnAuthor->CheckedChanged += gcnew System::EventHandler(this, &MainForm::rbtnAuthor_CheckedChanged);
 			// 
 			// txtKeyword
 			// 
@@ -1325,7 +1352,6 @@ namespace V1 {
 			this->lblLastName->Size = System::Drawing::Size(100, 23);
 			this->lblLastName->TabIndex = 3;
 			this->lblLastName->Text = L"Last Name:";
-			this->lblLastName->Click += gcnew System::EventHandler(this, &MainForm::lblLastName_Click);
 			// 
 			// lblFirstName
 			// 
@@ -1336,7 +1362,6 @@ namespace V1 {
 			this->lblFirstName->Size = System::Drawing::Size(100, 23);
 			this->lblFirstName->TabIndex = 2;
 			this->lblFirstName->Text = L"First Name:";
-			this->lblFirstName->Click += gcnew System::EventHandler(this, &MainForm::lblFirstName_Click);
 			// 
 			// btnSave
 			// 
@@ -1460,29 +1485,38 @@ namespace V1 {
 		}
 
 
-		void LoadEntries(String^ filename) {
+		bool LoadEntries(String^ filename) {
 			using namespace System::IO;
 			using namespace System::Runtime::Serialization::Formatters::Binary;
-			if (File::Exists(filename)) {
-				FileStream^ fs = gcnew FileStream(filename, FileMode::Open, FileAccess::Read);
-				BinaryFormatter^ formatter = gcnew BinaryFormatter();
+			FileStream^ fs = nullptr;
+			bool success = false;
 
-				try {
+			try {
+				if (File::Exists(filename)) {
+					fs = gcnew FileStream(filename, FileMode::Open, FileAccess::Read);
+					BinaryFormatter^ formatter = gcnew BinaryFormatter();
 					// Deserialize the file stream into the entries list
 					entries = (List<DataArray^>^)formatter->Deserialize(fs);
+					success = true; // Wenn das Einlesen erfolgreich ist
 				}
-				catch (Exception^ ex) {
-					MessageBox::Show("Error loading entries: " + ex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				else {
+					MessageBox::Show("No entries file found. Starting with an empty list.", "Information", MessageBoxButtons::OK, MessageBoxIcon::Information);
+					entries = gcnew List<DataArray^>(); // Initialisiere eine leere Liste, wenn die Datei nicht existiert
 				}
-				finally{
+			}
+			catch (Exception^ ex) {
+				MessageBox::Show("Error loading entries: " + ex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				success = false; // Bei einer Ausnahme war das Einlesen nicht erfolgreich
+			}
+			finally{
+				if (fs != nullptr) {
 					fs->Close();
 				}
 			}
-			else {
-				MessageBox::Show("No entries file found. Starting with an empty list.", "Information", MessageBoxButtons::OK, MessageBoxIcon::Information);
-				entries = gcnew List<DataArray^>(); // Initialize if file does not exist
-			}
+
+			return success; // Gibt den Erfolg oder Misserfolg zurück
 		}
+
 
 		// Event handler for ListView selection change
 		void listViewEntries_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
@@ -1598,7 +1632,7 @@ namespace V1 {
 			lblSchool->Visible = false;
 			lblInstitution->Visible = false;
 			lblOrganization->Visible = false;
-			//TEST Author Namensblock ausblenden
+			// Author Namensblock ausblenden
 			lblFirstName->Visible = false;
 			lblLastName->Visible = false;
 			txtFirstName->Visible = false;
@@ -1607,7 +1641,7 @@ namespace V1 {
 			btnClearAuthor->Visible = false;
 			rbtnAuthor->Visible = false;
 			rbtnEditor->Visible = false;
-			//TEST
+			// Author Namensblock ausblenden
 		}
 
 
@@ -1906,7 +1940,15 @@ namespace V1 {
 
 	private: System::Void MainForm_Load(System::Object^  sender, System::EventArgs^  e) {
 
-		LoadEntries("entries.bin"); // Load entries from a specified file
+		bool success = LoadEntries("entries.bin");
+		/*bool success = LoadEntries("nonexistent_file.bin");*/ //Test Fehler
+		if (success) {
+			RefreshListView(); // Aktualisiere die Anzeige der Einträge, wenn das Laden erfolgreich war
+			MessageBox::Show("Entries loaded successfully from HDD.", "Information", MessageBoxButtons::OK, MessageBoxIcon::Information);
+		}
+		else {
+			MessageBox::Show("Failed to load entries from HDD.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
 		RefreshListView(); // Refresh the ListView to show loaded entries
 	}
 
@@ -1923,36 +1965,48 @@ namespace V1 {
 		String^ firstName = txtFirstName->Text->Trim();
 		String^ lastName = txtLastName->Text->Trim();
 
+		if (firstName->Length == 0 || lastName->Length == 0) {
+			MessageBox::Show("Please enter both first name and last name.", "Input Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+
+		String^ fullName = lastName + ", " + firstName;
+		/*listViewAuthors->Items->Clear();*/
 		if (rbtnAuthor->Checked) {
-			if (firstName->Length > 0 && lastName->Length > 0) {
-				// Combine last name and first name
-				txtAuthor->Text += (txtAuthor->Text->Length > 0 ? " and " : "") + lastName + ", " + firstName;
-				txtFirstName->Clear();
-				txtLastName->Clear();
+			if (listViewAuthors->SelectedItems->Count > 0) { //always falls into this if loop
+				int selectedIndex = listViewAuthors->SelectedIndices[0];
+				listViewAuthors->Items[selectedIndex]->Text = fullName;
+
+				UpdateAuthorString(selectedIndex, fullName, txtAuthor);
+				listViewAuthors->SelectedIndices->Clear();// reset the index here
 			}
 			else {
-				MessageBox::Show("Please enter both first name and last name.", "Input Error",
-					MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				listViewAuthors->Items->Add(fullName);// Neuen Eintrag hinzufügen
+				txtAuthor->Text += (txtAuthor->Text->Length > 0 ? " and " : "") + fullName;
 			}
 		}
-		else if (rbtnEditor->Checked) {
-			if (firstName->Length > 0 && lastName->Length > 0) {
-				// Combine last name and first name
-				txtEditor->Text += (txtEditor->Text->Length > 0 ? " and " : "") + lastName + ", " + firstName;
-				txtFirstName->Clear();
-				txtLastName->Clear();
-			}
-			else {
-				MessageBox::Show("Please enter both first name and last name.", "Input Error",
-					MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			}
-		}
+		//else if (rbtnEditor->Checked) {
+		//	if (listViewAuthors->SelectedItems->Count > 0) {
+		//		int selectedIndex = listViewAuthors->SelectedIndices[0];
+		//		listViewAuthors->Items[selectedIndex]->Text = fullName;
+
+		//		UpdateAuthorString(selectedIndex, fullName, txtEditor);
+		//	}
+		//	else {
+		//		listViewAuthors->Items->Add(fullName);// Neuen Eintrag hinzufügen
+		//		txtEditor->Text += (txtEditor->Text->Length > 0 ? " and " : "") + fullName;
+		//	}
+		//}
+
 		else {
 			MessageBox::Show("Please select Author or Editor.", "Input Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		}
+
+		txtFirstName->Clear();
+		txtLastName->Clear();
 	}
 	private: System::Void btnClearAuthor_Click(System::Object^  sender, System::EventArgs^  e) {
-		
+		listViewAuthors->Items->Clear();
 		if (rbtnAuthor->Checked) {
 			txtAuthor->Clear(); // Clears the author field
 		}
@@ -2018,15 +2072,70 @@ namespace V1 {
 			fclose(Quelle);
 		}
 	}
-private: System::Void txtFirstName_TextChanged(System::Object^  sender, System::EventArgs^  e) {
-}
-private: System::Void lblLastName_Click(System::Object^  sender, System::EventArgs^  e) {
-}
-private: System::Void lblFirstName_Click(System::Object^  sender, System::EventArgs^  e) {
-}
-private: System::Void rbtnEditor_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
-}
-private: System::Void rbtnAuthor_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
-}
+
+			 //mein
+			 void listViewAuthors_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e)
+			 {
+				 if (listViewAuthors->SelectedItems->Count > 0 && rbtnAuthor->Checked)
+				 {
+					 String^ selectedAuthor = listViewAuthors->SelectedItems[0]->Text;
+					 // Autor in das Textfeld für Vorname und Nachname aufteilen
+					 array<String^>^ nameParts = selectedAuthor->Split(',');
+					 txtLastName->Text = nameParts[0]; // Nachname
+					 txtFirstName->Text = nameParts->Length > 1 ? nameParts[1] : ""; // Vorname
+				 }
+				 //if (listViewAuthors->SelectedItems->Count > 0 && rbtnEditor->Checked)
+				 //{
+					// String^ selectedAuthor = listViewAuthors->SelectedItems[0]->Text;
+
+					// array<String^>^ nameParts = selectedAuthor->Split(',');
+					// txtLastName->Text = nameParts[0]; // Nachname
+					// txtFirstName->Text = nameParts->Length > 1 ? nameParts[1] : ""; // Vorname
+				 //}
+			 }
+			 void UpdateAuthorString(int index, String^ updatedEntry, TextBox^ storageTextBox) {
+				 // Den Speicherstring ("txtAuthor") in Einträge aufteilen
+				 array<String^>^ authorEntries = storageTextBox->Text->Split(gcnew array<String^> { " and " }, StringSplitOptions::None);
+
+				 // Den spezifischen Eintrag aktualisieren
+				 if (index >= 0 && index < authorEntries->Length) {
+					 authorEntries[index] = updatedEntry;
+				 }
+
+				 // Den Speicherstring neu zusammensetzen
+				 storageTextBox->Text = String::Join(" and ", authorEntries);
+			 }
+			 /*void txtFirstName_TextChanged(System::Object^ sender, System::EventArgs^ e)
+			 {
+				 UpdateSelectedAuthor();
+			 }
+
+			 void txtLastName_TextChanged(System::Object^ sender, System::EventArgs^ e)
+			 {
+				 UpdateSelectedAuthor();
+			 }
+
+			 void UpdateSelectedAuthor()
+			 {
+				 if (listViewAuthors->SelectedItems->Count > 0)
+				 {
+					 // Aktualisiere den Autor in der ListView
+					 listViewAuthors->SelectedItems[0]->Text = txtFirstName->Text + " " + txtLastName->Text;
+					 UpdateAuthorField();
+				 }
+			 }
+
+			 void UpdateAuthorField()
+			 {
+				 // Autoren aus der ListView wieder in das ursprüngliche Format bringen
+				 array<String^>^ authors = gcnew array<String^>(listViewAuthors->Items->Count);
+				 for (int i = 0; i < listViewAuthors->Items->Count; i++)
+				 {
+					 authors[i] = listViewAuthors->Items[i]->Text;
+				 }
+				 txtAuthor->Text = String::Join(" and ", authors);
+			 }*/
+
+			 //mein
 };
 }
