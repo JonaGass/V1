@@ -764,7 +764,7 @@ namespace V1 {
 			this->txtFirstName->Location = System::Drawing::Point(159, 516);
 			this->txtFirstName->Name = L"txtFirstName";
 			this->txtFirstName->Size = System::Drawing::Size(100, 22);
-			this->txtFirstName->TabIndex = 0;
+			//this->txtFirstName->TabIndex = 0;
 			this->txtFirstName->TextChanged += gcnew System::EventHandler(this, &MainForm::txtFirstName_TextChanged);
 			// 
 			// txtLastName
@@ -774,7 +774,7 @@ namespace V1 {
 			this->txtLastName->Location = System::Drawing::Point(269, 516);
 			this->txtLastName->Name = L"txtLastName";
 			this->txtLastName->Size = System::Drawing::Size(100, 22);
-			this->txtLastName->TabIndex = 0;
+			//this->txtLastName->TabIndex = 0;
 			// 
 			// btnSetAuthor
 			// 
@@ -785,7 +785,7 @@ namespace V1 {
 			this->btnSetAuthor->Location = System::Drawing::Point(379, 516);
 			this->btnSetAuthor->Name = L"btnSetAuthor";
 			this->btnSetAuthor->Size = System::Drawing::Size(75, 23);
-			this->btnSetAuthor->TabIndex = 1;
+			this->btnSetAuthor->TabIndex = 32;
 			this->btnSetAuthor->Text = L"Set";
 			this->btnSetAuthor->Click += gcnew System::EventHandler(this, &MainForm::btnSetAuthor_Click);
 			// 
@@ -815,7 +815,7 @@ namespace V1 {
 			this->button1->Location = System::Drawing::Point(79, 651);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(160, 30);
-			this->button1->TabIndex = 8;
+			this->button1->TabIndex = 57;
 			this->button1->Text = L"Export to bib";
 			this->button1->UseVisualStyleBackColor = false;
 			this->button1->Click += gcnew System::EventHandler(this, &MainForm::button1_Click);
@@ -831,7 +831,7 @@ namespace V1 {
 			this->btnNew->Location = System::Drawing::Point(496, 12);
 			this->btnNew->Name = L"btnNew";
 			this->btnNew->Size = System::Drawing::Size(75, 28);
-			this->btnNew->TabIndex = 1;
+			this->btnNew->TabIndex = 2;
 			this->btnNew->Text = L"New";
 			this->btnNew->UseVisualStyleBackColor = false;
 			this->btnNew->Click += gcnew System::EventHandler(this, &MainForm::btnNew_Click);
@@ -847,7 +847,7 @@ namespace V1 {
 			this->btnEdit->Location = System::Drawing::Point(576, 12);
 			this->btnEdit->Name = L"btnEdit";
 			this->btnEdit->Size = System::Drawing::Size(75, 28);
-			this->btnEdit->TabIndex = 2;
+			this->btnEdit->TabIndex = 3;
 			this->btnEdit->Text = L"Edit";
 			this->btnEdit->UseVisualStyleBackColor = false;
 			this->btnEdit->Click += gcnew System::EventHandler(this, &MainForm::btnEdit_Click);
@@ -863,7 +863,7 @@ namespace V1 {
 			this->btnDelete->Location = System::Drawing::Point(656, 12);
 			this->btnDelete->Name = L"btnDelete";
 			this->btnDelete->Size = System::Drawing::Size(75, 28);
-			this->btnDelete->TabIndex = 3;
+			this->btnDelete->TabIndex = 4;
 			this->btnDelete->Text = L"Delete";
 			this->btnDelete->UseVisualStyleBackColor = false;
 			this->btnDelete->Click += gcnew System::EventHandler(this, &MainForm::btnDelete_Click);
@@ -926,7 +926,7 @@ namespace V1 {
 			this->panelDetails->Location = System::Drawing::Point(320, 53);
 			this->panelDetails->Name = L"panelDetails";
 			this->panelDetails->Size = System::Drawing::Size(650, 545);
-			this->panelDetails->TabIndex = 6;
+			//this->panelDetails->TabIndex = 6;
 			// 
 			// rbtnEditor
 			// 
@@ -937,7 +937,7 @@ namespace V1 {
 			this->rbtnEditor->Location = System::Drawing::Point(85, 524);
 			this->rbtnEditor->Name = L"rbtnEditor";
 			this->rbtnEditor->Size = System::Drawing::Size(59, 18);
-			this->rbtnEditor->TabIndex = 10;
+			//this->rbtnEditor->TabIndex = 10;
 			this->rbtnEditor->TabStop = true;
 			this->rbtnEditor->Text = L"Editor";
 			this->rbtnEditor->UseVisualStyleBackColor = true;
@@ -949,7 +949,7 @@ namespace V1 {
 			this->cmbType->Location = System::Drawing::Point(200, 30);
 			this->cmbType->Name = L"cmbType";
 			this->cmbType->Size = System::Drawing::Size(200, 26);
-			this->cmbType->TabIndex = 0;
+			//this->cmbType->TabIndex = 5;
 			this->cmbType->SelectedIndexChanged += gcnew System::EventHandler(this, &MainForm::cmbType_SelectedIndexChanged);
 			// 
 			// rbtnAuthor
@@ -961,7 +961,7 @@ namespace V1 {
 			this->rbtnAuthor->Location = System::Drawing::Point(85, 501);
 			this->rbtnAuthor->Name = L"rbtnAuthor";
 			this->rbtnAuthor->Size = System::Drawing::Size(64, 18);
-			this->rbtnAuthor->TabIndex = 9;
+			//this->rbtnAuthor->TabIndex = 9;
 			this->rbtnAuthor->TabStop = true;
 			this->rbtnAuthor->Text = L"Author";
 			this->rbtnAuthor->UseVisualStyleBackColor = true;
@@ -972,14 +972,14 @@ namespace V1 {
 			this->txtKeyword->Location = System::Drawing::Point(0, 0);
 			this->txtKeyword->Name = L"txtKeyword";
 			this->txtKeyword->Size = System::Drawing::Size(200, 25);
-			this->txtKeyword->TabIndex = 1;
+			//this->txtKeyword->TabIndex = 1;
 			// 
 			// txtAuthor
 			// 
 			this->txtAuthor->Location = System::Drawing::Point(0, 0);
 			this->txtAuthor->Name = L"txtAuthor";
 			this->txtAuthor->Size = System::Drawing::Size(200, 25);
-			this->txtAuthor->TabIndex = 0;
+			//this->txtAuthor->TabIndex = 0;
 			// 
 			// btnClearAuthor
 			// 
@@ -990,7 +990,7 @@ namespace V1 {
 			this->btnClearAuthor->Location = System::Drawing::Point(460, 516);
 			this->btnClearAuthor->Name = L"btnClearAuthor";
 			this->btnClearAuthor->Size = System::Drawing::Size(75, 23);
-			this->btnClearAuthor->TabIndex = 8;
+			this->btnClearAuthor->TabIndex = 33;
 			this->btnClearAuthor->Text = L"Clear";
 			this->btnClearAuthor->Click += gcnew System::EventHandler(this, &MainForm::btnClearAuthor_Click);
 			// 
@@ -999,133 +999,133 @@ namespace V1 {
 			this->txtTitle->Location = System::Drawing::Point(0, 0);
 			this->txtTitle->Name = L"txtTitle";
 			this->txtTitle->Size = System::Drawing::Size(200, 25);
-			this->txtTitle->TabIndex = 0;
+			//this->txtTitle->TabIndex = 0;
 			// 
 			// txtYear
 			// 
 			this->txtYear->Location = System::Drawing::Point(0, 0);
 			this->txtYear->Name = L"txtYear";
 			this->txtYear->Size = System::Drawing::Size(200, 25);
-			this->txtYear->TabIndex = 0;
+			//this->txtYear->TabIndex = 0;
 			// 
 			// txtJournal
 			// 
 			this->txtJournal->Location = System::Drawing::Point(0, 0);
 			this->txtJournal->Name = L"txtJournal";
 			this->txtJournal->Size = System::Drawing::Size(200, 25);
-			this->txtJournal->TabIndex = 0;
+			//this->txtJournal->TabIndex = 0;
 			// 
 			// txtVolume
 			// 
 			this->txtVolume->Location = System::Drawing::Point(0, 0);
 			this->txtVolume->Name = L"txtVolume";
 			this->txtVolume->Size = System::Drawing::Size(200, 25);
-			this->txtVolume->TabIndex = 0;
+			//this->txtVolume->TabIndex = 0;
 			// 
 			// txtNumber
 			// 
 			this->txtNumber->Location = System::Drawing::Point(0, 0);
 			this->txtNumber->Name = L"txtNumber";
 			this->txtNumber->Size = System::Drawing::Size(200, 25);
-			this->txtNumber->TabIndex = 0;
+			//this->txtNumber->TabIndex = 0;
 			// 
 			// txtPages
 			// 
 			this->txtPages->Location = System::Drawing::Point(0, 0);
 			this->txtPages->Name = L"txtPages";
 			this->txtPages->Size = System::Drawing::Size(200, 25);
-			this->txtPages->TabIndex = 0;
+			//this->txtPages->TabIndex = 0;
 			// 
 			// txtMonth
 			// 
 			this->txtMonth->Location = System::Drawing::Point(0, 0);
 			this->txtMonth->Name = L"txtMonth";
 			this->txtMonth->Size = System::Drawing::Size(200, 25);
-			this->txtMonth->TabIndex = 0;
+			//this->txtMonth->TabIndex = 0;
 			// 
 			// txtNote
 			// 
 			this->txtNote->Location = System::Drawing::Point(0, 0);
 			this->txtNote->Name = L"txtNote";
 			this->txtNote->Size = System::Drawing::Size(200, 25);
-			this->txtNote->TabIndex = 0;
+			//this->txtNote->TabIndex = 0;
 			// 
 			// txtPublisher
 			// 
 			this->txtPublisher->Location = System::Drawing::Point(0, 0);
 			this->txtPublisher->Name = L"txtPublisher";
 			this->txtPublisher->Size = System::Drawing::Size(200, 25);
-			this->txtPublisher->TabIndex = 0;
+			//this->txtPublisher->TabIndex = 0;
 			// 
 			// txtSeries
 			// 
 			this->txtSeries->Location = System::Drawing::Point(0, 0);
 			this->txtSeries->Name = L"txtSeries";
 			this->txtSeries->Size = System::Drawing::Size(200, 25);
-			this->txtSeries->TabIndex = 0;
+			//this->txtSeries->TabIndex = 0;
 			// 
 			// txtAddress
 			// 
 			this->txtAddress->Location = System::Drawing::Point(0, 0);
 			this->txtAddress->Name = L"txtAddress";
 			this->txtAddress->Size = System::Drawing::Size(200, 25);
-			this->txtAddress->TabIndex = 0;
+			//this->txtAddress->TabIndex = 0;
 			// 
 			// txtEdition
 			// 
 			this->txtEdition->Location = System::Drawing::Point(0, 0);
 			this->txtEdition->Name = L"txtEdition";
 			this->txtEdition->Size = System::Drawing::Size(200, 25);
-			this->txtEdition->TabIndex = 0;
+			//this->txtEdition->TabIndex = 0;
 			// 
 			// txtHowpublished
 			// 
 			this->txtHowpublished->Location = System::Drawing::Point(0, 0);
 			this->txtHowpublished->Name = L"txtHowpublished";
 			this->txtHowpublished->Size = System::Drawing::Size(200, 25);
-			this->txtHowpublished->TabIndex = 0;
+			//this->txtHowpublished->TabIndex = 0;
 			// 
 			// txtBooktitle
 			// 
 			this->txtBooktitle->Location = System::Drawing::Point(0, 0);
 			this->txtBooktitle->Name = L"txtBooktitle";
 			this->txtBooktitle->Size = System::Drawing::Size(200, 25);
-			this->txtBooktitle->TabIndex = 0;
+			//this->txtBooktitle->TabIndex = 0;
 			// 
 			// txtEditor
 			// 
 			this->txtEditor->Location = System::Drawing::Point(0, 0);
 			this->txtEditor->Name = L"txtEditor";
 			this->txtEditor->Size = System::Drawing::Size(200, 25);
-			this->txtEditor->TabIndex = 0;
+			//this->txtEditor->TabIndex = 0;
 			// 
 			// txtChapter
 			// 
 			this->txtChapter->Location = System::Drawing::Point(0, 0);
 			this->txtChapter->Name = L"txtChapter";
 			this->txtChapter->Size = System::Drawing::Size(200, 25);
-			this->txtChapter->TabIndex = 0;
+			//this->txtChapter->TabIndex = 0;
 			// 
 			// txtSchool
 			// 
 			this->txtSchool->Location = System::Drawing::Point(0, 0);
 			this->txtSchool->Name = L"txtSchool";
 			this->txtSchool->Size = System::Drawing::Size(200, 25);
-			this->txtSchool->TabIndex = 0;
+			//this->txtSchool->TabIndex = 0;
 			// 
 			// txtInstitution
 			// 
 			this->txtInstitution->Location = System::Drawing::Point(0, 0);
 			this->txtInstitution->Name = L"txtInstitution";
 			this->txtInstitution->Size = System::Drawing::Size(200, 25);
-			this->txtInstitution->TabIndex = 0;
+			//this->txtInstitution->TabIndex = 0;
 			// 
 			// txtOrganization
 			// 
 			this->txtOrganization->Location = System::Drawing::Point(0, 0);
 			this->txtOrganization->Name = L"txtOrganization";
 			this->txtOrganization->Size = System::Drawing::Size(200, 25);
-			this->txtOrganization->TabIndex = 0;
+			//this->txtOrganization->TabIndex = 0;
 			// 
 			// lblKeyword
 			// 
@@ -1133,7 +1133,7 @@ namespace V1 {
 			this->lblKeyword->Location = System::Drawing::Point(10, 10);
 			this->lblKeyword->Name = L"lblKeyword";
 			this->lblKeyword->Size = System::Drawing::Size(74, 18);
-			this->lblKeyword->TabIndex = 1;
+			//this->lblKeyword->TabIndex = 1;
 			this->lblKeyword->Text = L"Keyword:";
 			// 
 			// lblAuthor
@@ -1142,7 +1142,7 @@ namespace V1 {
 			this->lblAuthor->Location = System::Drawing::Point(10, 40);
 			this->lblAuthor->Name = L"lblAuthor";
 			this->lblAuthor->Size = System::Drawing::Size(62, 18);
-			this->lblAuthor->TabIndex = 2;
+			//this->lblAuthor->TabIndex = 2;
 			this->lblAuthor->Text = L"Author:";
 			// 
 			// lblTitle
@@ -1151,7 +1151,7 @@ namespace V1 {
 			this->lblTitle->Location = System::Drawing::Point(10, 70);
 			this->lblTitle->Name = L"lblTitle";
 			this->lblTitle->Size = System::Drawing::Size(44, 18);
-			this->lblTitle->TabIndex = 3;
+			//this->lblTitle->TabIndex = 3;
 			this->lblTitle->Text = L"Title:";
 			// 
 			// lblYear
@@ -1160,7 +1160,7 @@ namespace V1 {
 			this->lblYear->Location = System::Drawing::Point(10, 100);
 			this->lblYear->Name = L"lblYear";
 			this->lblYear->Size = System::Drawing::Size(45, 18);
-			this->lblYear->TabIndex = 4;
+			//this->lblYear->TabIndex = 4;
 			this->lblYear->Text = L"Year:";
 			// 
 			// lblJournal
@@ -1169,7 +1169,7 @@ namespace V1 {
 			this->lblJournal->Location = System::Drawing::Point(10, 130);
 			this->lblJournal->Name = L"lblJournal";
 			this->lblJournal->Size = System::Drawing::Size(66, 18);
-			this->lblJournal->TabIndex = 5;
+			//this->lblJournal->TabIndex = 5;
 			this->lblJournal->Text = L"Journal:";
 			// 
 			// lblVolume
@@ -1178,7 +1178,7 @@ namespace V1 {
 			this->lblVolume->Location = System::Drawing::Point(10, 160);
 			this->lblVolume->Name = L"lblVolume";
 			this->lblVolume->Size = System::Drawing::Size(68, 18);
-			this->lblVolume->TabIndex = 6;
+			//this->lblVolume->TabIndex = 6;
 			this->lblVolume->Text = L"Volume:";
 			// 
 			// lblNumber
@@ -1187,7 +1187,7 @@ namespace V1 {
 			this->lblNumber->Location = System::Drawing::Point(10, 190);
 			this->lblNumber->Name = L"lblNumber";
 			this->lblNumber->Size = System::Drawing::Size(70, 18);
-			this->lblNumber->TabIndex = 7;
+			//this->lblNumber->TabIndex = 7;
 			this->lblNumber->Text = L"Number:";
 			// 
 			// lblPages
@@ -1196,7 +1196,7 @@ namespace V1 {
 			this->lblPages->Location = System::Drawing::Point(10, 220);
 			this->lblPages->Name = L"lblPages";
 			this->lblPages->Size = System::Drawing::Size(55, 18);
-			this->lblPages->TabIndex = 8;
+			//this->lblPages->TabIndex = 8;
 			this->lblPages->Text = L"Pages:";
 			// 
 			// lblMonth
@@ -1205,7 +1205,7 @@ namespace V1 {
 			this->lblMonth->Location = System::Drawing::Point(10, 250);
 			this->lblMonth->Name = L"lblMonth";
 			this->lblMonth->Size = System::Drawing::Size(59, 18);
-			this->lblMonth->TabIndex = 9;
+			//this->lblMonth->TabIndex = 9;
 			this->lblMonth->Text = L"Month:";
 			// 
 			// lblNote
@@ -1214,7 +1214,7 @@ namespace V1 {
 			this->lblNote->Location = System::Drawing::Point(10, 280);
 			this->lblNote->Name = L"lblNote";
 			this->lblNote->Size = System::Drawing::Size(47, 18);
-			this->lblNote->TabIndex = 10;
+			//this->lblNote->TabIndex = 10;
 			this->lblNote->Text = L"Note:";
 			// 
 			// lblPublisher
@@ -1223,7 +1223,7 @@ namespace V1 {
 			this->lblPublisher->Location = System::Drawing::Point(10, 310);
 			this->lblPublisher->Name = L"lblPublisher";
 			this->lblPublisher->Size = System::Drawing::Size(79, 18);
-			this->lblPublisher->TabIndex = 11;
+			//this->lblPublisher->TabIndex = 11;
 			this->lblPublisher->Text = L"Publisher:";
 			// 
 			// lblSeries
@@ -1232,7 +1232,7 @@ namespace V1 {
 			this->lblSeries->Location = System::Drawing::Point(10, 340);
 			this->lblSeries->Name = L"lblSeries";
 			this->lblSeries->Size = System::Drawing::Size(55, 18);
-			this->lblSeries->TabIndex = 12;
+			//this->lblSeries->TabIndex = 12;
 			this->lblSeries->Text = L"Series:";
 			// 
 			// lblAddress
@@ -1241,7 +1241,7 @@ namespace V1 {
 			this->lblAddress->Location = System::Drawing::Point(10, 370);
 			this->lblAddress->Name = L"lblAddress";
 			this->lblAddress->Size = System::Drawing::Size(69, 18);
-			this->lblAddress->TabIndex = 13;
+			//this->lblAddress->TabIndex = 13;
 			this->lblAddress->Text = L"Address:";
 			// 
 			// lblEdition
@@ -1250,7 +1250,7 @@ namespace V1 {
 			this->lblEdition->Location = System::Drawing::Point(10, 400);
 			this->lblEdition->Name = L"lblEdition";
 			this->lblEdition->Size = System::Drawing::Size(62, 18);
-			this->lblEdition->TabIndex = 14;
+			//this->lblEdition->TabIndex = 14;
 			this->lblEdition->Text = L"Edition:";
 			// 
 			// lblHowpublished
@@ -1259,7 +1259,7 @@ namespace V1 {
 			this->lblHowpublished->Location = System::Drawing::Point(10, 430);
 			this->lblHowpublished->Name = L"lblHowpublished";
 			this->lblHowpublished->Size = System::Drawing::Size(119, 18);
-			this->lblHowpublished->TabIndex = 15;
+			//this->lblHowpublished->TabIndex = 15;
 			this->lblHowpublished->Text = L"How published:";
 			// 
 			// lblABooktitle
@@ -1268,7 +1268,7 @@ namespace V1 {
 			this->lblABooktitle->Location = System::Drawing::Point(10, 460);
 			this->lblABooktitle->Name = L"lblABooktitle";
 			this->lblABooktitle->Size = System::Drawing::Size(77, 18);
-			this->lblABooktitle->TabIndex = 16;
+			//this->lblABooktitle->TabIndex = 16;
 			this->lblABooktitle->Text = L"Booktitle:";
 			// 
 			// lblEditor
@@ -1277,7 +1277,7 @@ namespace V1 {
 			this->lblEditor->Location = System::Drawing::Point(10, 490);
 			this->lblEditor->Name = L"lblEditor";
 			this->lblEditor->Size = System::Drawing::Size(55, 18);
-			this->lblEditor->TabIndex = 17;
+			this->lblEditor->TabStop = false;
 			this->lblEditor->Text = L"Editor:";
 			// 
 			// lblChapter
@@ -1286,7 +1286,7 @@ namespace V1 {
 			this->lblChapter->Location = System::Drawing::Point(10, 520);
 			this->lblChapter->Name = L"lblChapter";
 			this->lblChapter->Size = System::Drawing::Size(69, 18);
-			this->lblChapter->TabIndex = 18;
+			//this->lblChapter->TabIndex = 18;
 			this->lblChapter->Text = L"Chapter:";
 			// 
 			// lblSchool
@@ -1295,7 +1295,7 @@ namespace V1 {
 			this->lblSchool->Location = System::Drawing::Point(10, 550);
 			this->lblSchool->Name = L"lblSchool";
 			this->lblSchool->Size = System::Drawing::Size(61, 18);
-			this->lblSchool->TabIndex = 19;
+			//this->lblSchool->TabIndex = 19;
 			this->lblSchool->Text = L"School:";
 			// 
 			// lblInstitution
@@ -1304,7 +1304,7 @@ namespace V1 {
 			this->lblInstitution->Location = System::Drawing::Point(10, 580);
 			this->lblInstitution->Name = L"lblInstitution";
 			this->lblInstitution->Size = System::Drawing::Size(86, 18);
-			this->lblInstitution->TabIndex = 20;
+			//this->lblInstitution->TabIndex = 20;
 			this->lblInstitution->Text = L"Institution:";
 			// 
 			// lblOrganization
@@ -1313,7 +1313,7 @@ namespace V1 {
 			this->lblOrganization->Location = System::Drawing::Point(10, 610);
 			this->lblOrganization->Name = L"lblOrganization";
 			this->lblOrganization->Size = System::Drawing::Size(105, 18);
-			this->lblOrganization->TabIndex = 21;
+			//this->lblOrganization->TabIndex = 21;
 			this->lblOrganization->Text = L"Organization:";
 			// 
 			// lblLastName
@@ -1323,7 +1323,7 @@ namespace V1 {
 			this->lblLastName->Location = System::Drawing::Point(269, 496);
 			this->lblLastName->Name = L"lblLastName";
 			this->lblLastName->Size = System::Drawing::Size(100, 23);
-			this->lblLastName->TabIndex = 3;
+			this->lblLastName->TabIndex = 31;
 			this->lblLastName->Text = L"Last Name:";
 			this->lblLastName->Click += gcnew System::EventHandler(this, &MainForm::lblLastName_Click);
 			// 
@@ -1334,7 +1334,7 @@ namespace V1 {
 			this->lblFirstName->Location = System::Drawing::Point(159, 496);
 			this->lblFirstName->Name = L"lblFirstName";
 			this->lblFirstName->Size = System::Drawing::Size(100, 23);
-			this->lblFirstName->TabIndex = 2;
+			this->lblFirstName->TabIndex = 30;
 			this->lblFirstName->Text = L"First Name:";
 			this->lblFirstName->Click += gcnew System::EventHandler(this, &MainForm::lblFirstName_Click);
 			// 
@@ -1345,7 +1345,7 @@ namespace V1 {
 			this->btnSave->Location = System::Drawing::Point(554, 611);
 			this->btnSave->Name = L"btnSave";
 			this->btnSave->Size = System::Drawing::Size(75, 28);
-			this->btnSave->TabIndex = 4;
+			this->btnSave->TabIndex = 44;
 			this->btnSave->Text = L"Save";
 			this->btnSave->Click += gcnew System::EventHandler(this, &MainForm::btnSave_Click);
 			// 
@@ -1356,7 +1356,7 @@ namespace V1 {
 			this->btnCancel->Location = System::Drawing::Point(634, 611);
 			this->btnCancel->Name = L"btnCancel";
 			this->btnCancel->Size = System::Drawing::Size(75, 28);
-			this->btnCancel->TabIndex = 5;
+			this->btnCancel->TabIndex = 45;
 			this->btnCancel->Text = L"Cancel";
 			this->btnCancel->Click += gcnew System::EventHandler(this, &MainForm::btnCancel_Click);
 			// 
@@ -1372,7 +1372,7 @@ namespace V1 {
 			this->btnSaveHDD->Location = System::Drawing::Point(79, 611);
 			this->btnSaveHDD->Name = L"btnSaveHDD";
 			this->btnSaveHDD->Size = System::Drawing::Size(160, 30);
-			this->btnSaveHDD->TabIndex = 7;
+			this->btnSaveHDD->TabIndex = 56;
 			this->btnSaveHDD->Text = L"Save HDD";
 			this->btnSaveHDD->UseVisualStyleBackColor = false;
 			this->btnSaveHDD->Click += gcnew System::EventHandler(this, &MainForm::btnSaveHDD_Click);
@@ -1385,7 +1385,7 @@ namespace V1 {
 			this->txtSearch->Location = System::Drawing::Point(12, 12);
 			this->txtSearch->Name = L"txtSearch";
 			this->txtSearch->Size = System::Drawing::Size(300, 28);
-			this->txtSearch->TabIndex = 5;
+			this->txtSearch->TabIndex = 1;
 			this->txtSearch->TextChanged += gcnew System::EventHandler(this, &MainForm::txtSearch_TextChanged);
 			// 
 			// MainForm
@@ -1556,26 +1556,47 @@ namespace V1 {
 		void HideAllFields()
 		{
 			txtKeyword->Visible = false;
+			txtKeyword->TabStop = false;
 			txtAuthor->Visible = false;
+			txtAuthor->TabStop = false;
 			txtTitle->Visible = false;
+			txtTitle->TabStop = false;
 			txtYear->Visible = false;
+			txtYear->TabStop = false;
 			txtJournal->Visible = false;
+			txtJournal->TabStop = false;
 			txtVolume->Visible = false;
+			txtVolume->TabStop = false;
 			txtNumber->Visible = false;
+			txtNumber->TabStop = false;
 			txtPages->Visible = false;
+			txtPages->TabStop = false;
 			txtMonth->Visible = false;
+			txtMonth->TabStop = false;
 			txtNote->Visible = false;
+			txtNote->TabStop = false;
 			txtPublisher->Visible = false;
+			txtPublisher->TabStop = false;
 			txtSeries->Visible = false;
+			txtSeries->TabStop = false;
 			txtAddress->Visible = false;
+			txtAddress->TabStop = false;
 			txtEdition->Visible = false;
+			txtEdition->TabStop = false;
 			txtHowpublished->Visible = false;
+			txtHowpublished->TabStop = false;
 			txtBooktitle->Visible = false;
+			txtBooktitle->TabStop = false;
 			txtEditor->Visible = false;
+			txtEditor->TabStop = false;
 			txtChapter->Visible = false;
+			txtChapter->TabStop = false;
 			txtSchool->Visible = false;
+			txtSchool->TabStop = false;
 			txtInstitution->Visible = false;
+			txtInstitution->TabStop = false;
 			txtOrganization->Visible = false;
+			txtOrganization->TabStop = false;
 
 			lblKeyword->Visible = false;
 			lblAuthor->Visible = false;
@@ -1616,7 +1637,7 @@ namespace V1 {
 		{
 			// Hide all fields initially
 			HideAllFields();
-
+			int TabNumber = 10;
 			bool Author = false;
 			bool Editor = false;
 
@@ -1626,86 +1647,127 @@ namespace V1 {
 				if (mandatoryField == "keyword") {
 					txtKeyword->Visible = true;
 					lblKeyword->Visible = true;
+					txtKeyword->TabStop = true;
+					txtKeyword->TabIndex = TabNumber++;
 				}
 				if (mandatoryField == "author") {
 					Author = true;
+					txtAuthor->TabStop = true;
+					txtAuthor->TabIndex = TabNumber++;
 				}
 				if (mandatoryField == "title") {
 					txtTitle->Visible = true;
 					lblTitle->Visible = true;
+					txtTitle->TabStop = true;
+					txtTitle->TabIndex = TabNumber++;
 				}
 				if (mandatoryField == "year") {
 					txtYear->Visible = true;
 					lblYear->Visible = true;
+					txtYear->TabStop = true;
+					txtYear->TabIndex = TabNumber++;
 				}
 				if (mandatoryField == "journal") {
 					txtJournal->Visible = true;
 					lblJournal->Visible = true;
+					txtJournal->TabStop = true;
+					txtJournal->TabIndex = TabNumber++;
 				}
 				if (mandatoryField == "volume") {
 					txtVolume->Visible = true;
 					lblVolume->Visible = true;
+					txtVolume->TabStop = true;
+					txtVolume->TabIndex = TabNumber++;
 				}
 				if (mandatoryField == "number") {
 					txtNumber->Visible = true;
 					lblNumber->Visible = true;
+					txtNumber->TabStop = true;
+					txtNumber->TabIndex = TabNumber++;
 				}
 				if (mandatoryField == "pages") {
 					txtPages->Visible = true;
 					lblPages->Visible = true;
+					txtPages->TabStop = true;
+					txtPages->TabIndex = TabNumber++;
 				}
 				if (mandatoryField == "month") {
 					txtMonth->Visible = true;
 					lblMonth->Visible = true;
+					txtMonth->TabStop = true;
+					txtMonth->TabIndex = TabNumber++;
 				}
 				if (mandatoryField == "note") {
 					txtNote->Visible = true;
 					lblNote->Visible = true;
+					txtNote->TabStop = true;
+					txtNote->TabIndex = TabNumber++;
 				}
 				if (mandatoryField == "publisher") {
 					txtPublisher->Visible = true;
 					lblPublisher->Visible = true;
+					txtPublisher->TabStop = true;
+					txtPublisher->TabIndex = TabNumber++;
 				}
 				if (mandatoryField == "series") {
 					txtSeries->Visible = true;
 					lblSeries->Visible = true;
+					txtSeries->TabStop = true;
+					txtSeries->TabIndex = TabNumber++;
 				}
 				if (mandatoryField == "address") {
 					txtAddress->Visible = true;
 					lblAddress->Visible = true;
+					txtAddress->TabStop = true;
+					txtAddress->TabIndex = TabNumber++;
 				}
 				if (mandatoryField == "edition") {
 					txtEdition->Visible = true;
 					lblEdition->Visible = true;
+					txtEdition->TabStop = true;
+					txtEdition->TabIndex = TabNumber++;
 				}
 				if (mandatoryField == "howpublished") {
 					txtHowpublished->Visible = true;
 					lblHowpublished->Visible = true;
+					txtHowpublished->TabStop = true;
+					txtHowpublished->TabIndex = TabNumber++;
 				}
 				if (mandatoryField == "booktitle") {
 					txtBooktitle->Visible = true;
 					lblABooktitle->Visible = true;
+					txtBooktitle->TabStop = true;
+					txtBooktitle->TabIndex = TabNumber++;
 				}
 				if (mandatoryField == "editor") {
 					Editor = true;
+					txtEditor->TabStop = true;
+					txtEditor->TabIndex = TabNumber++;
 				}
 				if (mandatoryField == "chapter") {
 					txtChapter->Visible = true;
 					lblChapter->Visible = true;
+					txtChapter->TabStop = true;
+					txtChapter->TabIndex = TabNumber++;
 				}
 				if (mandatoryField == "school") {
 					txtSchool->Visible = true;
 					lblSchool->Visible = true;
+					txtSchool->TabStop = true;
+					txtSchool->TabIndex = TabNumber++;
 				}
 				if (mandatoryField == "institution") {
 					txtInstitution->Visible = true;
 					lblInstitution->Visible = true;
+					txtInstitution->TabStop = true;
+					txtInstitution->TabIndex = TabNumber++;
 				}
 				if (mandatoryField == "organization") {
 					txtOrganization->Visible = true;
 					lblOrganization->Visible = true;
+					txtOrganization->TabStop = true;
+					txtOrganization->TabIndex = TabNumber++;
 				}
-
 			}
 
 			
@@ -1716,84 +1778,126 @@ namespace V1 {
 				if (optionalField == "keyword") {
 					txtKeyword->Visible = true;
 					lblKeyword->Visible = true;
+					txtKeyword->TabStop = true;
+					txtKeyword->TabIndex = TabNumber++;
 				}
 				if (optionalField == "author") {
 					Author = true;
+					txtAuthor->TabStop = true;
+					txtAuthor->TabIndex = TabNumber++;
 				}
 				if (optionalField == "title") {
 					txtTitle->Visible = true;
 					lblTitle->Visible = true;
+					txtTitle->TabStop = true;
+					txtTitle->TabIndex = TabNumber++;
 				}
 				if (optionalField == "year") {
 					txtYear->Visible = true;
 					lblYear->Visible = true;
+					txtYear->TabStop = true;
+					txtYear->TabIndex = TabNumber++;
 				}
 				if (optionalField == "journal") {
 					txtJournal->Visible = true;
 					lblJournal->Visible = true;
+					txtJournal->TabStop = true;
+					txtJournal->TabIndex = TabNumber++;
 				}
 				if (optionalField == "volume") {
 					txtVolume->Visible = true;
 					lblVolume->Visible = true;
+					txtVolume->TabStop = true;
+					txtVolume->TabIndex = TabNumber++;
 				}
 				if (optionalField == "number") {
 					txtNumber->Visible = true;
 					lblNumber->Visible = true;
+					txtNumber->TabStop = true;
+					txtNumber->TabIndex = TabNumber++;
 				}
 				if (optionalField == "pages") {
 					txtPages->Visible = true;
 					lblPages->Visible = true;
+					txtPages->TabStop = true;
+					txtPages->TabIndex = TabNumber++;
 				}
 				if (optionalField == "month") {
 					txtMonth->Visible = true;
 					lblMonth->Visible = true;
+					txtMonth->TabStop = true;
+					txtMonth->TabIndex = TabNumber++;
 				}
 				if (optionalField == "note") {
 					txtNote->Visible = true;
 					lblNote->Visible = true;
+					txtNote->TabStop = true;
+					txtNote->TabIndex = TabNumber++;
 				}
 				if (optionalField == "publisher") {
 					txtPublisher->Visible = true;
 					lblPublisher->Visible = true;
+					txtPublisher->TabStop = true;
+					txtPublisher->TabIndex = TabNumber++;
 				}
 				if (optionalField == "series") {
 					txtSeries->Visible = true;
 					lblSeries->Visible = true;
+					txtSeries->TabStop = true;
+					txtSeries->TabIndex = TabNumber++;
 				}
 				if (optionalField == "address") {
 					txtAddress->Visible = true;
 					lblAddress->Visible = true;
+					txtAddress->TabStop = true;
+					txtAddress->TabIndex = TabNumber++;
 				}
 				if (optionalField == "edition") {
 					txtEdition->Visible = true;
 					lblEdition->Visible = true;
+					txtEdition->TabStop = true;
+					txtEdition->TabIndex = TabNumber++;
 				}
 				if (optionalField == "howpublished") {
 					txtHowpublished->Visible = true;
 					lblHowpublished->Visible = true;
+					txtHowpublished->TabStop = true;
+					txtHowpublished->TabIndex = TabNumber++;
 				}
 				if (optionalField == "booktitle") {
 					txtBooktitle->Visible = true;
 					lblABooktitle->Visible = true;
+					txtBooktitle->TabStop = true;
+					txtBooktitle->TabIndex = TabNumber++;
 				}
 				if (optionalField == "editor") {
 					Editor = true;
+					txtEditor->TabStop = true;
+					txtEditor->TabIndex = TabNumber++;
 				}
 				if (optionalField == "chapter") {
 					txtChapter->Visible = true;
 					lblChapter->Visible = true;
+					txtChapter->TabStop = true;
+					txtChapter->TabIndex = TabNumber++;
 				}
 				if (optionalField == "school") {
 					txtSchool->Visible = true;
 					lblSchool->Visible = true;
+					txtSchool->TabStop = true;
+					txtSchool->TabIndex = TabNumber++;
 				}
 				if (optionalField == "institution") {
 					txtInstitution->Visible = true;
 					lblInstitution->Visible = true;
+					txtInstitution->TabStop = true;
+					txtInstitution->TabIndex = TabNumber++;
 				}
 				if (optionalField == "organization") {
 					txtOrganization->Visible = true;
 					lblOrganization->Visible = true;
+					txtOrganization->TabStop = true;
+					txtOrganization->TabIndex = TabNumber++;
 				}
 			}
 
