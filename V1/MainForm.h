@@ -803,20 +803,18 @@ namespace V1 {
 				 // 
 				 this->txtFirstName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular,
 					 System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-				 this->txtFirstName->Location = System::Drawing::Point(159, 516);
+				 this->txtFirstName->Location = System::Drawing::Point(612, 671);
 				 this->txtFirstName->Name = L"txtFirstName";
 				 this->txtFirstName->Size = System::Drawing::Size(100, 21);
-				 
 				 this->txtFirstName->TabIndex = 30;
 				 // 
 				 // txtLastName
 				 // 
 				 this->txtLastName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
-				 this->txtLastName->Location = System::Drawing::Point(269, 516);
+				 this->txtLastName->Location = System::Drawing::Point(722, 671);
 				 this->txtLastName->Name = L"txtLastName";
 				 this->txtLastName->Size = System::Drawing::Size(100, 21);
-				 
 				 this->txtLastName->TabIndex = 31;
 				 // 
 				 // btnSetAuthor
@@ -825,9 +823,10 @@ namespace V1 {
 				 this->btnSetAuthor->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 				 this->btnSetAuthor->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular,
 					 System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-				 this->btnSetAuthor->Location = System::Drawing::Point(379, 516);
+				 this->btnSetAuthor->Location = System::Drawing::Point(832, 671);
 				 this->btnSetAuthor->Name = L"btnSetAuthor";
 				 this->btnSetAuthor->Size = System::Drawing::Size(75, 23);
+				 this->btnSetAuthor->TabIndex = 42;
 				 this->btnSetAuthor->Click += gcnew System::EventHandler(this, &MainForm::btnSetAuthor_Click);
 				 // 
 				 // listViewEntries
@@ -839,6 +838,7 @@ namespace V1 {
 				 this->listViewEntries->Location = System::Drawing::Point(12, 53);
 				 this->listViewEntries->Name = L"listViewEntries";
 				 this->listViewEntries->Size = System::Drawing::Size(300, 545);
+				 this->listViewEntries->TabIndex = 10;
 				 this->listViewEntries->TabStop = false;
 				 this->listViewEntries->UseCompatibleStateImageBehavior = false;
 				 this->listViewEntries->View = System::Windows::Forms::View::List;
@@ -856,6 +856,7 @@ namespace V1 {
 				 this->btnExportToBib->Location = System::Drawing::Point(79, 651);
 				 this->btnExportToBib->Name = L"btnExportToBib";
 				 this->btnExportToBib->Size = System::Drawing::Size(160, 30);
+				 this->btnExportToBib->TabIndex = 8;
 				 this->btnExportToBib->UseVisualStyleBackColor = false;
 				 this->btnExportToBib->Click += gcnew System::EventHandler(this, &MainForm::btnExportToBib_Click);
 				 // 
@@ -870,7 +871,6 @@ namespace V1 {
 				 this->btnNew->Location = System::Drawing::Point(496, 12);
 				 this->btnNew->Name = L"btnNew";
 				 this->btnNew->Size = System::Drawing::Size(75, 28);
-				 
 				 this->btnNew->TabIndex = 2;
 				 this->btnNew->UseVisualStyleBackColor = false;
 				 this->btnNew->Click += gcnew System::EventHandler(this, &MainForm::btnNew_Click);
@@ -886,7 +886,6 @@ namespace V1 {
 				 this->btnEdit->Location = System::Drawing::Point(576, 12);
 				 this->btnEdit->Name = L"btnEdit";
 				 this->btnEdit->Size = System::Drawing::Size(75, 28);
-				 
 				 this->btnEdit->TabIndex = 3;
 				 this->btnEdit->UseVisualStyleBackColor = false;
 				 this->btnEdit->Click += gcnew System::EventHandler(this, &MainForm::btnEdit_Click);
@@ -902,7 +901,6 @@ namespace V1 {
 				 this->btnDelete->Location = System::Drawing::Point(656, 12);
 				 this->btnDelete->Name = L"btnDelete";
 				 this->btnDelete->Size = System::Drawing::Size(75, 28);
-				 
 				 this->btnDelete->TabIndex = 4;
 				 this->btnDelete->UseVisualStyleBackColor = false;
 				 this->btnDelete->Click += gcnew System::EventHandler(this, &MainForm::btnDelete_Click);
@@ -911,20 +909,14 @@ namespace V1 {
 				 // 
 				 this->panelDetails->BackColor = System::Drawing::Color::White;
 				 this->panelDetails->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-				 this->panelDetails->Controls->Add(this->txtFirstName);
-				 this->panelDetails->Controls->Add(this->txtLastName);
-				 this->panelDetails->Controls->Add(this->rbtnEditor);
 				 this->panelDetails->Controls->Add(this->cmbType);
-				 this->panelDetails->Controls->Add(this->rbtnAuthor);
 				 this->panelDetails->Controls->Add(this->txtKeyword);
 				 this->panelDetails->Controls->Add(this->txtAuthor);
-				 this->panelDetails->Controls->Add(this->btnClearAuthor);
 				 this->panelDetails->Controls->Add(this->txtTitle);
 				 this->panelDetails->Controls->Add(this->txtYear);
 				 this->panelDetails->Controls->Add(this->txtJournal);
 				 this->panelDetails->Controls->Add(this->txtVolume);
 				 this->panelDetails->Controls->Add(this->txtNumber);
-				 this->panelDetails->Controls->Add(this->btnSetAuthor);
 				 this->panelDetails->Controls->Add(this->txtPages);
 				 this->panelDetails->Controls->Add(this->txtMonth);
 				 this->panelDetails->Controls->Add(this->txtNote);
@@ -960,11 +952,10 @@ namespace V1 {
 				 this->panelDetails->Controls->Add(this->lblSchool);
 				 this->panelDetails->Controls->Add(this->lblInstitution);
 				 this->panelDetails->Controls->Add(this->lblOrganization);
-				 this->panelDetails->Controls->Add(this->lblLastName);
-				 this->panelDetails->Controls->Add(this->lblFirstName);
 				 this->panelDetails->Location = System::Drawing::Point(320, 53);
 				 this->panelDetails->Name = L"panelDetails";
 				 this->panelDetails->Size = System::Drawing::Size(650, 545);
+				 this->panelDetails->TabIndex = 13;
 				 // 
 				 // rbtnEditor
 				 // 
@@ -972,10 +963,10 @@ namespace V1 {
 				 this->rbtnEditor->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->rbtnEditor->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
-				 this->rbtnEditor->Location = System::Drawing::Point(85, 524);
+				 this->rbtnEditor->Location = System::Drawing::Point(538, 679);
 				 this->rbtnEditor->Name = L"rbtnEditor";
 				 this->rbtnEditor->Size = System::Drawing::Size(14, 13);
-				 this->rbtnEditor->TabStop = false;
+				 this->rbtnEditor->TabIndex = 32;
 				 this->rbtnEditor->UseVisualStyleBackColor = true;
 				 this->rbtnEditor->CheckedChanged += gcnew System::EventHandler(this, &MainForm::rbtnEditor_CheckedChanged);
 				 // 
@@ -985,7 +976,6 @@ namespace V1 {
 				 this->cmbType->Location = System::Drawing::Point(200, 30);
 				 this->cmbType->Name = L"cmbType";
 				 this->cmbType->Size = System::Drawing::Size(200, 26);
-				
 				 this->cmbType->TabIndex = 5;
 				 this->cmbType->SelectedIndexChanged += gcnew System::EventHandler(this, &MainForm::cmbType_SelectedIndexChanged);
 				 // 
@@ -995,11 +985,10 @@ namespace V1 {
 				 this->rbtnAuthor->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->rbtnAuthor->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
-				 this->rbtnAuthor->Location = System::Drawing::Point(85, 501);
+				 this->rbtnAuthor->Location = System::Drawing::Point(538, 656);
 				 this->rbtnAuthor->Name = L"rbtnAuthor";
 				 this->rbtnAuthor->Size = System::Drawing::Size(14, 13);
-				 this->rbtnAuthor->TabStop = false;
-				
+				 this->rbtnAuthor->TabIndex = 33;
 				 this->rbtnAuthor->UseVisualStyleBackColor = true;
 				 this->rbtnAuthor->CheckedChanged += gcnew System::EventHandler(this, &MainForm::rbtnAuthor_CheckedChanged);
 				 // 
@@ -1008,6 +997,7 @@ namespace V1 {
 				 this->txtKeyword->Location = System::Drawing::Point(0, 0);
 				 this->txtKeyword->Name = L"txtKeyword";
 				 this->txtKeyword->Size = System::Drawing::Size(200, 24);
+				 this->txtKeyword->TabIndex = 34;
 				 this->txtKeyword->TabStop = false;
 				 // 
 				 // txtAuthor
@@ -1015,7 +1005,7 @@ namespace V1 {
 				 this->txtAuthor->Location = System::Drawing::Point(0, 0);
 				 this->txtAuthor->Name = L"txtAuthor";
 				 this->txtAuthor->Size = System::Drawing::Size(200, 24);
-				 this->txtAuthor->TabStop = true;
+				 this->txtAuthor->TabIndex = 35;
 				 // 
 				 // btnClearAuthor
 				 // 
@@ -1023,9 +1013,10 @@ namespace V1 {
 				 this->btnClearAuthor->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 				 this->btnClearAuthor->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular,
 					 System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-				 this->btnClearAuthor->Location = System::Drawing::Point(460, 516);
+				 this->btnClearAuthor->Location = System::Drawing::Point(913, 671);
 				 this->btnClearAuthor->Name = L"btnClearAuthor";
 				 this->btnClearAuthor->Size = System::Drawing::Size(75, 23);
+				 this->btnClearAuthor->TabIndex = 36;
 				 this->btnClearAuthor->Click += gcnew System::EventHandler(this, &MainForm::btnClearAuthor_Click);
 				 // 
 				 // txtTitle
@@ -1033,133 +1024,133 @@ namespace V1 {
 				 this->txtTitle->Location = System::Drawing::Point(0, 0);
 				 this->txtTitle->Name = L"txtTitle";
 				 this->txtTitle->Size = System::Drawing::Size(200, 24);
-				 this->txtTitle->TabStop = true;
+				 this->txtTitle->TabIndex = 37;
 				 // 
 				 // txtYear
 				 // 
 				 this->txtYear->Location = System::Drawing::Point(0, 0);
 				 this->txtYear->Name = L"txtYear";
 				 this->txtYear->Size = System::Drawing::Size(200, 24);
-				 this->txtYear->TabStop = true;
+				 this->txtYear->TabIndex = 38;
 				 // 
 				 // txtJournal
 				 // 
 				 this->txtJournal->Location = System::Drawing::Point(0, 0);
 				 this->txtJournal->Name = L"txtJournal";
 				 this->txtJournal->Size = System::Drawing::Size(200, 24);
-				 this->txtJournal->TabStop = true;
+				 this->txtJournal->TabIndex = 39;
 				 // 
 				 // txtVolume
 				 // 
 				 this->txtVolume->Location = System::Drawing::Point(0, 0);
 				 this->txtVolume->Name = L"txtVolume";
 				 this->txtVolume->Size = System::Drawing::Size(200, 24);
-				 this->txtVolume->TabStop = true;
+				 this->txtVolume->TabIndex = 40;
 				 // 
 				 // txtNumber
 				 // 
 				 this->txtNumber->Location = System::Drawing::Point(0, 0);
 				 this->txtNumber->Name = L"txtNumber";
 				 this->txtNumber->Size = System::Drawing::Size(200, 24);
-				 this->txtNumber->TabStop = true;
+				 this->txtNumber->TabIndex = 41;
 				 // 
 				 // txtPages
 				 // 
 				 this->txtPages->Location = System::Drawing::Point(0, 0);
 				 this->txtPages->Name = L"txtPages";
 				 this->txtPages->Size = System::Drawing::Size(200, 24);
-				 this->txtPages->TabStop = true;
+				 this->txtPages->TabIndex = 43;
 				 // 
 				 // txtMonth
 				 // 
 				 this->txtMonth->Location = System::Drawing::Point(0, 0);
 				 this->txtMonth->Name = L"txtMonth";
 				 this->txtMonth->Size = System::Drawing::Size(200, 24);
-				 this->txtMonth->TabStop = true;
+				 this->txtMonth->TabIndex = 44;
 				 // 
 				 // txtNote
 				 // 
 				 this->txtNote->Location = System::Drawing::Point(0, 0);
 				 this->txtNote->Name = L"txtNote";
 				 this->txtNote->Size = System::Drawing::Size(200, 24);
-				 this->txtNote->TabStop = true;
+				 this->txtNote->TabIndex = 45;
 				 // 
 				 // txtPublisher
 				 // 
 				 this->txtPublisher->Location = System::Drawing::Point(0, 0);
 				 this->txtPublisher->Name = L"txtPublisher";
 				 this->txtPublisher->Size = System::Drawing::Size(200, 24);
-				 this->txtPublisher->TabStop = true;
+				 this->txtPublisher->TabIndex = 46;
 				 // 
 				 // txtSeries
 				 // 
 				 this->txtSeries->Location = System::Drawing::Point(0, 0);
 				 this->txtSeries->Name = L"txtSeries";
 				 this->txtSeries->Size = System::Drawing::Size(200, 24);
-				 this->txtSeries->TabStop = true;
+				 this->txtSeries->TabIndex = 47;
 				 // 
 				 // txtAddress
 				 // 
 				 this->txtAddress->Location = System::Drawing::Point(0, 0);
 				 this->txtAddress->Name = L"txtAddress";
 				 this->txtAddress->Size = System::Drawing::Size(200, 24);
-				 this->txtAddress->TabStop = true;
+				 this->txtAddress->TabIndex = 48;
 				 // 
 				 // txtEdition
 				 // 
 				 this->txtEdition->Location = System::Drawing::Point(0, 0);
 				 this->txtEdition->Name = L"txtEdition";
 				 this->txtEdition->Size = System::Drawing::Size(200, 24);
-				 this->txtEdition->TabStop = true;
+				 this->txtEdition->TabIndex = 49;
 				 // 
 				 // txtHowpublished
 				 // 
 				 this->txtHowpublished->Location = System::Drawing::Point(0, 0);
 				 this->txtHowpublished->Name = L"txtHowpublished";
 				 this->txtHowpublished->Size = System::Drawing::Size(200, 24);
-				 this->txtHowpublished->TabStop = true;
+				 this->txtHowpublished->TabIndex = 50;
 				 // 
 				 // txtBooktitle
 				 // 
 				 this->txtBooktitle->Location = System::Drawing::Point(0, 0);
 				 this->txtBooktitle->Name = L"txtBooktitle";
 				 this->txtBooktitle->Size = System::Drawing::Size(200, 24);
-				 this->txtBooktitle->TabStop = true;
+				 this->txtBooktitle->TabIndex = 51;
 				 // 
 				 // txtEditor
 				 // 
 				 this->txtEditor->Location = System::Drawing::Point(0, 0);
 				 this->txtEditor->Name = L"txtEditor";
 				 this->txtEditor->Size = System::Drawing::Size(200, 24);
-				 this->txtEditor->TabStop = true;
+				 this->txtEditor->TabIndex = 52;
 				 // 
 				 // txtChapter
 				 // 
 				 this->txtChapter->Location = System::Drawing::Point(0, 0);
 				 this->txtChapter->Name = L"txtChapter";
 				 this->txtChapter->Size = System::Drawing::Size(200, 24);
-				 this->txtChapter->TabStop = true;
+				 this->txtChapter->TabIndex = 53;
 				 // 
 				 // txtSchool
 				 // 
 				 this->txtSchool->Location = System::Drawing::Point(0, 0);
 				 this->txtSchool->Name = L"txtSchool";
 				 this->txtSchool->Size = System::Drawing::Size(200, 24);
-				 this->txtSchool->TabStop = true;
+				 this->txtSchool->TabIndex = 54;
 				 // 
 				 // txtInstitution
 				 // 
 				 this->txtInstitution->Location = System::Drawing::Point(0, 0);
 				 this->txtInstitution->Name = L"txtInstitution";
 				 this->txtInstitution->Size = System::Drawing::Size(200, 24);
-				 this->txtInstitution->TabStop = true;
+				 this->txtInstitution->TabIndex = 55;
 				 // 
 				 // txtOrganization
 				 // 
 				 this->txtOrganization->Location = System::Drawing::Point(0, 0);
 				 this->txtOrganization->Name = L"txtOrganization";
 				 this->txtOrganization->Size = System::Drawing::Size(200, 24);
-				 this->txtOrganization->TabStop = true;
+				 this->txtOrganization->TabIndex = 56;
 				 // 
 				 // lblKeyword
 				 // 
@@ -1167,7 +1158,7 @@ namespace V1 {
 				 this->lblKeyword->Location = System::Drawing::Point(10, 10);
 				 this->lblKeyword->Name = L"lblKeyword";
 				 this->lblKeyword->Size = System::Drawing::Size(0, 18);
-				 this->lblKeyword->TabStop = false;
+				 this->lblKeyword->TabIndex = 57;
 				 // 
 				 // lblAuthor
 				 // 
@@ -1175,7 +1166,7 @@ namespace V1 {
 				 this->lblAuthor->Location = System::Drawing::Point(10, 40);
 				 this->lblAuthor->Name = L"lblAuthor";
 				 this->lblAuthor->Size = System::Drawing::Size(0, 18);
-				 this->lblAuthor->TabStop = false;
+				 this->lblAuthor->TabIndex = 58;
 				 // 
 				 // lblTitle
 				 // 
@@ -1183,7 +1174,7 @@ namespace V1 {
 				 this->lblTitle->Location = System::Drawing::Point(10, 70);
 				 this->lblTitle->Name = L"lblTitle";
 				 this->lblTitle->Size = System::Drawing::Size(0, 18);
-				 this->lblTitle->TabStop = false;
+				 this->lblTitle->TabIndex = 59;
 				 // 
 				 // lblYear
 				 // 
@@ -1191,7 +1182,7 @@ namespace V1 {
 				 this->lblYear->Location = System::Drawing::Point(10, 100);
 				 this->lblYear->Name = L"lblYear";
 				 this->lblYear->Size = System::Drawing::Size(0, 18);
-				 this->lblYear->TabStop = false;
+				 this->lblYear->TabIndex = 60;
 				 // 
 				 // lblJournal
 				 // 
@@ -1199,7 +1190,7 @@ namespace V1 {
 				 this->lblJournal->Location = System::Drawing::Point(10, 130);
 				 this->lblJournal->Name = L"lblJournal";
 				 this->lblJournal->Size = System::Drawing::Size(0, 18);
-				 this->lblJournal->TabStop = false;
+				 this->lblJournal->TabIndex = 61;
 				 // 
 				 // lblVolume
 				 // 
@@ -1207,7 +1198,7 @@ namespace V1 {
 				 this->lblVolume->Location = System::Drawing::Point(10, 160);
 				 this->lblVolume->Name = L"lblVolume";
 				 this->lblVolume->Size = System::Drawing::Size(0, 18);
-				 this->lblVolume->TabStop = false;
+				 this->lblVolume->TabIndex = 62;
 				 // 
 				 // lblNumber
 				 // 
@@ -1215,7 +1206,7 @@ namespace V1 {
 				 this->lblNumber->Location = System::Drawing::Point(10, 190);
 				 this->lblNumber->Name = L"lblNumber";
 				 this->lblNumber->Size = System::Drawing::Size(0, 18);
-				 this->lblNumber->TabStop = false;
+				 this->lblNumber->TabIndex = 63;
 				 // 
 				 // lblPages
 				 // 
@@ -1223,7 +1214,7 @@ namespace V1 {
 				 this->lblPages->Location = System::Drawing::Point(10, 220);
 				 this->lblPages->Name = L"lblPages";
 				 this->lblPages->Size = System::Drawing::Size(0, 18);
-				 this->lblPages->TabStop = false;
+				 this->lblPages->TabIndex = 64;
 				 // 
 				 // lblMonth
 				 // 
@@ -1231,7 +1222,7 @@ namespace V1 {
 				 this->lblMonth->Location = System::Drawing::Point(10, 250);
 				 this->lblMonth->Name = L"lblMonth";
 				 this->lblMonth->Size = System::Drawing::Size(0, 18);
-				 this->lblMonth->TabStop = false;
+				 this->lblMonth->TabIndex = 65;
 				 // 
 				 // lblNote
 				 // 
@@ -1239,7 +1230,7 @@ namespace V1 {
 				 this->lblNote->Location = System::Drawing::Point(10, 280);
 				 this->lblNote->Name = L"lblNote";
 				 this->lblNote->Size = System::Drawing::Size(0, 18);
-				 this->lblNote->TabStop = false;
+				 this->lblNote->TabIndex = 66;
 				 // 
 				 // lblPublisher
 				 // 
@@ -1247,7 +1238,7 @@ namespace V1 {
 				 this->lblPublisher->Location = System::Drawing::Point(10, 310);
 				 this->lblPublisher->Name = L"lblPublisher";
 				 this->lblPublisher->Size = System::Drawing::Size(0, 18);
-				 this->lblPublisher->TabStop = false;
+				 this->lblPublisher->TabIndex = 67;
 				 // 
 				 // lblSeries
 				 // 
@@ -1255,7 +1246,7 @@ namespace V1 {
 				 this->lblSeries->Location = System::Drawing::Point(10, 340);
 				 this->lblSeries->Name = L"lblSeries";
 				 this->lblSeries->Size = System::Drawing::Size(0, 18);
-				 this->lblSeries->TabStop = false;
+				 this->lblSeries->TabIndex = 68;
 				 // 
 				 // lblAddress
 				 // 
@@ -1263,7 +1254,7 @@ namespace V1 {
 				 this->lblAddress->Location = System::Drawing::Point(10, 370);
 				 this->lblAddress->Name = L"lblAddress";
 				 this->lblAddress->Size = System::Drawing::Size(0, 18);
-				 this->lblAddress->TabStop = false;
+				 this->lblAddress->TabIndex = 69;
 				 // 
 				 // lblEdition
 				 // 
@@ -1271,7 +1262,7 @@ namespace V1 {
 				 this->lblEdition->Location = System::Drawing::Point(10, 400);
 				 this->lblEdition->Name = L"lblEdition";
 				 this->lblEdition->Size = System::Drawing::Size(0, 18);
-				 this->lblEdition->TabStop = false;
+				 this->lblEdition->TabIndex = 70;
 				 // 
 				 // lblHowpublished
 				 // 
@@ -1279,7 +1270,7 @@ namespace V1 {
 				 this->lblHowpublished->Location = System::Drawing::Point(10, 430);
 				 this->lblHowpublished->Name = L"lblHowpublished";
 				 this->lblHowpublished->Size = System::Drawing::Size(0, 18);
-				 this->lblHowpublished->TabStop = false;
+				 this->lblHowpublished->TabIndex = 71;
 				 // 
 				 // lblABooktitle
 				 // 
@@ -1287,7 +1278,7 @@ namespace V1 {
 				 this->lblABooktitle->Location = System::Drawing::Point(10, 460);
 				 this->lblABooktitle->Name = L"lblABooktitle";
 				 this->lblABooktitle->Size = System::Drawing::Size(0, 18);
-				 this->lblABooktitle->TabStop = false;
+				 this->lblABooktitle->TabIndex = 72;
 				 // 
 				 // lblEditor
 				 // 
@@ -1295,7 +1286,7 @@ namespace V1 {
 				 this->lblEditor->Location = System::Drawing::Point(10, 490);
 				 this->lblEditor->Name = L"lblEditor";
 				 this->lblEditor->Size = System::Drawing::Size(0, 18);
-				 this->lblEditor->TabStop = false;
+				 this->lblEditor->TabIndex = 73;
 				 // 
 				 // lblChapter
 				 // 
@@ -1303,7 +1294,7 @@ namespace V1 {
 				 this->lblChapter->Location = System::Drawing::Point(10, 520);
 				 this->lblChapter->Name = L"lblChapter";
 				 this->lblChapter->Size = System::Drawing::Size(0, 18);
-				 this->lblChapter->TabStop = false;
+				 this->lblChapter->TabIndex = 74;
 				 // 
 				 // lblSchool
 				 // 
@@ -1311,7 +1302,7 @@ namespace V1 {
 				 this->lblSchool->Location = System::Drawing::Point(10, 550);
 				 this->lblSchool->Name = L"lblSchool";
 				 this->lblSchool->Size = System::Drawing::Size(0, 18);
-				 this->lblSchool->TabStop = false;
+				 this->lblSchool->TabIndex = 75;
 				 // 
 				 // lblInstitution
 				 // 
@@ -1319,7 +1310,7 @@ namespace V1 {
 				 this->lblInstitution->Location = System::Drawing::Point(10, 580);
 				 this->lblInstitution->Name = L"lblInstitution";
 				 this->lblInstitution->Size = System::Drawing::Size(0, 18);
-				 this->lblInstitution->TabStop = false;
+				 this->lblInstitution->TabIndex = 76;
 				 // 
 				 // lblOrganization
 				 // 
@@ -1327,42 +1318,44 @@ namespace V1 {
 				 this->lblOrganization->Location = System::Drawing::Point(10, 610);
 				 this->lblOrganization->Name = L"lblOrganization";
 				 this->lblOrganization->Size = System::Drawing::Size(0, 18);
-				 this->lblOrganization->TabStop = false;
+				 this->lblOrganization->TabIndex = 77;
 				 // 
 				 // lblLastName
 				 // 
 				 this->lblLastName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
-				 this->lblLastName->Location = System::Drawing::Point(269, 496);
+				 this->lblLastName->Location = System::Drawing::Point(722, 651);
 				 this->lblLastName->Name = L"lblLastName";
 				 this->lblLastName->Size = System::Drawing::Size(100, 23);
-				 this->lblLastName->TabStop = false;
+				 this->lblLastName->TabIndex = 78;
 				 // 
 				 // lblFirstName
 				 // 
 				 this->lblFirstName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular,
 					 System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-				 this->lblFirstName->Location = System::Drawing::Point(159, 496);
+				 this->lblFirstName->Location = System::Drawing::Point(612, 651);
 				 this->lblFirstName->Name = L"lblFirstName";
 				 this->lblFirstName->Size = System::Drawing::Size(100, 23);
-				 this->lblFirstName->TabStop = false;
+				 this->lblFirstName->TabIndex = 79;
 				 // 
 				 // btnSave
 				 // 
 				 this->btnSave->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->btnSave->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-				 this->btnSave->Location = System::Drawing::Point(554, 611);
+				 this->btnSave->Location = System::Drawing::Point(496, 742);
 				 this->btnSave->Name = L"btnSave";
 				 this->btnSave->Size = System::Drawing::Size(75, 28);
+				 this->btnSave->TabIndex = 11;
 				 this->btnSave->Click += gcnew System::EventHandler(this, &MainForm::btnSave_Click);
 				 // 
 				 // btnCancel
 				 // 
 				 this->btnCancel->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->btnCancel->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-				 this->btnCancel->Location = System::Drawing::Point(634, 611);
+				 this->btnCancel->Location = System::Drawing::Point(576, 742);
 				 this->btnCancel->Name = L"btnCancel";
 				 this->btnCancel->Size = System::Drawing::Size(75, 28);
+				 this->btnCancel->TabIndex = 12;
 				 this->btnCancel->Click += gcnew System::EventHandler(this, &MainForm::btnCancel_Click);
 				 // 
 				 // btnSaveHDD
@@ -1377,6 +1370,7 @@ namespace V1 {
 				 this->btnSaveHDD->Location = System::Drawing::Point(79, 611);
 				 this->btnSaveHDD->Name = L"btnSaveHDD";
 				 this->btnSaveHDD->Size = System::Drawing::Size(160, 30);
+				 this->btnSaveHDD->TabIndex = 9;
 				 this->btnSaveHDD->UseVisualStyleBackColor = false;
 				 this->btnSaveHDD->Click += gcnew System::EventHandler(this, &MainForm::btnSaveHDD_Click);
 				 // 
@@ -1396,7 +1390,7 @@ namespace V1 {
 				 this->listViewAuthors->FullRowSelect = true;
 				 this->listViewAuthors->HideSelection = false;
 				 this->listViewAuthors->LabelWrap = false;
-				 this->listViewAuthors->Location = System::Drawing::Point(100, 200);
+				 this->listViewAuthors->Location = System::Drawing::Point(321, 625);
 				 this->listViewAuthors->MultiSelect = false;
 				 this->listViewAuthors->Name = L"listViewAuthors";
 				 this->listViewAuthors->Size = System::Drawing::Size(200, 100);
@@ -1408,7 +1402,7 @@ namespace V1 {
 				 // 
 				 // btnLanguage
 				 // 
-				 this->btnLanguage->Location = System::Drawing::Point(805, 13);
+				 this->btnLanguage->Location = System::Drawing::Point(747, 12);
 				 this->btnLanguage->Name = L"btnLanguage";
 				 this->btnLanguage->Size = System::Drawing::Size(117, 30);
 				 this->btnLanguage->TabIndex = 6;
@@ -1417,29 +1411,37 @@ namespace V1 {
 				 // 
 				 // btnPDF
 				 // 
-				 this->btnPDF->Location = System::Drawing::Point(364, 13);
+				 this->btnPDF->Location = System::Drawing::Point(880, 13);
 				 this->btnPDF->Name = L"btnPDF";
 				 this->btnPDF->Size = System::Drawing::Size(80, 26);
-				 this->btnPDF->TabIndex = 7; //später ändern
+				 this->btnPDF->TabIndex = 7;
 				 this->btnPDF->UseVisualStyleBackColor = true;
 				 this->btnPDF->Click += gcnew System::EventHandler(this, &MainForm::btnPDF_Click);
 				 // 
 				 // MainForm
 				 // 
-				 this->ClientSize = System::Drawing::Size(984, 688);
+				 this->ClientSize = System::Drawing::Size(1003, 788);
+				 this->Controls->Add(this->txtFirstName);
+				 this->Controls->Add(this->txtLastName);
 				 this->Controls->Add(this->btnPDF);
+				 this->Controls->Add(this->rbtnEditor);
 				 this->Controls->Add(this->btnLanguage);
 				 this->Controls->Add(this->listViewAuthors);
+				 this->Controls->Add(this->rbtnAuthor);
 				 this->Controls->Add(this->btnExportToBib);
 				 this->Controls->Add(this->btnSaveHDD);
 				 this->Controls->Add(this->txtSearch);
+				 this->Controls->Add(this->btnClearAuthor);
 				 this->Controls->Add(this->listViewEntries);
 				 this->Controls->Add(this->btnNew);
 				 this->Controls->Add(this->btnEdit);
 				 this->Controls->Add(this->btnDelete);
 				 this->Controls->Add(this->btnSave);
 				 this->Controls->Add(this->btnCancel);
+				 this->Controls->Add(this->btnSetAuthor);
 				 this->Controls->Add(this->panelDetails);
+				 this->Controls->Add(this->lblFirstName);
+				 this->Controls->Add(this->lblLastName);
 				 this->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
 				 this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
