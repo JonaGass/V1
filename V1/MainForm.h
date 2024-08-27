@@ -136,6 +136,7 @@ namespace V1 {
 			 bool isEditMode;
 	private: System::Windows::Forms::Button^  btnLanguage;
 	private: System::Windows::Forms::Button^  btnPDF;
+private: System::Windows::Forms::Button^  btnDark;
 
 			 //mein
 	private: System::Windows::Forms::ListView^ listViewAuthors;
@@ -805,6 +806,7 @@ namespace V1 {
 				 this->listViewAuthors = (gcnew System::Windows::Forms::ListView());
 				 this->btnLanguage = (gcnew System::Windows::Forms::Button());
 				 this->btnPDF = (gcnew System::Windows::Forms::Button());
+				 this->btnDark = (gcnew System::Windows::Forms::Button());
 				 this->panelDetails->SuspendLayout();
 				 this->SuspendLayout();
 				 // 
@@ -816,7 +818,6 @@ namespace V1 {
 				 this->txtFirstName->Name = L"txtFirstName";
 				 this->txtFirstName->Size = System::Drawing::Size(100, 21);
 				 this->txtFirstName->TabIndex = 30;
-				 this->txtFirstName->UseWaitCursor = true;
 				 // 
 				 // txtLastName
 				 // 
@@ -826,11 +827,10 @@ namespace V1 {
 				 this->txtLastName->Name = L"txtLastName";
 				 this->txtLastName->Size = System::Drawing::Size(100, 21);
 				 this->txtLastName->TabIndex = 31;
-				 this->txtLastName->UseWaitCursor = true;
 				 // 
 				 // btnSetAuthor
 				 // 
-				 this->btnSetAuthor->Cursor = System::Windows::Forms::Cursors::WaitCursor;
+				 this->btnSetAuthor->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->btnSetAuthor->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 				 this->btnSetAuthor->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular,
 					 System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
@@ -838,7 +838,6 @@ namespace V1 {
 				 this->btnSetAuthor->Name = L"btnSetAuthor";
 				 this->btnSetAuthor->Size = System::Drawing::Size(75, 54);
 				 this->btnSetAuthor->TabIndex = 42;
-				 this->btnSetAuthor->UseWaitCursor = true;
 				 this->btnSetAuthor->Click += gcnew System::EventHandler(this, &MainForm::btnSetAuthor_Click);
 				 // 
 				 // listViewEntries
@@ -853,7 +852,6 @@ namespace V1 {
 				 this->listViewEntries->TabIndex = 10;
 				 this->listViewEntries->TabStop = false;
 				 this->listViewEntries->UseCompatibleStateImageBehavior = false;
-				 this->listViewEntries->UseWaitCursor = true;
 				 this->listViewEntries->View = System::Windows::Forms::View::List;
 				 this->listViewEntries->SelectedIndexChanged += gcnew System::EventHandler(this, &MainForm::listViewEntries_SelectedIndexChanged);
 				 // 
@@ -861,7 +859,7 @@ namespace V1 {
 				 // 
 				 this->btnExportToBib->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(22)), static_cast<System::Int32>(static_cast<System::Byte>(167)),
 					 static_cast<System::Int32>(static_cast<System::Byte>(22)));
-				 this->btnExportToBib->Cursor = System::Windows::Forms::Cursors::WaitCursor;
+				 this->btnExportToBib->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->btnExportToBib->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 				 this->btnExportToBib->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
@@ -871,13 +869,12 @@ namespace V1 {
 				 this->btnExportToBib->Size = System::Drawing::Size(160, 30);
 				 this->btnExportToBib->TabIndex = 8;
 				 this->btnExportToBib->UseVisualStyleBackColor = false;
-				 this->btnExportToBib->UseWaitCursor = true;
 				 this->btnExportToBib->Click += gcnew System::EventHandler(this, &MainForm::btnExportToBib_Click);
 				 // 
 				 // btnNew
 				 // 
 				 this->btnNew->BackColor = System::Drawing::SystemColors::MenuHighlight;
-				 this->btnNew->Cursor = System::Windows::Forms::Cursors::WaitCursor;
+				 this->btnNew->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->btnNew->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 				 this->btnNew->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
@@ -887,13 +884,12 @@ namespace V1 {
 				 this->btnNew->Size = System::Drawing::Size(96, 28);
 				 this->btnNew->TabIndex = 2;
 				 this->btnNew->UseVisualStyleBackColor = false;
-				 this->btnNew->UseWaitCursor = true;
 				 this->btnNew->Click += gcnew System::EventHandler(this, &MainForm::btnNew_Click);
 				 // 
 				 // btnEdit
 				 // 
 				 this->btnEdit->BackColor = System::Drawing::SystemColors::MenuHighlight;
-				 this->btnEdit->Cursor = System::Windows::Forms::Cursors::WaitCursor;
+				 this->btnEdit->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->btnEdit->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 				 this->btnEdit->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
@@ -903,13 +899,12 @@ namespace V1 {
 				 this->btnEdit->Size = System::Drawing::Size(98, 28);
 				 this->btnEdit->TabIndex = 3;
 				 this->btnEdit->UseVisualStyleBackColor = false;
-				 this->btnEdit->UseWaitCursor = true;
 				 this->btnEdit->Click += gcnew System::EventHandler(this, &MainForm::btnEdit_Click);
 				 // 
 				 // btnDelete
 				 // 
 				 this->btnDelete->BackColor = System::Drawing::SystemColors::MenuHighlight;
-				 this->btnDelete->Cursor = System::Windows::Forms::Cursors::WaitCursor;
+				 this->btnDelete->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->btnDelete->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 				 this->btnDelete->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
@@ -919,7 +914,6 @@ namespace V1 {
 				 this->btnDelete->Size = System::Drawing::Size(100, 28);
 				 this->btnDelete->TabIndex = 4;
 				 this->btnDelete->UseVisualStyleBackColor = false;
-				 this->btnDelete->UseWaitCursor = true;
 				 this->btnDelete->Click += gcnew System::EventHandler(this, &MainForm::btnDelete_Click);
 				 // 
 				 // panelDetails
@@ -973,7 +967,6 @@ namespace V1 {
 				 this->panelDetails->Name = L"panelDetails";
 				 this->panelDetails->Size = System::Drawing::Size(736, 545);
 				 this->panelDetails->TabIndex = 13;
-				 this->panelDetails->UseWaitCursor = true;
 				 // 
 				 // cmbType
 				 // 
@@ -982,7 +975,6 @@ namespace V1 {
 				 this->cmbType->Name = L"cmbType";
 				 this->cmbType->Size = System::Drawing::Size(200, 26);
 				 this->cmbType->TabIndex = 5;
-				 this->cmbType->UseWaitCursor = true;
 				 this->cmbType->SelectedIndexChanged += gcnew System::EventHandler(this, &MainForm::cmbType_SelectedIndexChanged);
 				 // 
 				 // txtKeyword
@@ -992,7 +984,6 @@ namespace V1 {
 				 this->txtKeyword->Size = System::Drawing::Size(200, 24);
 				 this->txtKeyword->TabIndex = 34;
 				 this->txtKeyword->TabStop = false;
-				 this->txtKeyword->UseWaitCursor = true;
 				 // 
 				 // txtAuthor
 				 // 
@@ -1000,7 +991,6 @@ namespace V1 {
 				 this->txtAuthor->Name = L"txtAuthor";
 				 this->txtAuthor->Size = System::Drawing::Size(200, 24);
 				 this->txtAuthor->TabIndex = 35;
-				 this->txtAuthor->UseWaitCursor = true;
 				 // 
 				 // txtTitle
 				 // 
@@ -1008,7 +998,6 @@ namespace V1 {
 				 this->txtTitle->Name = L"txtTitle";
 				 this->txtTitle->Size = System::Drawing::Size(200, 24);
 				 this->txtTitle->TabIndex = 37;
-				 this->txtTitle->UseWaitCursor = true;
 				 // 
 				 // txtYear
 				 // 
@@ -1016,7 +1005,6 @@ namespace V1 {
 				 this->txtYear->Name = L"txtYear";
 				 this->txtYear->Size = System::Drawing::Size(200, 24);
 				 this->txtYear->TabIndex = 38;
-				 this->txtYear->UseWaitCursor = true;
 				 // 
 				 // txtJournal
 				 // 
@@ -1024,7 +1012,6 @@ namespace V1 {
 				 this->txtJournal->Name = L"txtJournal";
 				 this->txtJournal->Size = System::Drawing::Size(200, 24);
 				 this->txtJournal->TabIndex = 39;
-				 this->txtJournal->UseWaitCursor = true;
 				 // 
 				 // txtVolume
 				 // 
@@ -1032,7 +1019,6 @@ namespace V1 {
 				 this->txtVolume->Name = L"txtVolume";
 				 this->txtVolume->Size = System::Drawing::Size(200, 24);
 				 this->txtVolume->TabIndex = 40;
-				 this->txtVolume->UseWaitCursor = true;
 				 // 
 				 // txtNumber
 				 // 
@@ -1040,7 +1026,6 @@ namespace V1 {
 				 this->txtNumber->Name = L"txtNumber";
 				 this->txtNumber->Size = System::Drawing::Size(200, 24);
 				 this->txtNumber->TabIndex = 41;
-				 this->txtNumber->UseWaitCursor = true;
 				 // 
 				 // txtPages
 				 // 
@@ -1048,7 +1033,6 @@ namespace V1 {
 				 this->txtPages->Name = L"txtPages";
 				 this->txtPages->Size = System::Drawing::Size(200, 24);
 				 this->txtPages->TabIndex = 43;
-				 this->txtPages->UseWaitCursor = true;
 				 // 
 				 // txtMonth
 				 // 
@@ -1056,7 +1040,6 @@ namespace V1 {
 				 this->txtMonth->Name = L"txtMonth";
 				 this->txtMonth->Size = System::Drawing::Size(200, 24);
 				 this->txtMonth->TabIndex = 44;
-				 this->txtMonth->UseWaitCursor = true;
 				 // 
 				 // txtNote
 				 // 
@@ -1064,7 +1047,6 @@ namespace V1 {
 				 this->txtNote->Name = L"txtNote";
 				 this->txtNote->Size = System::Drawing::Size(200, 24);
 				 this->txtNote->TabIndex = 45;
-				 this->txtNote->UseWaitCursor = true;
 				 // 
 				 // txtPublisher
 				 // 
@@ -1072,7 +1054,6 @@ namespace V1 {
 				 this->txtPublisher->Name = L"txtPublisher";
 				 this->txtPublisher->Size = System::Drawing::Size(200, 24);
 				 this->txtPublisher->TabIndex = 46;
-				 this->txtPublisher->UseWaitCursor = true;
 				 // 
 				 // txtSeries
 				 // 
@@ -1080,7 +1061,6 @@ namespace V1 {
 				 this->txtSeries->Name = L"txtSeries";
 				 this->txtSeries->Size = System::Drawing::Size(200, 24);
 				 this->txtSeries->TabIndex = 47;
-				 this->txtSeries->UseWaitCursor = true;
 				 // 
 				 // txtAddress
 				 // 
@@ -1088,7 +1068,6 @@ namespace V1 {
 				 this->txtAddress->Name = L"txtAddress";
 				 this->txtAddress->Size = System::Drawing::Size(200, 24);
 				 this->txtAddress->TabIndex = 48;
-				 this->txtAddress->UseWaitCursor = true;
 				 // 
 				 // txtEdition
 				 // 
@@ -1096,7 +1075,6 @@ namespace V1 {
 				 this->txtEdition->Name = L"txtEdition";
 				 this->txtEdition->Size = System::Drawing::Size(200, 24);
 				 this->txtEdition->TabIndex = 49;
-				 this->txtEdition->UseWaitCursor = true;
 				 // 
 				 // txtHowpublished
 				 // 
@@ -1104,7 +1082,6 @@ namespace V1 {
 				 this->txtHowpublished->Name = L"txtHowpublished";
 				 this->txtHowpublished->Size = System::Drawing::Size(200, 24);
 				 this->txtHowpublished->TabIndex = 50;
-				 this->txtHowpublished->UseWaitCursor = true;
 				 // 
 				 // txtBooktitle
 				 // 
@@ -1112,7 +1089,6 @@ namespace V1 {
 				 this->txtBooktitle->Name = L"txtBooktitle";
 				 this->txtBooktitle->Size = System::Drawing::Size(200, 24);
 				 this->txtBooktitle->TabIndex = 51;
-				 this->txtBooktitle->UseWaitCursor = true;
 				 // 
 				 // txtEditor
 				 // 
@@ -1120,7 +1096,6 @@ namespace V1 {
 				 this->txtEditor->Name = L"txtEditor";
 				 this->txtEditor->Size = System::Drawing::Size(200, 24);
 				 this->txtEditor->TabIndex = 52;
-				 this->txtEditor->UseWaitCursor = true;
 				 // 
 				 // txtChapter
 				 // 
@@ -1128,7 +1103,6 @@ namespace V1 {
 				 this->txtChapter->Name = L"txtChapter";
 				 this->txtChapter->Size = System::Drawing::Size(200, 24);
 				 this->txtChapter->TabIndex = 53;
-				 this->txtChapter->UseWaitCursor = true;
 				 // 
 				 // txtSchool
 				 // 
@@ -1136,7 +1110,6 @@ namespace V1 {
 				 this->txtSchool->Name = L"txtSchool";
 				 this->txtSchool->Size = System::Drawing::Size(200, 24);
 				 this->txtSchool->TabIndex = 54;
-				 this->txtSchool->UseWaitCursor = true;
 				 // 
 				 // txtInstitution
 				 // 
@@ -1144,7 +1117,6 @@ namespace V1 {
 				 this->txtInstitution->Name = L"txtInstitution";
 				 this->txtInstitution->Size = System::Drawing::Size(200, 24);
 				 this->txtInstitution->TabIndex = 55;
-				 this->txtInstitution->UseWaitCursor = true;
 				 // 
 				 // txtOrganization
 				 // 
@@ -1152,7 +1124,6 @@ namespace V1 {
 				 this->txtOrganization->Name = L"txtOrganization";
 				 this->txtOrganization->Size = System::Drawing::Size(200, 24);
 				 this->txtOrganization->TabIndex = 56;
-				 this->txtOrganization->UseWaitCursor = true;
 				 // 
 				 // lblKeyword
 				 // 
@@ -1161,7 +1132,6 @@ namespace V1 {
 				 this->lblKeyword->Name = L"lblKeyword";
 				 this->lblKeyword->Size = System::Drawing::Size(0, 18);
 				 this->lblKeyword->TabIndex = 57;
-				 this->lblKeyword->UseWaitCursor = true;
 				 // 
 				 // lblAuthor
 				 // 
@@ -1170,7 +1140,6 @@ namespace V1 {
 				 this->lblAuthor->Name = L"lblAuthor";
 				 this->lblAuthor->Size = System::Drawing::Size(0, 18);
 				 this->lblAuthor->TabIndex = 58;
-				 this->lblAuthor->UseWaitCursor = true;
 				 // 
 				 // lblTitle
 				 // 
@@ -1179,7 +1148,6 @@ namespace V1 {
 				 this->lblTitle->Name = L"lblTitle";
 				 this->lblTitle->Size = System::Drawing::Size(0, 18);
 				 this->lblTitle->TabIndex = 59;
-				 this->lblTitle->UseWaitCursor = true;
 				 // 
 				 // lblYear
 				 // 
@@ -1188,7 +1156,6 @@ namespace V1 {
 				 this->lblYear->Name = L"lblYear";
 				 this->lblYear->Size = System::Drawing::Size(0, 18);
 				 this->lblYear->TabIndex = 60;
-				 this->lblYear->UseWaitCursor = true;
 				 // 
 				 // lblJournal
 				 // 
@@ -1197,7 +1164,6 @@ namespace V1 {
 				 this->lblJournal->Name = L"lblJournal";
 				 this->lblJournal->Size = System::Drawing::Size(0, 18);
 				 this->lblJournal->TabIndex = 61;
-				 this->lblJournal->UseWaitCursor = true;
 				 // 
 				 // lblVolume
 				 // 
@@ -1206,7 +1172,6 @@ namespace V1 {
 				 this->lblVolume->Name = L"lblVolume";
 				 this->lblVolume->Size = System::Drawing::Size(0, 18);
 				 this->lblVolume->TabIndex = 62;
-				 this->lblVolume->UseWaitCursor = true;
 				 // 
 				 // lblNumber
 				 // 
@@ -1215,7 +1180,6 @@ namespace V1 {
 				 this->lblNumber->Name = L"lblNumber";
 				 this->lblNumber->Size = System::Drawing::Size(0, 18);
 				 this->lblNumber->TabIndex = 63;
-				 this->lblNumber->UseWaitCursor = true;
 				 // 
 				 // lblPages
 				 // 
@@ -1224,7 +1188,6 @@ namespace V1 {
 				 this->lblPages->Name = L"lblPages";
 				 this->lblPages->Size = System::Drawing::Size(0, 18);
 				 this->lblPages->TabIndex = 64;
-				 this->lblPages->UseWaitCursor = true;
 				 // 
 				 // lblMonth
 				 // 
@@ -1233,7 +1196,6 @@ namespace V1 {
 				 this->lblMonth->Name = L"lblMonth";
 				 this->lblMonth->Size = System::Drawing::Size(0, 18);
 				 this->lblMonth->TabIndex = 65;
-				 this->lblMonth->UseWaitCursor = true;
 				 // 
 				 // lblNote
 				 // 
@@ -1242,7 +1204,6 @@ namespace V1 {
 				 this->lblNote->Name = L"lblNote";
 				 this->lblNote->Size = System::Drawing::Size(0, 18);
 				 this->lblNote->TabIndex = 66;
-				 this->lblNote->UseWaitCursor = true;
 				 // 
 				 // lblPublisher
 				 // 
@@ -1251,7 +1212,6 @@ namespace V1 {
 				 this->lblPublisher->Name = L"lblPublisher";
 				 this->lblPublisher->Size = System::Drawing::Size(0, 18);
 				 this->lblPublisher->TabIndex = 67;
-				 this->lblPublisher->UseWaitCursor = true;
 				 // 
 				 // lblSeries
 				 // 
@@ -1260,7 +1220,6 @@ namespace V1 {
 				 this->lblSeries->Name = L"lblSeries";
 				 this->lblSeries->Size = System::Drawing::Size(0, 18);
 				 this->lblSeries->TabIndex = 68;
-				 this->lblSeries->UseWaitCursor = true;
 				 // 
 				 // lblAddress
 				 // 
@@ -1269,7 +1228,6 @@ namespace V1 {
 				 this->lblAddress->Name = L"lblAddress";
 				 this->lblAddress->Size = System::Drawing::Size(0, 18);
 				 this->lblAddress->TabIndex = 69;
-				 this->lblAddress->UseWaitCursor = true;
 				 // 
 				 // lblEdition
 				 // 
@@ -1278,7 +1236,6 @@ namespace V1 {
 				 this->lblEdition->Name = L"lblEdition";
 				 this->lblEdition->Size = System::Drawing::Size(0, 18);
 				 this->lblEdition->TabIndex = 70;
-				 this->lblEdition->UseWaitCursor = true;
 				 // 
 				 // lblHowpublished
 				 // 
@@ -1287,7 +1244,6 @@ namespace V1 {
 				 this->lblHowpublished->Name = L"lblHowpublished";
 				 this->lblHowpublished->Size = System::Drawing::Size(0, 18);
 				 this->lblHowpublished->TabIndex = 71;
-				 this->lblHowpublished->UseWaitCursor = true;
 				 // 
 				 // lblABooktitle
 				 // 
@@ -1296,7 +1252,6 @@ namespace V1 {
 				 this->lblABooktitle->Name = L"lblABooktitle";
 				 this->lblABooktitle->Size = System::Drawing::Size(0, 18);
 				 this->lblABooktitle->TabIndex = 72;
-				 this->lblABooktitle->UseWaitCursor = true;
 				 // 
 				 // lblEditor
 				 // 
@@ -1305,7 +1260,6 @@ namespace V1 {
 				 this->lblEditor->Name = L"lblEditor";
 				 this->lblEditor->Size = System::Drawing::Size(0, 18);
 				 this->lblEditor->TabIndex = 73;
-				 this->lblEditor->UseWaitCursor = true;
 				 // 
 				 // lblChapter
 				 // 
@@ -1314,7 +1268,6 @@ namespace V1 {
 				 this->lblChapter->Name = L"lblChapter";
 				 this->lblChapter->Size = System::Drawing::Size(0, 18);
 				 this->lblChapter->TabIndex = 74;
-				 this->lblChapter->UseWaitCursor = true;
 				 // 
 				 // lblSchool
 				 // 
@@ -1323,7 +1276,6 @@ namespace V1 {
 				 this->lblSchool->Name = L"lblSchool";
 				 this->lblSchool->Size = System::Drawing::Size(0, 18);
 				 this->lblSchool->TabIndex = 75;
-				 this->lblSchool->UseWaitCursor = true;
 				 // 
 				 // lblInstitution
 				 // 
@@ -1332,7 +1284,6 @@ namespace V1 {
 				 this->lblInstitution->Name = L"lblInstitution";
 				 this->lblInstitution->Size = System::Drawing::Size(0, 18);
 				 this->lblInstitution->TabIndex = 76;
-				 this->lblInstitution->UseWaitCursor = true;
 				 // 
 				 // lblOrganization
 				 // 
@@ -1341,12 +1292,11 @@ namespace V1 {
 				 this->lblOrganization->Name = L"lblOrganization";
 				 this->lblOrganization->Size = System::Drawing::Size(0, 18);
 				 this->lblOrganization->TabIndex = 77;
-				 this->lblOrganization->UseWaitCursor = true;
 				 // 
 				 // rbtnEditor
 				 // 
 				 this->rbtnEditor->AutoSize = true;
-				 this->rbtnEditor->Cursor = System::Windows::Forms::Cursors::WaitCursor;
+				 this->rbtnEditor->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->rbtnEditor->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
 				 this->rbtnEditor->Location = System::Drawing::Point(538, 679);
@@ -1354,13 +1304,12 @@ namespace V1 {
 				 this->rbtnEditor->Size = System::Drawing::Size(14, 13);
 				 this->rbtnEditor->TabIndex = 32;
 				 this->rbtnEditor->UseVisualStyleBackColor = true;
-				 this->rbtnEditor->UseWaitCursor = true;
 				 this->rbtnEditor->CheckedChanged += gcnew System::EventHandler(this, &MainForm::rbtnEditor_CheckedChanged);
 				 // 
 				 // rbtnAuthor
 				 // 
 				 this->rbtnAuthor->AutoSize = true;
-				 this->rbtnAuthor->Cursor = System::Windows::Forms::Cursors::WaitCursor;
+				 this->rbtnAuthor->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->rbtnAuthor->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
 				 this->rbtnAuthor->Location = System::Drawing::Point(538, 656);
@@ -1368,12 +1317,11 @@ namespace V1 {
 				 this->rbtnAuthor->Size = System::Drawing::Size(14, 13);
 				 this->rbtnAuthor->TabIndex = 33;
 				 this->rbtnAuthor->UseVisualStyleBackColor = true;
-				 this->rbtnAuthor->UseWaitCursor = true;
 				 this->rbtnAuthor->CheckedChanged += gcnew System::EventHandler(this, &MainForm::rbtnAuthor_CheckedChanged);
 				 // 
 				 // btnClearAuthor
 				 // 
-				 this->btnClearAuthor->Cursor = System::Windows::Forms::Cursors::WaitCursor;
+				 this->btnClearAuthor->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->btnClearAuthor->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 				 this->btnClearAuthor->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular,
 					 System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
@@ -1381,7 +1329,6 @@ namespace V1 {
 				 this->btnClearAuthor->Name = L"btnClearAuthor";
 				 this->btnClearAuthor->Size = System::Drawing::Size(92, 54);
 				 this->btnClearAuthor->TabIndex = 36;
-				 this->btnClearAuthor->UseWaitCursor = true;
 				 this->btnClearAuthor->Click += gcnew System::EventHandler(this, &MainForm::btnClearAuthor_Click);
 				 // 
 				 // lblLastName
@@ -1392,7 +1339,6 @@ namespace V1 {
 				 this->lblLastName->Name = L"lblLastName";
 				 this->lblLastName->Size = System::Drawing::Size(100, 23);
 				 this->lblLastName->TabIndex = 78;
-				 this->lblLastName->UseWaitCursor = true;
 				 // 
 				 // lblFirstName
 				 // 
@@ -1402,35 +1348,32 @@ namespace V1 {
 				 this->lblFirstName->Name = L"lblFirstName";
 				 this->lblFirstName->Size = System::Drawing::Size(100, 23);
 				 this->lblFirstName->TabIndex = 79;
-				 this->lblFirstName->UseWaitCursor = true;
 				 // 
 				 // btnSave
 				 // 
-				 this->btnSave->Cursor = System::Windows::Forms::Cursors::WaitCursor;
+				 this->btnSave->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->btnSave->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 				 this->btnSave->Location = System::Drawing::Point(439, 742);
 				 this->btnSave->Name = L"btnSave";
 				 this->btnSave->Size = System::Drawing::Size(132, 28);
 				 this->btnSave->TabIndex = 11;
-				 this->btnSave->UseWaitCursor = true;
 				 this->btnSave->Click += gcnew System::EventHandler(this, &MainForm::btnSave_Click);
 				 // 
 				 // btnCancel
 				 // 
-				 this->btnCancel->Cursor = System::Windows::Forms::Cursors::WaitCursor;
+				 this->btnCancel->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->btnCancel->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 				 this->btnCancel->Location = System::Drawing::Point(576, 742);
 				 this->btnCancel->Name = L"btnCancel";
 				 this->btnCancel->Size = System::Drawing::Size(136, 28);
 				 this->btnCancel->TabIndex = 12;
-				 this->btnCancel->UseWaitCursor = true;
 				 this->btnCancel->Click += gcnew System::EventHandler(this, &MainForm::btnCancel_Click);
 				 // 
 				 // btnSaveHDD
 				 // 
 				 this->btnSaveHDD->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(22)), static_cast<System::Int32>(static_cast<System::Byte>(167)),
 					 static_cast<System::Int32>(static_cast<System::Byte>(22)));
-				 this->btnSaveHDD->Cursor = System::Windows::Forms::Cursors::WaitCursor;
+				 this->btnSaveHDD->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->btnSaveHDD->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 				 this->btnSaveHDD->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
@@ -1440,7 +1383,6 @@ namespace V1 {
 				 this->btnSaveHDD->Size = System::Drawing::Size(160, 30);
 				 this->btnSaveHDD->TabIndex = 9;
 				 this->btnSaveHDD->UseVisualStyleBackColor = false;
-				 this->btnSaveHDD->UseWaitCursor = true;
 				 this->btnSaveHDD->Click += gcnew System::EventHandler(this, &MainForm::btnSaveHDD_Click);
 				 // 
 				 // txtSearch
@@ -1452,7 +1394,6 @@ namespace V1 {
 				 this->txtSearch->Name = L"txtSearch";
 				 this->txtSearch->Size = System::Drawing::Size(300, 27);
 				 this->txtSearch->TabIndex = 1;
-				 this->txtSearch->UseWaitCursor = true;
 				 this->txtSearch->TextChanged += gcnew System::EventHandler(this, &MainForm::txtSearch_TextChanged);
 				 // 
 				 // listViewAuthors
@@ -1467,33 +1408,44 @@ namespace V1 {
 				 this->listViewAuthors->TabIndex = 0;
 				 this->listViewAuthors->TabStop = false;
 				 this->listViewAuthors->UseCompatibleStateImageBehavior = false;
-				 this->listViewAuthors->UseWaitCursor = true;
 				 this->listViewAuthors->View = System::Windows::Forms::View::List;
 				 this->listViewAuthors->SelectedIndexChanged += gcnew System::EventHandler(this, &MainForm::listViewAuthors_SelectedIndexChanged);
 				 // 
 				 // btnLanguage
 				 // 
+				 this->btnLanguage->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->btnLanguage->Location = System::Drawing::Point(805, 10);
 				 this->btnLanguage->Name = L"btnLanguage";
 				 this->btnLanguage->Size = System::Drawing::Size(127, 28);
 				 this->btnLanguage->TabIndex = 6;
 				 this->btnLanguage->UseVisualStyleBackColor = true;
-				 this->btnLanguage->UseWaitCursor = true;
 				 this->btnLanguage->Click += gcnew System::EventHandler(this, &MainForm::btnLanguage_Click);
 				 // 
 				 // btnPDF
 				 // 
+				 this->btnPDF->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->btnPDF->Location = System::Drawing::Point(938, 11);
 				 this->btnPDF->Name = L"btnPDF";
 				 this->btnPDF->Size = System::Drawing::Size(135, 27);
 				 this->btnPDF->TabIndex = 7;
 				 this->btnPDF->UseVisualStyleBackColor = true;
-				 this->btnPDF->UseWaitCursor = true;
 				 this->btnPDF->Click += gcnew System::EventHandler(this, &MainForm::btnPDF_Click);
+				 // 
+				 // btnDark
+				 // 
+				 this->btnDark->Cursor = System::Windows::Forms::Cursors::NoMove2D;
+				 this->btnDark->Location = System::Drawing::Point(354, 17);
+				 this->btnDark->Name = L"btnDark";
+				 this->btnDark->Size = System::Drawing::Size(95, 23);
+				 this->btnDark->TabIndex = 80;
+				 this->btnDark->Text = L"Darkmode";
+				 this->btnDark->UseVisualStyleBackColor = true;
+				 this->btnDark->Click += gcnew System::EventHandler(this, &MainForm::btnDark_Click);
 				 // 
 				 // MainForm
 				 // 
 				 this->ClientSize = System::Drawing::Size(1264, 823);
+				 this->Controls->Add(this->btnDark);
 				 this->Controls->Add(this->txtFirstName);
 				 this->Controls->Add(this->txtLastName);
 				 this->Controls->Add(this->btnPDF);
@@ -1515,6 +1467,7 @@ namespace V1 {
 				 this->Controls->Add(this->panelDetails);
 				 this->Controls->Add(this->lblFirstName);
 				 this->Controls->Add(this->lblLastName);
+				 this->Cursor = System::Windows::Forms::Cursors::Arrow;
 				 this->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
 				 this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
@@ -1524,7 +1477,6 @@ namespace V1 {
 				 this->ShowIcon = false;
 				 this->SizeGripStyle = System::Windows::Forms::SizeGripStyle::Hide;
 				 this->Text = L"BibTexPro";
-				 this->UseWaitCursor = true;
 				 this->Load += gcnew System::EventHandler(this, &MainForm::MainForm_Load);
 				 this->panelDetails->ResumeLayout(false);
 				 this->panelDetails->PerformLayout();
@@ -2436,5 +2388,83 @@ namespace V1 {
 
 
 		}
-	};
+	private: System::Void btnDark_Click(System::Object^  sender, System::EventArgs^  e) {
+
+		if (this->BackColor == System::Drawing::Color::FromArgb(19, 17, 28))
+		{
+			this->BackColor = System::Drawing::Color::White;
+			panelDetails->BackColor = System::Drawing::Color::White;
+			listViewEntries->BackColor = System::Drawing::Color::White;
+			listViewAuthors->BackColor = System::Drawing::Color::White;
+			rbtnAuthor->ForeColor = System::Drawing::Color::Black;
+			rbtnEditor->ForeColor = System::Drawing::Color::Black;
+			btnSetAuthor->ForeColor = System::Drawing::Color::Black;
+			btnClearAuthor->ForeColor = System::Drawing::Color::Black;
+			lblFirstName->ForeColor = System::Drawing::Color::Black;
+			lblLastName->ForeColor = System::Drawing::Color::Black;
+			lblKeyword->ForeColor = System::Drawing::Color::Black;
+			lblAuthor->ForeColor = System::Drawing::Color::Black;
+			lblTitle->ForeColor = System::Drawing::Color::Black;
+			lblYear->ForeColor = System::Drawing::Color::Black;
+			lblJournal->ForeColor = System::Drawing::Color::Black;
+			lblVolume->ForeColor = System::Drawing::Color::Black;
+			lblNumber->ForeColor = System::Drawing::Color::Black;
+			lblPages->ForeColor = System::Drawing::Color::Black;
+			lblMonth->ForeColor = System::Drawing::Color::Black;
+			lblNote->ForeColor = System::Drawing::Color::Black;
+			lblPublisher->ForeColor = System::Drawing::Color::Black;
+			lblSeries->ForeColor = System::Drawing::Color::Black;
+			lblAddress->ForeColor = System::Drawing::Color::Black;
+			lblEdition->ForeColor = System::Drawing::Color::Black;
+			lblHowpublished->ForeColor = System::Drawing::Color::Black;
+			lblABooktitle->ForeColor = System::Drawing::Color::Black;
+			lblEditor->ForeColor = System::Drawing::Color::Black;
+			lblChapter->ForeColor = System::Drawing::Color::Black;
+			lblSchool->ForeColor = System::Drawing::Color::Black;
+			lblInstitution->ForeColor = System::Drawing::Color::Black;
+			lblOrganization->ForeColor = System::Drawing::Color::Black;
+			listViewEntries->ForeColor = System::Drawing::Color::Black;
+			listViewAuthors->ForeColor = System::Drawing::Color::Black;
+		}
+		else
+		{
+			this->BackColor = System::Drawing::Color::FromArgb(19, 17, 28);
+			panelDetails->BackColor = System::Drawing::Color::FromArgb(33, 33, 33);
+			listViewEntries->BackColor = System::Drawing::Color::FromArgb(33, 33, 33);
+			listViewAuthors->BackColor = System::Drawing::Color::FromArgb(33, 33, 33);
+			btnSave->BackColor = System::Drawing::Color::White;
+			btnCancel->BackColor = System::Drawing::Color::White;
+			rbtnAuthor->ForeColor = System::Drawing::Color::White;
+			rbtnEditor->ForeColor = System::Drawing::Color::White;
+			btnSetAuthor->ForeColor = System::Drawing::Color::White;
+			btnClearAuthor->ForeColor = System::Drawing::Color::White;
+			lblFirstName->ForeColor = System::Drawing::Color::White;
+			lblLastName->ForeColor = System::Drawing::Color::White;
+			lblKeyword->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblAuthor->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblTitle->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblYear->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblJournal->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblVolume->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblNumber->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblPages->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblMonth->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblNote->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblPublisher->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblSeries->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblAddress->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblEdition->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblHowpublished->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblABooktitle->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblEditor->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblChapter->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblSchool->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblInstitution->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblOrganization->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			listViewEntries->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			listViewAuthors->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+		}
+
+	}
+};
 }
