@@ -7,6 +7,8 @@
 #include <string.h>
 
 
+
+
 using namespace DataNamespace;
 
 namespace V1 {
@@ -29,6 +31,7 @@ namespace V1 {
 			t->Join(); // Wait for the SplashScreen thread to finish
 
 			InitializeComponent();
+			// this->Icon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON1)); //funktioniert noch nicht
 			sprache_aendern();
 			this->StartPosition = FormStartPosition::CenterScreen;
 			InitializeDataTypes();
@@ -1474,10 +1477,10 @@ private: System::Windows::Forms::Button^  btnDark;
 				 this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 				 this->MaximizeBox = false;
 				 this->Name = L"MainForm";
-				 this->ShowIcon = false;
 				 this->SizeGripStyle = System::Windows::Forms::SizeGripStyle::Hide;
 				 this->Text = L"BibTexPro";
 				 this->Load += gcnew System::EventHandler(this, &MainForm::MainForm_Load);
+				 this->Shown += gcnew System::EventHandler(this, &MainForm::MainForm_Shown);
 				 this->panelDetails->ResumeLayout(false);
 				 this->panelDetails->PerformLayout();
 				 this->ResumeLayout(false);
@@ -2074,12 +2077,11 @@ private: System::Windows::Forms::Button^  btnDark;
 			 }
 
 	private: System::Void MainForm_Load(System::Object^  sender, System::EventArgs^  e) {
+	}
 
-		/*String^ icoName = "C:\\Downloads\\bepsi.ico";
-		this->Icon = gcnew System::Drawing::Icon(icoName);*/ //Muss noch in Resources eingebunden werden
-
+	private: System::Void MainForm_Shown(System::Object^ sender, System::EventArgs^ e) {
 		bool success = LoadEntries("entries.bin");
-		/*bool success = LoadEntries("nonexistent_file.bin");*/ //Test Fehler
+
 		if (success) {
 			RefreshListView(); // Aktualisiere die Anzeige der Einträge, wenn das Laden erfolgreich war
 			MessageBox::Show("Entries loaded successfully from HDD.", "Information", MessageBoxButtons::OK, MessageBoxIcon::Information);
@@ -2087,6 +2089,7 @@ private: System::Windows::Forms::Button^  btnDark;
 		else {
 			MessageBox::Show("Failed to load entries from HDD.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
+
 		RefreshListView(); // Refresh the ListView to show loaded entries
 	}
 
