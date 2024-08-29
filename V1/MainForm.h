@@ -993,6 +993,7 @@ namespace V1 {
 				 this->txtKeyword->TabIndex = 34;
 				 this->txtKeyword->TabStop = false;
 				 this->txtKeyword->UseWaitCursor = true;
+				 this->txtKeyword->TextChanged += gcnew System::EventHandler(this, &MainForm::txtKeyword_TextChanged);
 				 // 
 				 // txtAuthor
 				 // 
@@ -2436,5 +2437,7 @@ namespace V1 {
 
 
 		}
-	};
+	private: System::Void txtKeyword_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+	}
+};
 }
