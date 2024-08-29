@@ -1710,6 +1710,7 @@ private: System::Windows::Forms::Button^  button1;
 				 btnClearAuthor->Visible = false;
 				 rbtnAuthor->Visible = false;
 				 rbtnEditor->Visible = false;
+				 listViewAuthors->Visible = false;
 				 // Author Namensblock ausblenden
 			 }
 
@@ -1985,6 +1986,7 @@ private: System::Windows::Forms::Button^  button1;
 
 				 if (Author && Editor) {
 					 txtAuthor->Visible = true;
+					 listViewAuthors->Visible = true;
 					 lblAuthor->Visible = true;
 					 txtEditor->Visible = true;
 					 lblEditor->Visible = true;
@@ -2001,6 +2003,7 @@ private: System::Windows::Forms::Button^  button1;
 				 }
 				 else if (Author) {
 					 txtAuthor->Visible = true;
+					 listViewAuthors->Visible = true;
 					 lblAuthor->Visible = true;
 					 lblFirstName->Visible = true;
 					 lblLastName->Visible = true;
@@ -2013,6 +2016,7 @@ private: System::Windows::Forms::Button^  button1;
 				 }
 				 else if (Editor) {
 					 txtEditor->Visible = true;
+					 listViewAuthors->Visible = true;
 					 lblEditor->Visible = true;
 					 lblFirstName->Visible = true;
 					 lblLastName->Visible = true;
