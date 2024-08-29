@@ -34,6 +34,8 @@ namespace V1 {
 			// this->Icon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON1)); //funktioniert noch nicht
 			sprache_aendern();
 			this->StartPosition = FormStartPosition::CenterScreen;
+			/*this->BringToFront();
+			this->Activate();*/
 			InitializeDataTypes();
 			PopulateTypeDropdown();
 			entries = gcnew List<DataArray^>();
@@ -42,7 +44,7 @@ namespace V1 {
 			UpdateUIState(false);
 
 			// Ensure MainForm is shown and brought to the foreground
-			this->Shown += gcnew EventHandler(this, &MainForm::OnShown);
+			/*this->Shown += gcnew EventHandler(this, &MainForm::OnShown);*/
 
 		}
 
@@ -54,11 +56,11 @@ namespace V1 {
 		}
 
 
-	private:
+	/*private:
 		void OnShown(System::Object^ sender, System::EventArgs^ e) {
 			this->BringToFront();
 			this->Activate();
-		}
+		}*/
 	public:
 		void StartForm() {
 			V1::SplashScreen^ form = gcnew V1::SplashScreen();
@@ -140,6 +142,7 @@ namespace V1 {
 	private: System::Windows::Forms::Button^  btnLanguage;
 	private: System::Windows::Forms::Button^  btnPDF;
 private: System::Windows::Forms::Button^  btnDark;
+private: System::Windows::Forms::Button^  button1;
 
 			 //mein
 	private: System::Windows::Forms::ListView^ listViewAuthors;
@@ -810,6 +813,7 @@ private: System::Windows::Forms::Button^  btnDark;
 				 this->btnLanguage = (gcnew System::Windows::Forms::Button());
 				 this->btnPDF = (gcnew System::Windows::Forms::Button());
 				 this->btnDark = (gcnew System::Windows::Forms::Button());
+				 this->button1 = (gcnew System::Windows::Forms::Button());
 				 this->panelDetails->SuspendLayout();
 				 this->SuspendLayout();
 				 // 
@@ -1445,9 +1449,19 @@ private: System::Windows::Forms::Button^  btnDark;
 				 this->btnDark->UseVisualStyleBackColor = true;
 				 this->btnDark->Click += gcnew System::EventHandler(this, &MainForm::btnDark_Click);
 				 // 
+				 // button1
+				 // 
+				 this->button1->Location = System::Drawing::Point(1141, 379);
+				 this->button1->Name = L"button1";
+				 this->button1->Size = System::Drawing::Size(75, 23);
+				 this->button1->TabIndex = 81;
+				 this->button1->Text = gcnew System::String(L"\u00D6");
+				 this->button1->UseVisualStyleBackColor = true;
+				 // 
 				 // MainForm
 				 // 
 				 this->ClientSize = System::Drawing::Size(1264, 823);
+				 this->Controls->Add(this->button1);
 				 this->Controls->Add(this->btnDark);
 				 this->Controls->Add(this->txtFirstName);
 				 this->Controls->Add(this->txtLastName);
@@ -2081,6 +2095,8 @@ private: System::Windows::Forms::Button^  btnDark;
 
 	private: System::Void MainForm_Shown(System::Object^ sender, System::EventArgs^ e) {
 		bool success = LoadEntries("entries.bin");
+		this->BringToFront();
+		this->Activate();
 
 		if (success) {
 			RefreshListView(); // Aktualisiere die Anzeige der Einträge, wenn das Laden erfolgreich war
@@ -2326,10 +2342,10 @@ private: System::Windows::Forms::Button^  btnDark;
 					 this->btnExportToBib->Text = L"Exportieren zu .bib";
 					 this->btnNew->Text = L"Neu";
 					 this->btnEdit->Text = L"Bearbeiten";
-					 this->btnDelete->Text = "Löschen";
+					 this->btnDelete->Text = L"L\u00f6schen";
 					 this->rbtnEditor->Text = L"Herausgeber";
 					 this->rbtnAuthor->Text = L"Autor";
-					 this->btnClearAuthor->Text = "Autor Löschen";
+					 this->btnClearAuthor->Text = "Autor L\u00f6schen";
 					 this->lblKeyword->Text = L"Schlagwort:";
 					 this->lblAuthor->Text = L"Autor:";
 					 this->lblTitle->Text = L"Titel:";
@@ -2344,7 +2360,7 @@ private: System::Windows::Forms::Button^  btnDark;
 					 this->lblSeries->Text = L"Serie:";
 					 this->lblAddress->Text = L"Adresse:";
 					 this->lblEdition->Text = L"Auflage:";
-					 this->lblHowpublished->Text = "Veröffentlichungsart:";
+					 this->lblHowpublished->Text = "Ver\u00f6ffentlichungsart:";
 					 this->lblABooktitle->Text = L"Buchtitel:";
 					 this->lblEditor->Text = L"Herausgeber:";
 					 this->lblChapter->Text = L"Kapitel:";
@@ -2361,14 +2377,14 @@ private: System::Windows::Forms::Button^  btnDark;
 					 this->btnPDF->Text = L"Handbuch";
 				 }
 				 std::pair<std::string, std::string> errorMessages[] = {
-				{"Bitte füllen Sie das Feld für das Journal aus.", "Please fill in the journal field."},
+				{"Bitte f\u00fcllen Sie das Feld f\u00fcr das Journal aus.", "Please fill in the journal field."},
 				{"Bitte geben Sie eine Zahl in das Jahr-Feld ein.", "Please enter a number into the year field."},
 				{"Es darf nicht sowohl Autor als auch Herausgeber angegeben werden!", "Cannot have both Author and Editor!"},
-				{"Bitte füllen Sie das Feld für den Autor aus.", "Please fill in the author field."},
-				{"Bitte füllen Sie das Feld für den Herausgeber aus.", "Please fill in the editor field."},
-				{"Bitte füllen Sie das Feld für das Kapitel aus.", "Please fill in the chapter field."},
-				{"Bitte füllen Sie das Feld für den Titel aus.", "Please fill in the title field."},
-				{"Bitte füllen Sie das Feld für die Seiten aus.", "Please fill in the pages field."},
+				{"Bitte f\u00fcllen Sie das Feld f\u00fcr den Autor aus.", "Please fill in the author field."},
+				{"Bitte f\u00fcllen Sie das Feld f\u00fcr den Herausgeber aus.", "Please fill in the editor field."},
+				{"Bitte f\u00fcllen Sie das Feld f\u00fcr das Kapitel aus.", "Please fill in the chapter field."},
+				{"Bitte f\u00fcllen Sie das Feld f\u00fcr den Titel aus.", "Please fill in the title field."},
+				{"Bitte f\u00fcllen Sie das Feld f\u00fcr die Seiten aus.", "Please fill in the pages field."},
 				{"Missing Input","Fehlende Eingabe"}
 				 };
 
