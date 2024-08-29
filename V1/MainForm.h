@@ -21,16 +21,14 @@ namespace V1 {
 	public ref class MainForm : public System::Windows::Forms::Form {
 	public:
 		MainForm(void) {
-
-			// Start the splash screen in a separate thread
-			Thread^ t = gcnew Thread(gcnew ThreadStart(this, &MainForm::StartForm));
-			t->SetApartmentState(ApartmentState::STA);
-			t->Start();
-			t->Join(); // Wait for the SplashScreen thread to finish
-
 			InitializeComponent();
 			sprache_aendern();
+			// Zeige die Hauptform sofort im Vordergrund
 			this->StartPosition = FormStartPosition::CenterScreen;
+			this->BringToFront();
+			this->Activate();
+
+			// Die eigentliche Initialisierung danach durchführen
 			InitializeDataTypes();
 			PopulateTypeDropdown();
 			entries = gcnew List<DataArray^>();
@@ -38,9 +36,8 @@ namespace V1 {
 			HideAllFields();
 			UpdateUIState(false);
 
-			// Ensure MainForm is shown and brought to the foreground
-			this->Shown += gcnew EventHandler(this, &MainForm::OnShown);
-
+			// Lade den SplashScreen
+			StartForm();
 		}
 
 	protected:
@@ -974,6 +971,7 @@ namespace V1 {
 				 this->panelDetails->Size = System::Drawing::Size(736, 545);
 				 this->panelDetails->TabIndex = 13;
 				 this->panelDetails->UseWaitCursor = true;
+				 this->panelDetails->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MainForm::panelDetails_Paint);
 				 // 
 				 // cmbType
 				 // 
@@ -2130,7 +2128,7 @@ namespace V1 {
 		bool success = LoadEntries("entries.bin");
 		/*bool success = LoadEntries("nonexistent_file.bin");*/ //Test Fehler
 		if (success) {
-			RefreshListView(); // Aktualisiere die Anzeige der Einträge, wenn das Laden erfolgreich war
+			//RefreshListView(); // Aktualisiere die Anzeige der Einträge, wenn das Laden erfolgreich war
 			MessageBox::Show("Entries loaded successfully from HDD.", "Information", MessageBoxButtons::OK, MessageBoxIcon::Information);
 		}
 		else {
@@ -2439,5 +2437,7 @@ namespace V1 {
 		}
 	private: System::Void txtKeyword_TextChanged(System::Object^  sender, System::EventArgs^  e) {
 	}
+private: System::Void panelDetails_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
+}
 };
 }
