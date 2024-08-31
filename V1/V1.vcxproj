@@ -161,13 +161,6 @@
   <ItemGroup>
     <Media Include="Startup.wav" />
   </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\..\..\..\..\..\..\..\Downloads\bepsi.ico" />
-    <Image Include="icon1.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="IconResource.rc" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
