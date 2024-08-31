@@ -413,7 +413,7 @@ private: System::Windows::Forms::Button^  btnDark;
 			 }
 
 
-
+			 
 			 bool ValidateEntry()
 			 {
 				 bool stateMandatory = true;
@@ -1617,6 +1617,9 @@ private: System::Windows::Forms::Button^  btnDark;
 			 {
 				 if (cmbType->SelectedItem != nullptr)
 				 {
+					 /*if (txtAuthor->Text != "" || txtEditor->Text != "") {
+						 TypeChanged = true;
+					 }*/
 					 String^ selectedType = cmbType->SelectedItem->ToString();
 					 for each (DataTypeFields^ type in dataTypes)
 					 {
@@ -2253,21 +2256,76 @@ private: System::Windows::Forms::Button^  btnDark;
 				 storageTextBox->Text = String::Join(" and ", authorEntries);
 			 }
 			 //mein
+			 //bool TypeChanged = false;
 	private: System::Void rbtnAuthor_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (rbtnAuthor->Checked) {
-			if (!String::IsNullOrEmpty(txtEditor->Text)) {
-				txtAuthor->Text = txtEditor->Text;
-				txtEditor->Clear();
-			}
+			
+			//if (!String::IsNullOrEmpty(txtEditor->Text)) {
+				if (cmbType->SelectedItem != "conference" && cmbType->SelectedItem != "incollection" && cmbType->SelectedItem != "inproceedings") { //incollection, inbook
+					if (!String::IsNullOrEmpty(txtEditor->Text)) {
+						txtAuthor->Text = txtEditor->Text;
+						txtEditor->Clear();
+						listViewAuthors->Items->Clear();
+						if (txtAuthor->Text != "")
+						{
+							array<String^>^ authors = txtAuthor->Text->Split(gcnew array<String^>{ " and " }, StringSplitOptions::None);
+							for each (String^ author in authors)
+							{
+								listViewAuthors->Items->Add(author->Trim());
+							}
+						}
+					}
+				}
+				else {
+					listViewAuthors->Items->Clear();
+					if (txtAuthor->Text != "")
+					{
+						array<String^>^ authors = txtAuthor->Text->Split(gcnew array<String^>{ " and " }, StringSplitOptions::None);
+						for each (String^ author in authors)
+						{
+							listViewAuthors->Items->Add(author->Trim());
+						}
+					}
+					/*TypeChanged = false;*/
+				}
+			//}
 		}
 	}
 
 	private: System::Void rbtnEditor_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (rbtnEditor->Checked) {
-			if (!String::IsNullOrEmpty(txtAuthor->Text)) {
-				txtEditor->Text = txtAuthor->Text;
-				txtAuthor->Clear();
-			}
+			//listViewAuthors->Items->Clear();
+			//if (!String::IsNullOrEmpty(txtAuthor->Text)) { //Author gefüllt
+
+				if (cmbType->SelectedItem != "conference" && cmbType->SelectedItem != "incollection" && cmbType->SelectedItem != "inproceedings") {
+					if (!String::IsNullOrEmpty(txtAuthor->Text)/* && !TypeChanged*/) {
+						txtEditor->Text = txtAuthor->Text;
+						txtAuthor->Clear();
+						/*TypeChanged = false;*/
+						listViewAuthors->Items->Clear();
+						if (txtEditor->Text != "")
+						{
+							array<String^>^ editors = txtEditor->Text->Split(gcnew array<String^>{ " and " }, StringSplitOptions::None);
+							for each (String^ editor in editors)
+							{
+								listViewAuthors->Items->Add(editor->Trim());
+							}
+						}
+					}
+				}
+				else {
+					listViewAuthors->Items->Clear();
+					if (txtEditor->Text != "")
+					{
+						array<String^>^ editors = txtEditor->Text->Split(gcnew array<String^>{ " and " }, StringSplitOptions::None);
+						for each (String^ editor in editors)
+						{
+							listViewAuthors->Items->Add(editor->Trim());
+						}
+					}
+					/*TypeChanged = false;*/
+				}
+			//}
 		}
 	}
 
