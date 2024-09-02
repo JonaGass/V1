@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "functions.h"
 
 
 
@@ -219,33 +220,7 @@ namespace V1 {
 			 }
 
 			 // Function to clear entry details from the panel
-			 void ClearEntryDetails()
-			 {
-				 currentEntry = nullptr;
-				 cmbType->SelectedIndex = -1;
-				 txtKeyword->Clear();
-				 txtAuthor->Clear();
-				 txtTitle->Clear();
-				 txtYear->Clear();
-				 txtJournal->Clear();
-				 txtVolume->Clear();
-				 txtNumber->Clear();
-				 txtPages->Clear();
-				 txtMonth->Clear();
-				 txtNote->Clear();
-				 txtPublisher->Clear();
-				 txtSeries->Clear();
-				 txtAddress->Clear();
-				 txtEdition->Clear();
-				 txtHowpublished->Clear();
-				 txtBooktitle->Clear();
-				 txtEditor->Clear();
-				 txtChapter->Clear();
-				 txtSchool->Clear();
-				 txtInstitution->Clear();
-				 txtOrganization->Clear();
-				 SetFieldsReadOnly(false);
-			 }
+			
 
 			 // Function to toggle read-only state of fields
 			 void SetFieldsReadOnly(bool readOnly)
@@ -284,7 +259,14 @@ namespace V1 {
 			 // Event handler for new entry button click
 			 void btnNew_Click(System::Object^ sender, System::EventArgs^ e) {
 				 listViewAuthors->Items->Clear();
-				 ClearEntryDetails();
+				 //changed
+				 V1::ClearEntryDetails(currentEntry, cmbType, txtKeyword, txtAuthor, txtTitle,
+					 txtYear, txtJournal, txtVolume, txtNumber, txtPages, txtMonth, txtNote,
+					 txtPublisher, txtSeries, txtAddress, txtEdition, txtHowpublished,
+					 txtBooktitle, txtEditor, txtChapter, txtSchool, txtInstitution,
+					 txtOrganization/*, &SetFieldsReadOnly*/);
+				 //changed
+				 
 				 currentEntry = gcnew DataArray();
 				 UpdateUIState(true);
 			 }
@@ -402,7 +384,11 @@ namespace V1 {
 
 						 RefreshListView();
 						 UpdateUIState(false);
-						 ClearEntryDetails();
+						 V1::ClearEntryDetails(currentEntry, cmbType, txtKeyword, txtAuthor, txtTitle,
+							 txtYear, txtJournal, txtVolume, txtNumber, txtPages, txtMonth, txtNote,
+							 txtPublisher, txtSeries, txtAddress, txtEdition, txtHowpublished,
+							 txtBooktitle, txtEditor, txtChapter, txtSchool, txtInstitution,
+							 txtOrganization/*, &SetFieldsReadOnly*/);
 					 }
 				 }
 			 }
@@ -410,7 +396,11 @@ namespace V1 {
 
 			 // Event handler for cancel button click
 			 void btnCancel_Click(System::Object^ sender, System::EventArgs^ e) {
-				 ClearEntryDetails();
+				 V1::ClearEntryDetails(currentEntry, cmbType, txtKeyword, txtAuthor, txtTitle,
+					 txtYear, txtJournal, txtVolume, txtNumber, txtPages, txtMonth, txtNote,
+					 txtPublisher, txtSeries, txtAddress, txtEdition, txtHowpublished,
+					 txtBooktitle, txtEditor, txtChapter, txtSchool, txtInstitution,
+					 txtOrganization/*, &SetFieldsReadOnly*/);
 				 UpdateUIState(false);
 			 }
 
@@ -1801,7 +1791,11 @@ namespace V1 {
 					 int index = listViewEntries->SelectedIndices[0];
 					 entries->RemoveAt(index);
 					 RefreshListView();
-					 ClearEntryDetails();
+					 V1::ClearEntryDetails(currentEntry, cmbType, txtKeyword, txtAuthor, txtTitle,
+						 txtYear, txtJournal, txtVolume, txtNumber, txtPages, txtMonth, txtNote,
+						 txtPublisher, txtSeries, txtAddress, txtEdition, txtHowpublished,
+						 txtBooktitle, txtEditor, txtChapter, txtSchool, txtInstitution,
+						 txtOrganization/*, &SetFieldsReadOnly*/);
 				 }
 			 }
 

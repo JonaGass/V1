@@ -24,6 +24,9 @@
     <ClCompile Include="SplashScreen.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="functions.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainForm.h">
@@ -36,6 +39,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="functions.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
