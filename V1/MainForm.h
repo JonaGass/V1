@@ -46,6 +46,8 @@ namespace V1 {
 			/*this->Shown += gcnew EventHandler(this, &MainForm::OnShown);*/
 
 		}
+	private:
+		array<String^, 2>^ nachrichten; //meinis
 
 	protected:
 		~MainForm() {
@@ -55,11 +57,11 @@ namespace V1 {
 		}
 
 
-	/*private:
-		void OnShown(System::Object^ sender, System::EventArgs^ e) {
-			this->BringToFront();
-			this->Activate();
-		}*/
+		/*private:
+			void OnShown(System::Object^ sender, System::EventArgs^ e) {
+				this->BringToFront();
+				this->Activate();
+			}*/
 	public:
 		void StartForm() {
 			V1::SplashScreen^ form = gcnew V1::SplashScreen();
@@ -140,7 +142,7 @@ namespace V1 {
 			 bool isEditMode;
 	private: System::Windows::Forms::Button^  btnLanguage;
 	private: System::Windows::Forms::Button^  btnPDF;
-private: System::Windows::Forms::Button^  btnDark;
+	private: System::Windows::Forms::Button^  btnDark;
 
 
 			 //mein
@@ -413,7 +415,7 @@ private: System::Windows::Forms::Button^  btnDark;
 			 }
 
 
-			 
+
 			 bool ValidateEntry()
 			 {
 				 bool stateMandatory = true;
@@ -421,7 +423,13 @@ private: System::Windows::Forms::Button^  btnDark;
 
 				 if (cmbType->SelectedIndex == -1)
 				 {
-					 MessageBox::Show("Please select an entry type.");
+					 if (en_de == 0) {
+						 MessageBox::Show(nachrichten[0, 0]);
+					 }
+					 else if (en_de == 1) {
+						 MessageBox::Show(nachrichten[0, 1]);
+					 }
+					 //MessageBox::Show("Please select an entry type.");
 					 stateMandatory = false;
 				 }
 				 else {
@@ -440,7 +448,13 @@ private: System::Windows::Forms::Button^  btnDark;
 
 					 if (selectedTypeFields == nullptr)
 					 {
-						 MessageBox::Show("Invalid entry type selected.");
+						 if (en_de == 0) {
+							 MessageBox::Show(nachrichten[1, 0]);
+						 }
+						 else if (en_de == 1) {
+							 MessageBox::Show(nachrichten[1, 1]);
+						 }
+						 //MessageBox::Show("Invalid entry type selected.");
 						 stateMandatory = false;
 					 }
 
@@ -458,7 +472,13 @@ private: System::Windows::Forms::Button^  btnDark;
 					 for each (String^ field in selectedTypeFields->RequiredFields)
 					 {
 						 if (field == "keyword" && txtKeyword->Text->Trim() == String::Empty) {
-							 errorMessage += "Please fill in the keyword field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[2, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[2, 1];
+							 }
+							 //errorMessage += "Please fill in the keyword field.\n";
 							 stateMandatory = false;
 						 }
 						 if (field == "author") {
@@ -472,26 +492,50 @@ private: System::Windows::Forms::Button^  btnDark;
 							 }
 						 }
 						 if (field == "title" && txtTitle->Text->Trim() == String::Empty) {
-							 errorMessage += "Please fill in the title field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[3, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[3, 1];
+							 }
+							 //errorMessage += "Please fill in the title field.\n";
 							 stateMandatory = false;
 						 }
 						 int year;
 						 if ((field == "year" && txtYear->Text->Trim() == String::Empty) || (field == "year" && !Int32::TryParse(txtYear->Text, year))) {
-							 errorMessage += "Please enter a number into the year field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[4, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[4, 1];
+							 }
+							 //errorMessage += "Please enter a number into the year field.\n";
 							 stateMandatory = false;
 						 }
 						 if (field == "journal" && txtJournal->Text->Trim() == String::Empty) {
-							 errorMessage += "Please fill in the journal field.\n";
+							 //errorMessage += "Please fill in the journal field.\n";
 							 stateMandatory = false;
 						 }
 						 int volume;
 						 if ((field == "volume" && txtVolume->Text->Trim() == String::Empty) || (field == "volume" && !Int32::TryParse(txtVolume->Text, volume))) {
-							 errorMessage += "Please enter a number into the volume field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[5, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[5, 1];
+							 }
+							 //errorMessage += "Please enter a number into the volume field.\n";
 							 stateMandatory = false;
 						 }
 						 int number;
 						 if ((field == "number" && txtNumber->Text->Trim() == String::Empty) || (field == "number" && !Int32::TryParse(txtNumber->Text, number))) {
-							 errorMessage += "Please enter a number into the number field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[6, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[6, 1];
+							 }
+							 //errorMessage += "Please enter a number into the number field.\n";
 							 stateMandatory = false;
 						 }
 						 int pages;
@@ -506,42 +550,96 @@ private: System::Windows::Forms::Button^  btnDark;
 								 //stateMandatory = false;
 							 }
 							 else if (!Int32::TryParse(txtPages->Text, pages)) {
-								 errorMessage += "Please enter a number into the pages field.\n";
+								 if (en_de == 0) {
+									 errorMessage += nachrichten[7, 0];
+								 }
+								 else if (en_de == 1) {
+									 errorMessage += nachrichten[7, 1];
+								 }
+								 //errorMessage += "Please enter a number into the pages field.\n";
 							 }
 							 else {
 								 hasPages = true; // Pages is present
 							 }
 						 }
 						 if (field == "month" && txtMonth->Text->Trim() == String::Empty) {
-							 errorMessage += "Please fill in the month field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[8, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[8, 1];
+							 }
+							 //errorMessage += "Please fill in the month field.\n";
 							 stateMandatory = false;
 						 }
 						 if (field == "note" && txtNote->Text->Trim() == String::Empty) {
-							 errorMessage += "Please fill in the note field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[9, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[9, 1];
+							 }
+							 //errorMessage += "Please fill in the note field.\n";
 							 stateMandatory = false;
 						 }
 						 if (field == "publisher" && txtPublisher->Text->Trim() == String::Empty) {
-							 errorMessage += "Please fill in the publisher field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[10, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[10, 1];
+							 }
+							 //errorMessage += "Please fill in the publisher field.\n";
 							 stateMandatory = false;
 						 }
 						 if (field == "series" && txtSeries->Text->Trim() == String::Empty) {
-							 errorMessage += "Please fill in the series field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[11, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[11, 1];
+							 }
+							 //errorMessage += "Please fill in the series field.\n";
 							 stateMandatory = false;
 						 }
 						 if (field == "address" && txtAddress->Text->Trim() == String::Empty) {
-							 errorMessage += "Please fill in the address field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[12, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[12, 1];
+							 }
+							 //errorMessage += "Please fill in the address field.\n";
 							 stateMandatory = false;
 						 }
 						 if (field == "edition" && txtEdition->Text->Trim() == String::Empty) {
-							 errorMessage += "Please fill in the edition field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[13, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[13, 1];
+							 }
+							 //errorMessage += "Please fill in the edition field.\n";
 							 stateMandatory = false;
 						 }
 						 if (field == "howpublished" && txtHowpublished->Text->Trim() == String::Empty) {
-							 errorMessage += "Please fill in the how published field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[14, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[14, 1];
+							 }
+							 //errorMessage += "Please fill in the how published field.\n";
 							 stateMandatory = false;
 						 }
 						 if (field == "booktitle" && txtBooktitle->Text->Trim() == String::Empty) {
-							 errorMessage += "Please fill in the book title field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[15, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[15, 1];
+							 }
+							 //errorMessage += "Please fill in the book title field.\n";
 							 stateMandatory = false;
 						 }
 						 if (field == "editor") {
@@ -570,15 +668,33 @@ private: System::Windows::Forms::Button^  btnDark;
 						 }
 
 						 if (field == "school" && txtSchool->Text->Trim() == String::Empty) {
-							 errorMessage += "Please fill in the school field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[16, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[16, 1];
+							 }
+							 //errorMessage += "Please fill in the school field.\n";
 							 stateMandatory = false;
 						 }
 						 if (field == "institution" && txtInstitution->Text->Trim() == String::Empty) {
-							 errorMessage += "Please fill in the institution field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[17, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[17, 1];
+							 }
+							 //errorMessage += "Please fill in the institution field.\n";
 							 stateMandatory = false;
 						 }
 						 if (field == "organization" && txtOrganization->Text->Trim() == String::Empty) {
-							 errorMessage += "Please fill in the organization field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[18, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[18, 1];
+							 }
+							 //errorMessage += "Please fill in the organization field.\n";
 							 stateMandatory = false;
 						 }
 					 }
@@ -587,23 +703,47 @@ private: System::Windows::Forms::Button^  btnDark;
 					 if (AuthorMandatory && EditorMandatory)
 					 {
 						 if (!hasAuthor && !hasEditor) {
-							 errorMessage += "Please fill in either the author or the editor field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[19, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[19, 1];
+							 }
+							 //errorMessage += "Please fill in either the author or the editor field.\n";
 							 stateMandatory = false;
 						 }
 						 else if (hasAuthor && hasEditor) {
-							 errorMessage += "Cannot have both Author and Editor!\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[20, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[20, 1];
+							 }
+							 //errorMessage += "Cannot have both Author and Editor!\n";
 							 stateMandatory = false;
 						 }
 					 }
 					 else if (AuthorMandatory) {
 						 if (!hasAuthor) {
-							 errorMessage += "Please fill in the author field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[21, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[21, 1];
+							 }
+							 //errorMessage += "Please fill in the author field.\n";
 							 stateMandatory = false;
 						 }
 					 }
 					 else if (EditorMandatory) {
 						 if (!hasEditor) {
-							 errorMessage += "Please fill in the editor field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[22, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[22, 1];
+							 }
+							 //errorMessage += "Please fill in the editor field.\n";
 							 stateMandatory = false;
 						 }
 					 }
@@ -611,25 +751,43 @@ private: System::Windows::Forms::Button^  btnDark;
 					 if (PagesMandatory && ChapterMandatory)
 					 {
 						 if (!hasPages && !hasChapter) {
-							 errorMessage += "Please fill in either the Pages or the Chapter field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[23, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[23, 1];
+							 }
+							 //errorMessage += "Please fill in either the Pages or the Chapter field.\n";
 							 stateMandatory = false;
 						 }
 					 }
 					 else if (PagesMandatory) {
 						 if (!hasPages) {
-							 errorMessage += "Please fill in the Pages field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[24, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[24, 1];
+							 }
+							 //errorMessage += "Please fill in the Pages field.\n";
 							 stateMandatory = false;
 						 }
 					 }
 					 else if (ChapterMandatory) {
 						 if (!hasChapter) {
-							 errorMessage += "Please fill in the Chapter field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[25, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[25, 1];
+							 }
+							 //errorMessage += "Please fill in the Chapter field.\n";
 							 stateMandatory = false;
 						 }
 					 }
 
 					 if (!stateMandatory) {
-						 MessageBox::Show(errorMessage, "Missing Input", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+						 MessageBox::Show(errorMessage, nachrichten[42, en_de], MessageBoxButtons::OK, MessageBoxIcon::Warning);
 					 }
 				 }
 				 return stateMandatory;
@@ -641,7 +799,13 @@ private: System::Windows::Forms::Button^  btnDark;
 				 // Check if an entry type is selected
 				 if (cmbType->SelectedIndex == -1)
 				 {
-					 MessageBox::Show("Please select an entry type.");
+					 if (en_de == 0) {
+						 MessageBox::Show(nachrichten[26, 0]);
+					 }
+					 else if (en_de == 1) {
+						 MessageBox::Show(nachrichten[26, 1]);
+					 }
+					 //MessageBox::Show("Please select an entry type.");
 					 return false;
 				 }
 
@@ -660,7 +824,13 @@ private: System::Windows::Forms::Button^  btnDark;
 
 				 if (selectedTypeFields == nullptr)
 				 {
-					 MessageBox::Show("Invalid entry type selected.");
+					 if (en_de == 0) {
+						 MessageBox::Show(nachrichten[27, 0]);
+					 }
+					 else if (en_de == 1) {
+						 MessageBox::Show(nachrichten[27, 1]);
+					 }
+					 //MessageBox::Show("Invalid entry type selected.");
 					 return false;
 				 }
 				 String^ errorMessageOptional = "";
@@ -668,79 +838,103 @@ private: System::Windows::Forms::Button^  btnDark;
 				 for each (String^ field in selectedTypeFields->OptionalFields)
 				 {
 					 if (field == "keyword") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 					 if (field == "author") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 					 if (field == "title") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 					 int year;
 					 if (field == "year" && !Int32::TryParse(txtYear->Text, year) && !(txtYear->Text->Trim() == String::Empty)) {
 						 stateOptional = false;
-						 errorMessageOptional += "Year must be a number.\n";
+						 if (en_de == 0) {
+							 errorMessageOptional += nachrichten[28, 0];
+						 }
+						 else if (en_de == 1) {
+							 errorMessageOptional += nachrichten[28, 1];
+						 }
+						 //errorMessageOptional += "Year must be a number.\n";
 					 }
 					 if (field == "journal") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 					 int volume;
 					 if (field == "volume" && !Int32::TryParse(txtVolume->Text, volume) && !(txtVolume->Text->Trim() == String::Empty)) {
 						 stateOptional = false;
-						 errorMessageOptional += "Volume must be a number.\n";
+						 if (en_de == 0) {
+							 errorMessageOptional += nachrichten[29, 0];
+						 }
+						 else if (en_de == 1) {
+							 errorMessageOptional += nachrichten[29, 1];
+						 }
+						 //errorMessageOptional += "Volume must be a number.\n";
 					 }
 					 int number;
 					 if (field == "number" && !Int32::TryParse(txtNumber->Text, number) && !(txtNumber->Text->Trim() == String::Empty)) {
 						 stateOptional = false;
-						 errorMessageOptional += "Number must be a number.\n";
+						 if (en_de == 0) {
+							 errorMessageOptional += nachrichten[30, 0];
+						 }
+						 else if (en_de == 1) {
+							 errorMessageOptional += nachrichten[30, 1];
+						 }
+						 //errorMessageOptional += "Number must be a number.\n";
 					 }
 					 int pages;
 					 if (field == "pages" && !Int32::TryParse(txtPages->Text, pages) && !(txtPages->Text->Trim() == String::Empty)) {
 						 stateOptional = false;
-						 errorMessageOptional += "Pages must be a number.\n";
+						 if (en_de == 0) {
+							 errorMessageOptional += nachrichten[31, 0];
+						 }
+						 else if (en_de == 1) {
+							 errorMessageOptional += nachrichten[31, 1];
+						 }
+						 //errorMessageOptional += "Pages must be a number.\n";
 					 }
 					 if (field == "month") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 					 if (field == "note") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 					 if (field == "publisher") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 					 if (field == "series") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 					 if (field == "address") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 					 if (field == "edition") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 					 if (field == "howpublished") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 					 if (field == "booktitle") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 					 if (field == "editor") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 					 if (field == "chapter") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 					 if (field == "school") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 					 if (field == "institution") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 					 if (field == "organization") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 				 }
 				 if (!stateOptional) {
-					 MessageBox::Show(errorMessageOptional, "Missing Input", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+					 MessageBox::Show(errorMessageOptional, nachrichten[42,en_de] , MessageBoxButtons::OK, MessageBoxIcon::Warning);
 				 }
 				 return stateOptional;
 			 }
@@ -1518,13 +1712,19 @@ private: System::Windows::Forms::Button^  btnDark;
 				 using namespace System::Runtime::Serialization::Formatters::Binary;
 				 FileStream^ fs = gcnew FileStream(filename, FileMode::Create, FileAccess::Write);
 				 BinaryFormatter^ formatter = gcnew BinaryFormatter();
-
+				 String^ text;
 				 try {
 					 // Serialize the entries to the file stream
 					 formatter->Serialize(fs, entries);
 				 }
 				 catch (Exception^ ex) {
-					 MessageBox::Show("Error saving entries: " + ex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+					 if (en_de == 0) {
+						 text = nachrichten[32, 0];
+					 }
+					 else if (en_de == 1) {
+						 text = nachrichten[32, 1];
+					 }
+					 MessageBox::Show(text + ex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 				 } //Fehlermeldung wenn speichern nicht erfolgreich
 				 finally{
 					 fs->Close();
@@ -1537,6 +1737,7 @@ private: System::Windows::Forms::Button^  btnDark;
 				 using namespace System::Runtime::Serialization::Formatters::Binary;
 				 FileStream^ fs = nullptr;
 				 bool success = false;
+				 String^ text;
 
 				 try {
 					 if (File::Exists(filename)) {
@@ -1547,12 +1748,24 @@ private: System::Windows::Forms::Button^  btnDark;
 						 success = true; // Wenn das Einlesen erfolgreich ist
 					 }
 					 else {
-						 MessageBox::Show("No entries file found. Starting with an empty list.", "Information", MessageBoxButtons::OK, MessageBoxIcon::Information);
+						 if (en_de == 0) {
+							 text = nachrichten[33, 0];
+						 }
+						 else if (en_de == 1) {
+							 text = nachrichten[33, 1];
+						 }
+						 MessageBox::Show(text, "Information", MessageBoxButtons::OK, MessageBoxIcon::Information);
 						 entries = gcnew List<DataArray^>(); // Initialisiere eine leere Liste, wenn die Datei nicht existiert
 					 }
 				 }
 				 catch (Exception^ ex) {
-					 MessageBox::Show("Error loading entries: " + ex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+					 if (en_de == 0) {
+						 text = nachrichten[34, 0];
+					 }
+					 else if (en_de == 1) {
+						 text = nachrichten[34, 1];
+					 }
+					 MessageBox::Show(text + ex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 					 success = false; // Bei einer Ausnahme war das Einlesen nicht erfolgreich
 				 }
 				 finally{
@@ -1561,7 +1774,7 @@ private: System::Windows::Forms::Button^  btnDark;
 					 }
 				 }
 
-				 return success; // Gibt den Erfolg oder Misserfolg zurück
+				 return success; // Gibt den Erfolg oder Misserfolg zur\u00fcck
 			 }
 
 
@@ -1625,15 +1838,15 @@ private: System::Windows::Forms::Button^  btnDark;
 					 {
 						 if (type->TypeName == selectedType)
 						 {
-								int TabNumberCurrent = ShowFieldsForType(type);
-								txtFirstName->TabIndex = TabNumberCurrent++;
-								txtLastName->TabIndex = TabNumberCurrent++;
-								btnSetAuthor->TabIndex = TabNumberCurrent++;
-								btnClearAuthor->TabIndex = TabNumberCurrent++;
-								btnSave->TabIndex = TabNumberCurrent++;
-								btnCancel->TabIndex = TabNumberCurrent++;
-								btnSaveHDD->TabIndex = TabNumberCurrent++;
-								btnExportToBib->TabIndex = TabNumberCurrent;
+							 int TabNumberCurrent = ShowFieldsForType(type);
+							 txtFirstName->TabIndex = TabNumberCurrent++;
+							 txtLastName->TabIndex = TabNumberCurrent++;
+							 btnSetAuthor->TabIndex = TabNumberCurrent++;
+							 btnClearAuthor->TabIndex = TabNumberCurrent++;
+							 btnSave->TabIndex = TabNumberCurrent++;
+							 btnCancel->TabIndex = TabNumberCurrent++;
+							 btnSaveHDD->TabIndex = TabNumberCurrent++;
+							 btnExportToBib->TabIndex = TabNumberCurrent;
 							 break;
 						 }
 					 }
@@ -2002,6 +2215,7 @@ private: System::Windows::Forms::Button^  btnDark;
 					 btnClearAuthor->Visible = true;
 					 rbtnAuthor->Visible = true;
 					 rbtnAuthor->Checked = true;
+					 tc_no_edit = true;
 				 }
 				 else if (Editor) {
 					 txtEditor->Visible = true;
@@ -2015,6 +2229,7 @@ private: System::Windows::Forms::Button^  btnDark;
 					 btnClearAuthor->Visible = true;
 					 rbtnEditor->Visible = true;
 					 rbtnEditor->Checked = true;
+					 tc_no_edit = true;
 				 }
 
 				 int mandatoryY = 75;
@@ -2090,21 +2305,40 @@ private: System::Windows::Forms::Button^  btnDark;
 		bool success = LoadEntries("entries.bin");
 		this->BringToFront();
 		this->Activate();
-
+		String^ text;
 		if (success) {
-			RefreshListView(); // Aktualisiere die Anzeige der Einträge, wenn das Laden erfolgreich war
-			MessageBox::Show("Entries loaded successfully from HDD.", "Information", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			RefreshListView(); // Aktualisiere die Anzeige der Eintr\u00e4ge, wenn das Laden erfolgreich war
+			if (en_de == 0) {
+				text = nachrichten[35, 0];
+			}
+			else if (en_de == 1) {
+				text = nachrichten[35, 1];
+			}
+			MessageBox::Show(text, "Information", MessageBoxButtons::OK, MessageBoxIcon::Information);
 		}
 		else {
-			MessageBox::Show("Failed to load entries from HDD.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			if (en_de == 0) {
+				text = nachrichten[36, 0];
+			}
+			else if (en_de == 1) {
+				text = nachrichten[36, 1];
+			}
+			MessageBox::Show(text, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 
 		RefreshListView(); // Refresh the ListView to show loaded entries
 	}
 
 	private: System::Void btnSaveHDD_Click(System::Object^  sender, System::EventArgs^  e) {
+		String^ text;
 		SaveEntries("entries.bin");
-		MessageBox::Show("Entries saved successfully to HDD.", "Information", MessageBoxButtons::OK, MessageBoxIcon::Information);
+		if (en_de == 0) {
+			text = nachrichten[37, 0];
+		}
+		else if (en_de == 1) {
+			text = nachrichten[37, 1];
+		}
+		MessageBox::Show(text, "Information", MessageBoxButtons::OK, MessageBoxIcon::Information);
 	}
 	private: System::Void txtSearch_TextChanged(System::Object^  sender, System::EventArgs^  e) { //wird automatisch durchsucht wenn etwas eingegeben wird
 		String^ searchTerm = txtSearch->Text->Trim();
@@ -2114,9 +2348,15 @@ private: System::Windows::Forms::Button^  btnDark;
 	private: System::Void btnSetAuthor_Click(System::Object^ sender, System::EventArgs^ e) {
 		String^ firstName = txtFirstName->Text->Trim();
 		String^ lastName = txtLastName->Text->Trim();
-
+		String^ text;
 		if (firstName->Length == 0 || lastName->Length == 0) {
-			MessageBox::Show("Please enter both first name and last name.", "Input Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			if (en_de == 0) {
+				text = nachrichten[38, 0];
+			}
+			else if (en_de == 1) {
+				text = nachrichten[38, 1];
+			}
+			MessageBox::Show(text, "Input Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			return;
 		}
 
@@ -2131,7 +2371,7 @@ private: System::Windows::Forms::Button^  btnDark;
 				listViewAuthors->SelectedIndices->Clear();// reset the index here
 			}
 			else {
-				listViewAuthors->Items->Add(fullName);// Neuen Eintrag hinzufügen
+				listViewAuthors->Items->Add(fullName);// Neuen Eintrag hinzuf\u00fcgen
 				txtAuthor->Text += (txtAuthor->Text->Length > 0 ? " and " : "") + fullName;
 			}
 		}
@@ -2143,13 +2383,19 @@ private: System::Windows::Forms::Button^  btnDark;
 				UpdateAuthorString(selectedIndex, fullName, txtEditor);
 			}
 			else {
-				listViewAuthors->Items->Add(fullName);// Neuen Eintrag hinzufügen
+				listViewAuthors->Items->Add(fullName);// Neuen Eintrag hinzuf\u00fcgen
 				txtEditor->Text += (txtEditor->Text->Length > 0 ? " and " : "") + fullName;
 			}
 		}
 
 		else {
-			MessageBox::Show("Please select Author or Editor.", "Input Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			if (en_de == 0) {
+				text = nachrichten[39, 0];
+			}
+			else if (en_de == 1) {
+				text = nachrichten[39, 1];
+			}
+			MessageBox::Show(text, "Input Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		}
 
 		txtFirstName->Clear();
@@ -2164,7 +2410,13 @@ private: System::Windows::Forms::Button^  btnDark;
 			txtEditor->Clear(); // Clears the editor field
 		}
 		else {
-			MessageBox::Show("Select Author or Editor!");
+			if (en_de == 0) {
+				MessageBox::Show(nachrichten[40, 0]);
+			}
+			else if (en_de == 1) {
+				MessageBox::Show(nachrichten[40, 1]);
+			}
+			//MessageBox::Show("Select Author or Editor!");
 		}
 
 	}
@@ -2174,14 +2426,14 @@ private: System::Windows::Forms::Button^  btnDark;
 		n = 0;
 		int size = entries->Count;
 
-		// MessageBox::Show("Die Größe des Arrays beträgt: " + size.ToString());
+		// MessageBox::Show("Die Gr\u00f6\u00dfe des Arrays betr\u00e4gt: " + size.ToString());
 
 		//meins
 		SaveFileDialog^ saveFileDialog = gcnew SaveFileDialog();
 		saveFileDialog->Filter = "Bib Dateien (*.bib)|*.bib";
 		saveFileDialog->Title = "Speicher die Bib-Datei";
 		if (saveFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
-			// Der ausgewählte Dateipfad
+			// Der ausgew\u00e4hlte Dateipfad
 			String^ filePath = saveFileDialog->FileName;
 			//meins
 
@@ -2229,7 +2481,7 @@ private: System::Windows::Forms::Button^  btnDark;
 				 if (listViewAuthors->SelectedItems->Count > 0 && rbtnAuthor->Checked)
 				 {
 					 String^ selectedAuthor = listViewAuthors->SelectedItems[0]->Text;
-					 // Autor in das Textfeld für Vorname und Nachname aufteilen
+					 // Autor in das Textfeld f\u00fcr Vorname und Nachname aufteilen
 					 array<String^>^ nameParts = selectedAuthor->Split(',');
 					 txtLastName->Text = nameParts[0]; // Nachname
 					 txtFirstName->Text = nameParts->Length > 1 ? nameParts[1] : ""; // Vorname
@@ -2244,7 +2496,7 @@ private: System::Windows::Forms::Button^  btnDark;
 				 }
 			 }
 			 void UpdateAuthorString(int index, String^ updatedEntry, TextBox^ storageTextBox) {
-				 // Den Speicherstring ("txtAuthor") in Einträge aufteilen
+				 // Den Speicherstring ("txtAuthor") in Eintr\u00e4ge aufteilen
 				 array<String^>^ authorEntries = storageTextBox->Text->Split(gcnew array<String^> { " and " }, StringSplitOptions::None);
 
 				 // Den spezifischen Eintrag aktualisieren
@@ -2256,27 +2508,27 @@ private: System::Windows::Forms::Button^  btnDark;
 				 storageTextBox->Text = String::Join(" and ", authorEntries);
 			 }
 			 //mein
-			 //bool TypeChanged = false;
+			 bool TypeChanged = false;
+			 bool tc_no_edit = false;
+			 //String safe_edit_auth;
 	private: System::Void rbtnAuthor_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (rbtnAuthor->Checked) {
-			
+
 			//if (!String::IsNullOrEmpty(txtEditor->Text)) {
-				if (cmbType->SelectedItem != "conference" && cmbType->SelectedItem != "incollection" && cmbType->SelectedItem != "inproceedings") { //incollection, inbook
-					if (!String::IsNullOrEmpty(txtEditor->Text)) {
-						txtAuthor->Text = txtEditor->Text;
-						txtEditor->Clear();
-						listViewAuthors->Items->Clear();
-						if (txtAuthor->Text != "")
-						{
-							array<String^>^ authors = txtAuthor->Text->Split(gcnew array<String^>{ " and " }, StringSplitOptions::None);
-							for each (String^ author in authors)
-							{
-								listViewAuthors->Items->Add(author->Trim());
-							}
-						}
+			if (cmbType->SelectedItem != "conference" && cmbType->SelectedItem != "incollection" && cmbType->SelectedItem != "inproceedings") { //incollection, inbook
+				if (!String::IsNullOrEmpty(txtEditor->Text)) {
+					if (TypeChanged == true) {
+						txtEditor->Text = "";
+						TypeChanged = false;
 					}
-				}
-				else {
+					else {
+						//if (tc_no_edit == true) {
+						txtAuthor->Text = txtEditor->Text;
+						tc_no_edit = false;
+						//}
+					}
+					//txtAuthor->Text = txtEditor->Text;
+					txtEditor->Clear();
 					listViewAuthors->Items->Clear();
 					if (txtAuthor->Text != "")
 					{
@@ -2286,8 +2538,21 @@ private: System::Windows::Forms::Button^  btnDark;
 							listViewAuthors->Items->Add(author->Trim());
 						}
 					}
-					/*TypeChanged = false;*/
 				}
+			}
+			else {
+				TypeChanged = true;//----------------
+				listViewAuthors->Items->Clear();
+				if (txtAuthor->Text != "")
+				{
+					array<String^>^ authors = txtAuthor->Text->Split(gcnew array<String^>{ " and " }, StringSplitOptions::None);
+					for each (String^ author in authors)
+					{
+						listViewAuthors->Items->Add(author->Trim());
+					}
+				}
+				/*TypeChanged = false;*/
+			}
 			//}
 		}
 	}
@@ -2295,25 +2560,23 @@ private: System::Windows::Forms::Button^  btnDark;
 	private: System::Void rbtnEditor_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (rbtnEditor->Checked) {
 			//listViewAuthors->Items->Clear();
-			//if (!String::IsNullOrEmpty(txtAuthor->Text)) { //Author gefüllt
+			//if (!String::IsNullOrEmpty(txtAuthor->Text)) { //Author gef\u00fcllt
 
-				if (cmbType->SelectedItem != "conference" && cmbType->SelectedItem != "incollection" && cmbType->SelectedItem != "inproceedings") {
-					if (!String::IsNullOrEmpty(txtAuthor->Text)/* && !TypeChanged*/) {
-						txtEditor->Text = txtAuthor->Text;
-						txtAuthor->Clear();
-						/*TypeChanged = false;*/
-						listViewAuthors->Items->Clear();
-						if (txtEditor->Text != "")
-						{
-							array<String^>^ editors = txtEditor->Text->Split(gcnew array<String^>{ " and " }, StringSplitOptions::None);
-							for each (String^ editor in editors)
-							{
-								listViewAuthors->Items->Add(editor->Trim());
-							}
-						}
+			if (cmbType->SelectedItem != "conference" && cmbType->SelectedItem != "incollection" && cmbType->SelectedItem != "inproceedings") {
+				if (!String::IsNullOrEmpty(txtAuthor->Text)/* && !TypeChanged*/) {
+					if (TypeChanged == true) {
+						txtAuthor->Text = "";
+						TypeChanged = false;
 					}
-				}
-				else {
+					else {
+						//if (tc_no_edit == true) {
+						txtEditor->Text = txtAuthor->Text;
+						tc_no_edit = false;
+						//}
+					}
+					//txtEditor->Text = txtAuthor->Text;
+					txtAuthor->Clear();
+
 					listViewAuthors->Items->Clear();
 					if (txtEditor->Text != "")
 					{
@@ -2323,8 +2586,21 @@ private: System::Windows::Forms::Button^  btnDark;
 							listViewAuthors->Items->Add(editor->Trim());
 						}
 					}
-					/*TypeChanged = false;*/
 				}
+			}
+			else {
+				TypeChanged = true;//----------------
+				listViewAuthors->Items->Clear();
+				if (txtEditor->Text != "")
+				{
+					array<String^>^ editors = txtEditor->Text->Split(gcnew array<String^>{ " and " }, StringSplitOptions::None);
+					for each (String^ editor in editors)
+					{
+						listViewAuthors->Items->Add(editor->Trim());
+					}
+				}
+				/*TypeChanged = false;*/
+			}
 			//}
 		}
 	}
@@ -2424,7 +2700,52 @@ private: System::Windows::Forms::Button^  btnDark;
 					 this->btnSaveHDD->Text = L"Speichern auf HDD";
 					 this->btnPDF->Text = L"Handbuch";
 				 }
-				 std::pair<std::string, std::string> errorMessages[] = {
+				 nachrichten = gcnew array<String^, 2>{
+					 { "Please select an entry type.\n", "Bitte w\u00e4hlen Sie einen Eintragstyp aus.\n" },
+					 { "Invalid entry type selected.\n","Ung\u00fcltiger Eintragstyp ausgew\u00e4hlt.\n" },
+					 { "Please fill in the keyword field.\n","Bitte f\u00fcllen Sie das Stichwortfeld aus.\n" },
+					 { "Please fill in the title field.\n", "Bitte f\u00fcllen Sie das Feld f\u00fcr den Titel aus.\n" },
+					 { "Please enter a number into the year field.\n", "Bitte geben Sie eine Zahl in das Jahr-Feld ein.\n" },
+					 { "Please enter a number into the volume field.\n","Bitte geben Sie eine Zahl in das Bandfeld ein.\n" },
+					 { "Please enter a number into the number field.\n","Bitte geben Sie eine Nummer in das Nummernfeld ein.\n" },
+					 { "Please enter a number into the pages field.\n","Bitte geben Sie eine Zahl in das Seitenfeld ein.\n" },
+					 { "Please fill in the month field.\n","Bitte f\u00fcllen Sie das Monatsfeld aus.\n" },
+					 { "Please fill in the note field.\n","Bitte f\u00fcllen Sie das Notizfeld aus.\n" },
+					 { "Please fill in the publisher field.\n","Bitte f\u00fcllen Sie das Herausgeberfeld aus.\n" },
+					 { "Please fill in the series field.\n","Bitte f\u00fcllen Sie das Serienfeld aus.\n" },
+					 { "Please fill in the address field.\n","Bitte f\u00fcllen Sie das Adressfeld aus.\n" },
+					 { "Please fill in the edition field.\n", "Bitte f\u00fcllen Sie das Editionsfeld aus.\n" },
+					 { "Please fill in the how published field.\n", "Bitte f\u00fcllen Sie das Publisherfeld aus.\n" },
+					 { "Please fill in the book title field.\n", "Bitte f\u00fcllen Sie das Buchtitelfeld aus.\n" },
+					 { "Please fill in the school field.\n", "Bitte f\u00fcllen Sie das Schulfeld aus.\n" },
+					 { "Please fill in the institution field.\n", "Bitte f\u00fcllen Sie das Instituionsfeld aus.\n" },
+					 { "Please fill in the organization field.\n","Bitte f\u00fcllen Sie das Organisationsfeld aus.\n" },
+					 { "Please fill in either the author or the editor field.\n","Bitte f\u00fcllen Sie entweder das Autor - oder Editorfeld aus.\n" },
+					 { "Cannot have both Author and Editor!\n", "Es k\u00f6nnen nicht sowohl Autor als auch Editor vorhanden sein!\n" },
+					 { "Please fill in the author field.\n", "Bitte f\u00fcllen Sie das Feld f\u00fcr den Autor aus.\n" },
+					 { "Please fill in the editor field.\n", "Bitte f\u00fcllen Sie das Feld f\u00fcr den Herausgeber aus.\n" },
+					 { "Please fill in either the Pages or the Chapter field.\n","Bitte f\u00fcllen Sie entweder das Feld Seiten oder das Feld Kapitel aus.\n" },
+					 { "Please fill in the pages field.\n", "Bitte f\u00fcllen Sie das Feld f\u00fcr die Seiten aus.\n" },
+					 { "Please fill in the chapter field.\n", "Bitte f\u00fcllen Sie das Feld f\u00fcr das Kapitel aus.\n" },
+					 { "Please select an entry type.\n","Bitte w\u00e4hlen Sie einen Eintragstyp aus.\n" },
+					 { "Invalid entry type selected.\n","Ung\u00fcltiger Eintragstyp ausgew\u00e4hlt.\n" },
+					 { "Year must be a number.\n","Das Jahr muss eine Zahl sein.\n" },
+					 { "Volume must be a number.\n","Das Band muss eine Zahl sein.\n" },
+					 { "Number must be a number.\n","Zahl muss eine Zahl sein.\n" },
+					 { "Pages must be a number.\n","Seiten m\u00fcssen eine Zahl sein.\n" },
+					 { "Error saving entries : ","Fehler beim Speichern der Eintr\u00e4ge : " },
+					 { "No entries file found.Starting with an empty list.\n","Keine Eintragsdatei gefunden.Beginnend mit einer leeren Liste.\n" },
+					 { "Error loading entries: ","Fehler beim Laden der Eintr\u00e4ge : " },
+					 { "Entries loaded successfully from HDD.\n", "Eintr\u00e4ge erfolgreich von der Festplatte geladen.\n" },
+					 { "Failed to load entries from HDD.\n","Eintr\u00e4ge konnten nicht von der Festplatte geladen werden.\n" },
+					 { "Entries saved successfully to HDD.\n","Eintr\u00e4ge erfolgreich auf der Festplatte gespeichert.\n" },
+					 { "Please enter both first name and last name.\n","Bitte geben Sie sowohl den Vor - als auch den Nachnamen ein.\n" },
+					 { "Please select Author or Editor.\n","Bitte w\u00e4hlen Sie Autor oder Editor aus.\n" },
+					 { "Select Author or Editor!","W\u00e4hlen Sie Autor oder Herausgeber aus!" },
+					 { "The PDF file was not found:","Die PDFDatei wurde nicht gefunden: " },
+					 { "Missing Input!", "Fehlende Eingabe!"}
+				 };
+				 /*std::pair<std::string, std::string> errorMessages[] = {
 				{"Bitte f\u00fcllen Sie das Feld f\u00fcr das Journal aus.", "Please fill in the journal field."},
 				{"Bitte geben Sie eine Zahl in das Jahr-Feld ein.", "Please enter a number into the year field."},
 				{"Es darf nicht sowohl Autor als auch Herausgeber angegeben werden!", "Cannot have both Author and Editor!"},
@@ -2434,27 +2755,34 @@ private: System::Windows::Forms::Button^  btnDark;
 				{"Bitte f\u00fcllen Sie das Feld f\u00fcr den Titel aus.", "Please fill in the title field."},
 				{"Bitte f\u00fcllen Sie das Feld f\u00fcr die Seiten aus.", "Please fill in the pages field."},
 				{"Missing Input","Fehlende Eingabe"}
-				 };
+				 };*/
 
 
 			 }
-		private: System::Void btnPDF_Click(System::Object^  sender, System::EventArgs^  e) {
+	private: System::Void btnPDF_Click(System::Object^  sender, System::EventArgs^  e) {
+		String^ text;
 
-			String^ exePfad = Application::StartupPath;
+		String^ exePfad = Application::StartupPath;
 
-			String^ pdfName = "pi-314-inhalt.pdf";
+		String^ pdfName = "pi-314-inhalt.pdf";
 
-			String^ pdfPfaduName = Path::Combine(exePfad, pdfName);
+		String^ pdfPfaduName = Path::Combine(exePfad, pdfName);
 
-			if (System::IO::File::Exists(pdfPfaduName)) {
-				System::Diagnostics::Process::Start(pdfPfaduName);
-			}
-			else {
-				MessageBox::Show("Die PDFDatei wurde nicht gefunden: " + pdfPfaduName);
-			}
-
-
+		if (System::IO::File::Exists(pdfPfaduName)) {
+			System::Diagnostics::Process::Start(pdfPfaduName);
 		}
+		else {
+			if (en_de == 0) {
+				text = nachrichten[41, 0];
+			}
+			else if (en_de == 1) {
+				text = nachrichten[41, 1];
+			}
+			MessageBox::Show(text + pdfPfaduName);
+		}
+
+
+	}
 	private: System::Void btnDark_Click(System::Object^  sender, System::EventArgs^  e) {
 
 		if (this->BackColor == System::Drawing::Color::FromArgb(19, 17, 28))
@@ -2533,5 +2861,5 @@ private: System::Windows::Forms::Button^  btnDark;
 		}
 
 	}
-};
+	};
 }
