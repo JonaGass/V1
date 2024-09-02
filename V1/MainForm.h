@@ -7,6 +7,8 @@
 #include <string.h>
 
 
+
+
 using namespace DataNamespace;
 
 namespace V1 {
@@ -31,6 +33,8 @@ namespace V1 {
 			InitializeComponent();
 			sprache_aendern();
 			this->StartPosition = FormStartPosition::CenterScreen;
+			/*this->BringToFront();
+			this->Activate();*/
 			InitializeDataTypes();
 			PopulateTypeDropdown();
 			entries = gcnew List<DataArray^>();
@@ -39,9 +43,11 @@ namespace V1 {
 			UpdateUIState(false);
 
 			// Ensure MainForm is shown and brought to the foreground
-			this->Shown += gcnew EventHandler(this, &MainForm::OnShown);
+			/*this->Shown += gcnew EventHandler(this, &MainForm::OnShown);*/
 
 		}
+	private:
+		array<String^, 2>^ nachrichten; //meinis
 
 	protected:
 		~MainForm() {
@@ -51,11 +57,11 @@ namespace V1 {
 		}
 
 
-	private:
-		void OnShown(System::Object^ sender, System::EventArgs^ e) {
-			this->BringToFront();
-			this->Activate();
-		}
+		/*private:
+			void OnShown(System::Object^ sender, System::EventArgs^ e) {
+				this->BringToFront();
+				this->Activate();
+			}*/
 	public:
 		void StartForm() {
 			V1::SplashScreen^ form = gcnew V1::SplashScreen();
@@ -136,6 +142,8 @@ namespace V1 {
 			 bool isEditMode;
 	private: System::Windows::Forms::Button^  btnLanguage;
 	private: System::Windows::Forms::Button^  btnPDF;
+	private: System::Windows::Forms::Button^  btnDark;
+
 
 			 //mein
 	private: System::Windows::Forms::ListView^ listViewAuthors;
@@ -415,7 +423,13 @@ namespace V1 {
 
 				 if (cmbType->SelectedIndex == -1)
 				 {
-					 MessageBox::Show("Please select an entry type.");
+					 if (en_de == 0) {
+						 MessageBox::Show(nachrichten[0, 0]);
+					 }
+					 else if (en_de == 1) {
+						 MessageBox::Show(nachrichten[0, 1]);
+					 }
+					 //MessageBox::Show("Please select an entry type.");
 					 stateMandatory = false;
 				 }
 				 else {
@@ -434,7 +448,13 @@ namespace V1 {
 
 					 if (selectedTypeFields == nullptr)
 					 {
-						 MessageBox::Show("Invalid entry type selected.");
+						 if (en_de == 0) {
+							 MessageBox::Show(nachrichten[1, 0]);
+						 }
+						 else if (en_de == 1) {
+							 MessageBox::Show(nachrichten[1, 1]);
+						 }
+						 //MessageBox::Show("Invalid entry type selected.");
 						 stateMandatory = false;
 					 }
 
@@ -452,7 +472,13 @@ namespace V1 {
 					 for each (String^ field in selectedTypeFields->RequiredFields)
 					 {
 						 if (field == "keyword" && txtKeyword->Text->Trim() == String::Empty) {
-							 errorMessage += "Please fill in the keyword field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[2, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[2, 1];
+							 }
+							 //errorMessage += "Please fill in the keyword field.\n";
 							 stateMandatory = false;
 						 }
 						 if (field == "author") {
@@ -466,26 +492,50 @@ namespace V1 {
 							 }
 						 }
 						 if (field == "title" && txtTitle->Text->Trim() == String::Empty) {
-							 errorMessage += "Please fill in the title field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[3, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[3, 1];
+							 }
+							 //errorMessage += "Please fill in the title field.\n";
 							 stateMandatory = false;
 						 }
 						 int year;
 						 if ((field == "year" && txtYear->Text->Trim() == String::Empty) || (field == "year" && !Int32::TryParse(txtYear->Text, year))) {
-							 errorMessage += "Please enter a number into the year field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[4, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[4, 1];
+							 }
+							 //errorMessage += "Please enter a number into the year field.\n";
 							 stateMandatory = false;
 						 }
 						 if (field == "journal" && txtJournal->Text->Trim() == String::Empty) {
-							 errorMessage += "Please fill in the journal field.\n";
+							 //errorMessage += "Please fill in the journal field.\n";
 							 stateMandatory = false;
 						 }
 						 int volume;
 						 if ((field == "volume" && txtVolume->Text->Trim() == String::Empty) || (field == "volume" && !Int32::TryParse(txtVolume->Text, volume))) {
-							 errorMessage += "Please enter a number into the volume field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[5, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[5, 1];
+							 }
+							 //errorMessage += "Please enter a number into the volume field.\n";
 							 stateMandatory = false;
 						 }
 						 int number;
 						 if ((field == "number" && txtNumber->Text->Trim() == String::Empty) || (field == "number" && !Int32::TryParse(txtNumber->Text, number))) {
-							 errorMessage += "Please enter a number into the number field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[6, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[6, 1];
+							 }
+							 //errorMessage += "Please enter a number into the number field.\n";
 							 stateMandatory = false;
 						 }
 						 int pages;
@@ -500,42 +550,96 @@ namespace V1 {
 								 //stateMandatory = false;
 							 }
 							 else if (!Int32::TryParse(txtPages->Text, pages)) {
-								 errorMessage += "Please enter a number into the pages field.\n";
+								 if (en_de == 0) {
+									 errorMessage += nachrichten[7, 0];
+								 }
+								 else if (en_de == 1) {
+									 errorMessage += nachrichten[7, 1];
+								 }
+								 //errorMessage += "Please enter a number into the pages field.\n";
 							 }
 							 else {
 								 hasPages = true; // Pages is present
 							 }
 						 }
 						 if (field == "month" && txtMonth->Text->Trim() == String::Empty) {
-							 errorMessage += "Please fill in the month field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[8, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[8, 1];
+							 }
+							 //errorMessage += "Please fill in the month field.\n";
 							 stateMandatory = false;
 						 }
 						 if (field == "note" && txtNote->Text->Trim() == String::Empty) {
-							 errorMessage += "Please fill in the note field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[9, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[9, 1];
+							 }
+							 //errorMessage += "Please fill in the note field.\n";
 							 stateMandatory = false;
 						 }
 						 if (field == "publisher" && txtPublisher->Text->Trim() == String::Empty) {
-							 errorMessage += "Please fill in the publisher field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[10, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[10, 1];
+							 }
+							 //errorMessage += "Please fill in the publisher field.\n";
 							 stateMandatory = false;
 						 }
 						 if (field == "series" && txtSeries->Text->Trim() == String::Empty) {
-							 errorMessage += "Please fill in the series field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[11, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[11, 1];
+							 }
+							 //errorMessage += "Please fill in the series field.\n";
 							 stateMandatory = false;
 						 }
 						 if (field == "address" && txtAddress->Text->Trim() == String::Empty) {
-							 errorMessage += "Please fill in the address field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[12, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[12, 1];
+							 }
+							 //errorMessage += "Please fill in the address field.\n";
 							 stateMandatory = false;
 						 }
 						 if (field == "edition" && txtEdition->Text->Trim() == String::Empty) {
-							 errorMessage += "Please fill in the edition field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[13, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[13, 1];
+							 }
+							 //errorMessage += "Please fill in the edition field.\n";
 							 stateMandatory = false;
 						 }
 						 if (field == "howpublished" && txtHowpublished->Text->Trim() == String::Empty) {
-							 errorMessage += "Please fill in the how published field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[14, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[14, 1];
+							 }
+							 //errorMessage += "Please fill in the how published field.\n";
 							 stateMandatory = false;
 						 }
 						 if (field == "booktitle" && txtBooktitle->Text->Trim() == String::Empty) {
-							 errorMessage += "Please fill in the book title field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[15, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[15, 1];
+							 }
+							 //errorMessage += "Please fill in the book title field.\n";
 							 stateMandatory = false;
 						 }
 						 if (field == "editor") {
@@ -564,15 +668,33 @@ namespace V1 {
 						 }
 
 						 if (field == "school" && txtSchool->Text->Trim() == String::Empty) {
-							 errorMessage += "Please fill in the school field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[16, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[16, 1];
+							 }
+							 //errorMessage += "Please fill in the school field.\n";
 							 stateMandatory = false;
 						 }
 						 if (field == "institution" && txtInstitution->Text->Trim() == String::Empty) {
-							 errorMessage += "Please fill in the institution field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[17, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[17, 1];
+							 }
+							 //errorMessage += "Please fill in the institution field.\n";
 							 stateMandatory = false;
 						 }
 						 if (field == "organization" && txtOrganization->Text->Trim() == String::Empty) {
-							 errorMessage += "Please fill in the organization field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[18, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[18, 1];
+							 }
+							 //errorMessage += "Please fill in the organization field.\n";
 							 stateMandatory = false;
 						 }
 					 }
@@ -581,23 +703,47 @@ namespace V1 {
 					 if (AuthorMandatory && EditorMandatory)
 					 {
 						 if (!hasAuthor && !hasEditor) {
-							 errorMessage += "Please fill in either the author or the editor field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[19, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[19, 1];
+							 }
+							 //errorMessage += "Please fill in either the author or the editor field.\n";
 							 stateMandatory = false;
 						 }
 						 else if (hasAuthor && hasEditor) {
-							 errorMessage += "Cannot have both Author and Editor!\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[20, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[20, 1];
+							 }
+							 //errorMessage += "Cannot have both Author and Editor!\n";
 							 stateMandatory = false;
 						 }
 					 }
 					 else if (AuthorMandatory) {
 						 if (!hasAuthor) {
-							 errorMessage += "Please fill in the author field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[21, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[21, 1];
+							 }
+							 //errorMessage += "Please fill in the author field.\n";
 							 stateMandatory = false;
 						 }
 					 }
 					 else if (EditorMandatory) {
 						 if (!hasEditor) {
-							 errorMessage += "Please fill in the editor field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[22, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[22, 1];
+							 }
+							 //errorMessage += "Please fill in the editor field.\n";
 							 stateMandatory = false;
 						 }
 					 }
@@ -605,25 +751,43 @@ namespace V1 {
 					 if (PagesMandatory && ChapterMandatory)
 					 {
 						 if (!hasPages && !hasChapter) {
-							 errorMessage += "Please fill in either the Pages or the Chapter field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[23, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[23, 1];
+							 }
+							 //errorMessage += "Please fill in either the Pages or the Chapter field.\n";
 							 stateMandatory = false;
 						 }
 					 }
 					 else if (PagesMandatory) {
 						 if (!hasPages) {
-							 errorMessage += "Please fill in the Pages field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[24, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[24, 1];
+							 }
+							 //errorMessage += "Please fill in the Pages field.\n";
 							 stateMandatory = false;
 						 }
 					 }
 					 else if (ChapterMandatory) {
 						 if (!hasChapter) {
-							 errorMessage += "Please fill in the Chapter field.\n";
+							 if (en_de == 0) {
+								 errorMessage += nachrichten[25, 0];
+							 }
+							 else if (en_de == 1) {
+								 errorMessage += nachrichten[25, 1];
+							 }
+							 //errorMessage += "Please fill in the Chapter field.\n";
 							 stateMandatory = false;
 						 }
 					 }
 
 					 if (!stateMandatory) {
-						 MessageBox::Show(errorMessage, "Missing Input", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+						 MessageBox::Show(errorMessage, nachrichten[42, en_de], MessageBoxButtons::OK, MessageBoxIcon::Warning);
 					 }
 				 }
 				 return stateMandatory;
@@ -635,7 +799,13 @@ namespace V1 {
 				 // Check if an entry type is selected
 				 if (cmbType->SelectedIndex == -1)
 				 {
-					 MessageBox::Show("Please select an entry type.");
+					 if (en_de == 0) {
+						 MessageBox::Show(nachrichten[26, 0]);
+					 }
+					 else if (en_de == 1) {
+						 MessageBox::Show(nachrichten[26, 1]);
+					 }
+					 //MessageBox::Show("Please select an entry type.");
 					 return false;
 				 }
 
@@ -654,7 +824,13 @@ namespace V1 {
 
 				 if (selectedTypeFields == nullptr)
 				 {
-					 MessageBox::Show("Invalid entry type selected.");
+					 if (en_de == 0) {
+						 MessageBox::Show(nachrichten[27, 0]);
+					 }
+					 else if (en_de == 1) {
+						 MessageBox::Show(nachrichten[27, 1]);
+					 }
+					 //MessageBox::Show("Invalid entry type selected.");
 					 return false;
 				 }
 				 String^ errorMessageOptional = "";
@@ -662,85 +838,108 @@ namespace V1 {
 				 for each (String^ field in selectedTypeFields->OptionalFields)
 				 {
 					 if (field == "keyword") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 					 if (field == "author") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 					 if (field == "title") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 					 int year;
 					 if (field == "year" && !Int32::TryParse(txtYear->Text, year) && !(txtYear->Text->Trim() == String::Empty)) {
 						 stateOptional = false;
-						 errorMessageOptional += "Year must be a number.\n";
+						 if (en_de == 0) {
+							 errorMessageOptional += nachrichten[28, 0];
+						 }
+						 else if (en_de == 1) {
+							 errorMessageOptional += nachrichten[28, 1];
+						 }
+						 //errorMessageOptional += "Year must be a number.\n";
 					 }
 					 if (field == "journal") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 					 int volume;
 					 if (field == "volume" && !Int32::TryParse(txtVolume->Text, volume) && !(txtVolume->Text->Trim() == String::Empty)) {
 						 stateOptional = false;
-						 errorMessageOptional += "Volume must be a number.\n";
+						 if (en_de == 0) {
+							 errorMessageOptional += nachrichten[29, 0];
+						 }
+						 else if (en_de == 1) {
+							 errorMessageOptional += nachrichten[29, 1];
+						 }
+						 //errorMessageOptional += "Volume must be a number.\n";
 					 }
 					 int number;
 					 if (field == "number" && !Int32::TryParse(txtNumber->Text, number) && !(txtNumber->Text->Trim() == String::Empty)) {
 						 stateOptional = false;
-						 errorMessageOptional += "Number must be a number.\n";
+						 if (en_de == 0) {
+							 errorMessageOptional += nachrichten[30, 0];
+						 }
+						 else if (en_de == 1) {
+							 errorMessageOptional += nachrichten[30, 1];
+						 }
+						 //errorMessageOptional += "Number must be a number.\n";
 					 }
 					 int pages;
 					 if (field == "pages" && !Int32::TryParse(txtPages->Text, pages) && !(txtPages->Text->Trim() == String::Empty)) {
 						 stateOptional = false;
-						 errorMessageOptional += "Pages must be a number.\n";
+						 if (en_de == 0) {
+							 errorMessageOptional += nachrichten[31, 0];
+						 }
+						 else if (en_de == 1) {
+							 errorMessageOptional += nachrichten[31, 1];
+						 }
+						 //errorMessageOptional += "Pages must be a number.\n";
 					 }
 					 if (field == "month") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 					 if (field == "note") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 					 if (field == "publisher") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 					 if (field == "series") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 					 if (field == "address") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 					 if (field == "edition") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 					 if (field == "howpublished") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 					 if (field == "booktitle") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 					 if (field == "editor") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 					 if (field == "chapter") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 					 if (field == "school") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 					 if (field == "institution") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 					 if (field == "organization") {
-						 // zu ergänzen
+						 // zu erg\u00e4nzen
 					 }
 				 }
 				 if (!stateOptional) {
-					 MessageBox::Show(errorMessageOptional, "Missing Input", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+					 MessageBox::Show(errorMessageOptional, nachrichten[42,en_de] , MessageBoxButtons::OK, MessageBoxIcon::Warning);
 				 }
 				 return stateOptional;
 			 }
 			 void InitializeComponent(void)
 			 {
-				 System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
 				 this->txtFirstName = (gcnew System::Windows::Forms::TextBox());
 				 this->txtLastName = (gcnew System::Windows::Forms::TextBox());
 				 this->btnSetAuthor = (gcnew System::Windows::Forms::Button());
@@ -805,6 +1004,7 @@ namespace V1 {
 				 this->listViewAuthors = (gcnew System::Windows::Forms::ListView());
 				 this->btnLanguage = (gcnew System::Windows::Forms::Button());
 				 this->btnPDF = (gcnew System::Windows::Forms::Button());
+				 this->btnDark = (gcnew System::Windows::Forms::Button());
 				 this->panelDetails->SuspendLayout();
 				 this->SuspendLayout();
 				 // 
@@ -816,7 +1016,6 @@ namespace V1 {
 				 this->txtFirstName->Name = L"txtFirstName";
 				 this->txtFirstName->Size = System::Drawing::Size(100, 21);
 				 this->txtFirstName->TabIndex = 30;
-				 this->txtFirstName->UseWaitCursor = true;
 				 // 
 				 // txtLastName
 				 // 
@@ -826,11 +1025,10 @@ namespace V1 {
 				 this->txtLastName->Name = L"txtLastName";
 				 this->txtLastName->Size = System::Drawing::Size(100, 21);
 				 this->txtLastName->TabIndex = 31;
-				 this->txtLastName->UseWaitCursor = true;
 				 // 
 				 // btnSetAuthor
 				 // 
-				 this->btnSetAuthor->Cursor = System::Windows::Forms::Cursors::WaitCursor;
+				 this->btnSetAuthor->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->btnSetAuthor->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 				 this->btnSetAuthor->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular,
 					 System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
@@ -838,7 +1036,6 @@ namespace V1 {
 				 this->btnSetAuthor->Name = L"btnSetAuthor";
 				 this->btnSetAuthor->Size = System::Drawing::Size(75, 54);
 				 this->btnSetAuthor->TabIndex = 42;
-				 this->btnSetAuthor->UseWaitCursor = true;
 				 this->btnSetAuthor->Click += gcnew System::EventHandler(this, &MainForm::btnSetAuthor_Click);
 				 // 
 				 // listViewEntries
@@ -853,7 +1050,6 @@ namespace V1 {
 				 this->listViewEntries->TabIndex = 10;
 				 this->listViewEntries->TabStop = false;
 				 this->listViewEntries->UseCompatibleStateImageBehavior = false;
-				 this->listViewEntries->UseWaitCursor = true;
 				 this->listViewEntries->View = System::Windows::Forms::View::List;
 				 this->listViewEntries->SelectedIndexChanged += gcnew System::EventHandler(this, &MainForm::listViewEntries_SelectedIndexChanged);
 				 // 
@@ -861,7 +1057,7 @@ namespace V1 {
 				 // 
 				 this->btnExportToBib->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(22)), static_cast<System::Int32>(static_cast<System::Byte>(167)),
 					 static_cast<System::Int32>(static_cast<System::Byte>(22)));
-				 this->btnExportToBib->Cursor = System::Windows::Forms::Cursors::WaitCursor;
+				 this->btnExportToBib->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->btnExportToBib->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 				 this->btnExportToBib->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
@@ -871,13 +1067,12 @@ namespace V1 {
 				 this->btnExportToBib->Size = System::Drawing::Size(160, 30);
 				 this->btnExportToBib->TabIndex = 8;
 				 this->btnExportToBib->UseVisualStyleBackColor = false;
-				 this->btnExportToBib->UseWaitCursor = true;
 				 this->btnExportToBib->Click += gcnew System::EventHandler(this, &MainForm::btnExportToBib_Click);
 				 // 
 				 // btnNew
 				 // 
 				 this->btnNew->BackColor = System::Drawing::SystemColors::MenuHighlight;
-				 this->btnNew->Cursor = System::Windows::Forms::Cursors::WaitCursor;
+				 this->btnNew->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->btnNew->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 				 this->btnNew->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
@@ -887,13 +1082,12 @@ namespace V1 {
 				 this->btnNew->Size = System::Drawing::Size(96, 28);
 				 this->btnNew->TabIndex = 2;
 				 this->btnNew->UseVisualStyleBackColor = false;
-				 this->btnNew->UseWaitCursor = true;
 				 this->btnNew->Click += gcnew System::EventHandler(this, &MainForm::btnNew_Click);
 				 // 
 				 // btnEdit
 				 // 
 				 this->btnEdit->BackColor = System::Drawing::SystemColors::MenuHighlight;
-				 this->btnEdit->Cursor = System::Windows::Forms::Cursors::WaitCursor;
+				 this->btnEdit->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->btnEdit->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 				 this->btnEdit->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
@@ -903,13 +1097,12 @@ namespace V1 {
 				 this->btnEdit->Size = System::Drawing::Size(98, 28);
 				 this->btnEdit->TabIndex = 3;
 				 this->btnEdit->UseVisualStyleBackColor = false;
-				 this->btnEdit->UseWaitCursor = true;
 				 this->btnEdit->Click += gcnew System::EventHandler(this, &MainForm::btnEdit_Click);
 				 // 
 				 // btnDelete
 				 // 
 				 this->btnDelete->BackColor = System::Drawing::SystemColors::MenuHighlight;
-				 this->btnDelete->Cursor = System::Windows::Forms::Cursors::WaitCursor;
+				 this->btnDelete->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->btnDelete->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 				 this->btnDelete->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
@@ -919,7 +1112,6 @@ namespace V1 {
 				 this->btnDelete->Size = System::Drawing::Size(100, 28);
 				 this->btnDelete->TabIndex = 4;
 				 this->btnDelete->UseVisualStyleBackColor = false;
-				 this->btnDelete->UseWaitCursor = true;
 				 this->btnDelete->Click += gcnew System::EventHandler(this, &MainForm::btnDelete_Click);
 				 // 
 				 // panelDetails
@@ -973,7 +1165,6 @@ namespace V1 {
 				 this->panelDetails->Name = L"panelDetails";
 				 this->panelDetails->Size = System::Drawing::Size(736, 545);
 				 this->panelDetails->TabIndex = 13;
-				 this->panelDetails->UseWaitCursor = true;
 				 // 
 				 // cmbType
 				 // 
@@ -982,7 +1173,6 @@ namespace V1 {
 				 this->cmbType->Name = L"cmbType";
 				 this->cmbType->Size = System::Drawing::Size(200, 26);
 				 this->cmbType->TabIndex = 5;
-				 this->cmbType->UseWaitCursor = true;
 				 this->cmbType->SelectedIndexChanged += gcnew System::EventHandler(this, &MainForm::cmbType_SelectedIndexChanged);
 				 // 
 				 // txtKeyword
@@ -992,7 +1182,6 @@ namespace V1 {
 				 this->txtKeyword->Size = System::Drawing::Size(200, 24);
 				 this->txtKeyword->TabIndex = 34;
 				 this->txtKeyword->TabStop = false;
-				 this->txtKeyword->UseWaitCursor = true;
 				 // 
 				 // txtAuthor
 				 // 
@@ -1000,7 +1189,6 @@ namespace V1 {
 				 this->txtAuthor->Name = L"txtAuthor";
 				 this->txtAuthor->Size = System::Drawing::Size(200, 24);
 				 this->txtAuthor->TabIndex = 35;
-				 this->txtAuthor->UseWaitCursor = true;
 				 // 
 				 // txtTitle
 				 // 
@@ -1008,7 +1196,6 @@ namespace V1 {
 				 this->txtTitle->Name = L"txtTitle";
 				 this->txtTitle->Size = System::Drawing::Size(200, 24);
 				 this->txtTitle->TabIndex = 37;
-				 this->txtTitle->UseWaitCursor = true;
 				 // 
 				 // txtYear
 				 // 
@@ -1016,7 +1203,6 @@ namespace V1 {
 				 this->txtYear->Name = L"txtYear";
 				 this->txtYear->Size = System::Drawing::Size(200, 24);
 				 this->txtYear->TabIndex = 38;
-				 this->txtYear->UseWaitCursor = true;
 				 // 
 				 // txtJournal
 				 // 
@@ -1024,7 +1210,6 @@ namespace V1 {
 				 this->txtJournal->Name = L"txtJournal";
 				 this->txtJournal->Size = System::Drawing::Size(200, 24);
 				 this->txtJournal->TabIndex = 39;
-				 this->txtJournal->UseWaitCursor = true;
 				 // 
 				 // txtVolume
 				 // 
@@ -1032,7 +1217,6 @@ namespace V1 {
 				 this->txtVolume->Name = L"txtVolume";
 				 this->txtVolume->Size = System::Drawing::Size(200, 24);
 				 this->txtVolume->TabIndex = 40;
-				 this->txtVolume->UseWaitCursor = true;
 				 // 
 				 // txtNumber
 				 // 
@@ -1040,7 +1224,6 @@ namespace V1 {
 				 this->txtNumber->Name = L"txtNumber";
 				 this->txtNumber->Size = System::Drawing::Size(200, 24);
 				 this->txtNumber->TabIndex = 41;
-				 this->txtNumber->UseWaitCursor = true;
 				 // 
 				 // txtPages
 				 // 
@@ -1048,7 +1231,6 @@ namespace V1 {
 				 this->txtPages->Name = L"txtPages";
 				 this->txtPages->Size = System::Drawing::Size(200, 24);
 				 this->txtPages->TabIndex = 43;
-				 this->txtPages->UseWaitCursor = true;
 				 // 
 				 // txtMonth
 				 // 
@@ -1056,7 +1238,6 @@ namespace V1 {
 				 this->txtMonth->Name = L"txtMonth";
 				 this->txtMonth->Size = System::Drawing::Size(200, 24);
 				 this->txtMonth->TabIndex = 44;
-				 this->txtMonth->UseWaitCursor = true;
 				 // 
 				 // txtNote
 				 // 
@@ -1064,7 +1245,6 @@ namespace V1 {
 				 this->txtNote->Name = L"txtNote";
 				 this->txtNote->Size = System::Drawing::Size(200, 24);
 				 this->txtNote->TabIndex = 45;
-				 this->txtNote->UseWaitCursor = true;
 				 // 
 				 // txtPublisher
 				 // 
@@ -1072,7 +1252,6 @@ namespace V1 {
 				 this->txtPublisher->Name = L"txtPublisher";
 				 this->txtPublisher->Size = System::Drawing::Size(200, 24);
 				 this->txtPublisher->TabIndex = 46;
-				 this->txtPublisher->UseWaitCursor = true;
 				 // 
 				 // txtSeries
 				 // 
@@ -1080,7 +1259,6 @@ namespace V1 {
 				 this->txtSeries->Name = L"txtSeries";
 				 this->txtSeries->Size = System::Drawing::Size(200, 24);
 				 this->txtSeries->TabIndex = 47;
-				 this->txtSeries->UseWaitCursor = true;
 				 // 
 				 // txtAddress
 				 // 
@@ -1088,7 +1266,6 @@ namespace V1 {
 				 this->txtAddress->Name = L"txtAddress";
 				 this->txtAddress->Size = System::Drawing::Size(200, 24);
 				 this->txtAddress->TabIndex = 48;
-				 this->txtAddress->UseWaitCursor = true;
 				 // 
 				 // txtEdition
 				 // 
@@ -1096,7 +1273,6 @@ namespace V1 {
 				 this->txtEdition->Name = L"txtEdition";
 				 this->txtEdition->Size = System::Drawing::Size(200, 24);
 				 this->txtEdition->TabIndex = 49;
-				 this->txtEdition->UseWaitCursor = true;
 				 // 
 				 // txtHowpublished
 				 // 
@@ -1104,7 +1280,6 @@ namespace V1 {
 				 this->txtHowpublished->Name = L"txtHowpublished";
 				 this->txtHowpublished->Size = System::Drawing::Size(200, 24);
 				 this->txtHowpublished->TabIndex = 50;
-				 this->txtHowpublished->UseWaitCursor = true;
 				 // 
 				 // txtBooktitle
 				 // 
@@ -1112,7 +1287,6 @@ namespace V1 {
 				 this->txtBooktitle->Name = L"txtBooktitle";
 				 this->txtBooktitle->Size = System::Drawing::Size(200, 24);
 				 this->txtBooktitle->TabIndex = 51;
-				 this->txtBooktitle->UseWaitCursor = true;
 				 // 
 				 // txtEditor
 				 // 
@@ -1120,7 +1294,6 @@ namespace V1 {
 				 this->txtEditor->Name = L"txtEditor";
 				 this->txtEditor->Size = System::Drawing::Size(200, 24);
 				 this->txtEditor->TabIndex = 52;
-				 this->txtEditor->UseWaitCursor = true;
 				 // 
 				 // txtChapter
 				 // 
@@ -1128,7 +1301,6 @@ namespace V1 {
 				 this->txtChapter->Name = L"txtChapter";
 				 this->txtChapter->Size = System::Drawing::Size(200, 24);
 				 this->txtChapter->TabIndex = 53;
-				 this->txtChapter->UseWaitCursor = true;
 				 // 
 				 // txtSchool
 				 // 
@@ -1136,7 +1308,6 @@ namespace V1 {
 				 this->txtSchool->Name = L"txtSchool";
 				 this->txtSchool->Size = System::Drawing::Size(200, 24);
 				 this->txtSchool->TabIndex = 54;
-				 this->txtSchool->UseWaitCursor = true;
 				 // 
 				 // txtInstitution
 				 // 
@@ -1144,7 +1315,6 @@ namespace V1 {
 				 this->txtInstitution->Name = L"txtInstitution";
 				 this->txtInstitution->Size = System::Drawing::Size(200, 24);
 				 this->txtInstitution->TabIndex = 55;
-				 this->txtInstitution->UseWaitCursor = true;
 				 // 
 				 // txtOrganization
 				 // 
@@ -1152,7 +1322,6 @@ namespace V1 {
 				 this->txtOrganization->Name = L"txtOrganization";
 				 this->txtOrganization->Size = System::Drawing::Size(200, 24);
 				 this->txtOrganization->TabIndex = 56;
-				 this->txtOrganization->UseWaitCursor = true;
 				 // 
 				 // lblKeyword
 				 // 
@@ -1161,7 +1330,6 @@ namespace V1 {
 				 this->lblKeyword->Name = L"lblKeyword";
 				 this->lblKeyword->Size = System::Drawing::Size(0, 18);
 				 this->lblKeyword->TabIndex = 57;
-				 this->lblKeyword->UseWaitCursor = true;
 				 // 
 				 // lblAuthor
 				 // 
@@ -1170,7 +1338,6 @@ namespace V1 {
 				 this->lblAuthor->Name = L"lblAuthor";
 				 this->lblAuthor->Size = System::Drawing::Size(0, 18);
 				 this->lblAuthor->TabIndex = 58;
-				 this->lblAuthor->UseWaitCursor = true;
 				 // 
 				 // lblTitle
 				 // 
@@ -1179,7 +1346,6 @@ namespace V1 {
 				 this->lblTitle->Name = L"lblTitle";
 				 this->lblTitle->Size = System::Drawing::Size(0, 18);
 				 this->lblTitle->TabIndex = 59;
-				 this->lblTitle->UseWaitCursor = true;
 				 // 
 				 // lblYear
 				 // 
@@ -1188,7 +1354,6 @@ namespace V1 {
 				 this->lblYear->Name = L"lblYear";
 				 this->lblYear->Size = System::Drawing::Size(0, 18);
 				 this->lblYear->TabIndex = 60;
-				 this->lblYear->UseWaitCursor = true;
 				 // 
 				 // lblJournal
 				 // 
@@ -1197,7 +1362,6 @@ namespace V1 {
 				 this->lblJournal->Name = L"lblJournal";
 				 this->lblJournal->Size = System::Drawing::Size(0, 18);
 				 this->lblJournal->TabIndex = 61;
-				 this->lblJournal->UseWaitCursor = true;
 				 // 
 				 // lblVolume
 				 // 
@@ -1206,7 +1370,6 @@ namespace V1 {
 				 this->lblVolume->Name = L"lblVolume";
 				 this->lblVolume->Size = System::Drawing::Size(0, 18);
 				 this->lblVolume->TabIndex = 62;
-				 this->lblVolume->UseWaitCursor = true;
 				 // 
 				 // lblNumber
 				 // 
@@ -1215,7 +1378,6 @@ namespace V1 {
 				 this->lblNumber->Name = L"lblNumber";
 				 this->lblNumber->Size = System::Drawing::Size(0, 18);
 				 this->lblNumber->TabIndex = 63;
-				 this->lblNumber->UseWaitCursor = true;
 				 // 
 				 // lblPages
 				 // 
@@ -1224,7 +1386,6 @@ namespace V1 {
 				 this->lblPages->Name = L"lblPages";
 				 this->lblPages->Size = System::Drawing::Size(0, 18);
 				 this->lblPages->TabIndex = 64;
-				 this->lblPages->UseWaitCursor = true;
 				 // 
 				 // lblMonth
 				 // 
@@ -1233,7 +1394,6 @@ namespace V1 {
 				 this->lblMonth->Name = L"lblMonth";
 				 this->lblMonth->Size = System::Drawing::Size(0, 18);
 				 this->lblMonth->TabIndex = 65;
-				 this->lblMonth->UseWaitCursor = true;
 				 // 
 				 // lblNote
 				 // 
@@ -1242,7 +1402,6 @@ namespace V1 {
 				 this->lblNote->Name = L"lblNote";
 				 this->lblNote->Size = System::Drawing::Size(0, 18);
 				 this->lblNote->TabIndex = 66;
-				 this->lblNote->UseWaitCursor = true;
 				 // 
 				 // lblPublisher
 				 // 
@@ -1251,7 +1410,6 @@ namespace V1 {
 				 this->lblPublisher->Name = L"lblPublisher";
 				 this->lblPublisher->Size = System::Drawing::Size(0, 18);
 				 this->lblPublisher->TabIndex = 67;
-				 this->lblPublisher->UseWaitCursor = true;
 				 // 
 				 // lblSeries
 				 // 
@@ -1260,7 +1418,6 @@ namespace V1 {
 				 this->lblSeries->Name = L"lblSeries";
 				 this->lblSeries->Size = System::Drawing::Size(0, 18);
 				 this->lblSeries->TabIndex = 68;
-				 this->lblSeries->UseWaitCursor = true;
 				 // 
 				 // lblAddress
 				 // 
@@ -1269,7 +1426,6 @@ namespace V1 {
 				 this->lblAddress->Name = L"lblAddress";
 				 this->lblAddress->Size = System::Drawing::Size(0, 18);
 				 this->lblAddress->TabIndex = 69;
-				 this->lblAddress->UseWaitCursor = true;
 				 // 
 				 // lblEdition
 				 // 
@@ -1278,7 +1434,6 @@ namespace V1 {
 				 this->lblEdition->Name = L"lblEdition";
 				 this->lblEdition->Size = System::Drawing::Size(0, 18);
 				 this->lblEdition->TabIndex = 70;
-				 this->lblEdition->UseWaitCursor = true;
 				 // 
 				 // lblHowpublished
 				 // 
@@ -1287,7 +1442,6 @@ namespace V1 {
 				 this->lblHowpublished->Name = L"lblHowpublished";
 				 this->lblHowpublished->Size = System::Drawing::Size(0, 18);
 				 this->lblHowpublished->TabIndex = 71;
-				 this->lblHowpublished->UseWaitCursor = true;
 				 // 
 				 // lblABooktitle
 				 // 
@@ -1296,7 +1450,6 @@ namespace V1 {
 				 this->lblABooktitle->Name = L"lblABooktitle";
 				 this->lblABooktitle->Size = System::Drawing::Size(0, 18);
 				 this->lblABooktitle->TabIndex = 72;
-				 this->lblABooktitle->UseWaitCursor = true;
 				 // 
 				 // lblEditor
 				 // 
@@ -1305,7 +1458,6 @@ namespace V1 {
 				 this->lblEditor->Name = L"lblEditor";
 				 this->lblEditor->Size = System::Drawing::Size(0, 18);
 				 this->lblEditor->TabIndex = 73;
-				 this->lblEditor->UseWaitCursor = true;
 				 // 
 				 // lblChapter
 				 // 
@@ -1314,7 +1466,6 @@ namespace V1 {
 				 this->lblChapter->Name = L"lblChapter";
 				 this->lblChapter->Size = System::Drawing::Size(0, 18);
 				 this->lblChapter->TabIndex = 74;
-				 this->lblChapter->UseWaitCursor = true;
 				 // 
 				 // lblSchool
 				 // 
@@ -1323,7 +1474,6 @@ namespace V1 {
 				 this->lblSchool->Name = L"lblSchool";
 				 this->lblSchool->Size = System::Drawing::Size(0, 18);
 				 this->lblSchool->TabIndex = 75;
-				 this->lblSchool->UseWaitCursor = true;
 				 // 
 				 // lblInstitution
 				 // 
@@ -1332,7 +1482,6 @@ namespace V1 {
 				 this->lblInstitution->Name = L"lblInstitution";
 				 this->lblInstitution->Size = System::Drawing::Size(0, 18);
 				 this->lblInstitution->TabIndex = 76;
-				 this->lblInstitution->UseWaitCursor = true;
 				 // 
 				 // lblOrganization
 				 // 
@@ -1341,12 +1490,11 @@ namespace V1 {
 				 this->lblOrganization->Name = L"lblOrganization";
 				 this->lblOrganization->Size = System::Drawing::Size(0, 18);
 				 this->lblOrganization->TabIndex = 77;
-				 this->lblOrganization->UseWaitCursor = true;
 				 // 
 				 // rbtnEditor
 				 // 
 				 this->rbtnEditor->AutoSize = true;
-				 this->rbtnEditor->Cursor = System::Windows::Forms::Cursors::WaitCursor;
+				 this->rbtnEditor->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->rbtnEditor->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
 				 this->rbtnEditor->Location = System::Drawing::Point(538, 679);
@@ -1354,13 +1502,12 @@ namespace V1 {
 				 this->rbtnEditor->Size = System::Drawing::Size(14, 13);
 				 this->rbtnEditor->TabIndex = 32;
 				 this->rbtnEditor->UseVisualStyleBackColor = true;
-				 this->rbtnEditor->UseWaitCursor = true;
 				 this->rbtnEditor->CheckedChanged += gcnew System::EventHandler(this, &MainForm::rbtnEditor_CheckedChanged);
 				 // 
 				 // rbtnAuthor
 				 // 
 				 this->rbtnAuthor->AutoSize = true;
-				 this->rbtnAuthor->Cursor = System::Windows::Forms::Cursors::WaitCursor;
+				 this->rbtnAuthor->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->rbtnAuthor->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
 				 this->rbtnAuthor->Location = System::Drawing::Point(538, 656);
@@ -1368,12 +1515,11 @@ namespace V1 {
 				 this->rbtnAuthor->Size = System::Drawing::Size(14, 13);
 				 this->rbtnAuthor->TabIndex = 33;
 				 this->rbtnAuthor->UseVisualStyleBackColor = true;
-				 this->rbtnAuthor->UseWaitCursor = true;
 				 this->rbtnAuthor->CheckedChanged += gcnew System::EventHandler(this, &MainForm::rbtnAuthor_CheckedChanged);
 				 // 
 				 // btnClearAuthor
 				 // 
-				 this->btnClearAuthor->Cursor = System::Windows::Forms::Cursors::WaitCursor;
+				 this->btnClearAuthor->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->btnClearAuthor->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 				 this->btnClearAuthor->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular,
 					 System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
@@ -1381,7 +1527,6 @@ namespace V1 {
 				 this->btnClearAuthor->Name = L"btnClearAuthor";
 				 this->btnClearAuthor->Size = System::Drawing::Size(92, 54);
 				 this->btnClearAuthor->TabIndex = 36;
-				 this->btnClearAuthor->UseWaitCursor = true;
 				 this->btnClearAuthor->Click += gcnew System::EventHandler(this, &MainForm::btnClearAuthor_Click);
 				 // 
 				 // lblLastName
@@ -1392,7 +1537,6 @@ namespace V1 {
 				 this->lblLastName->Name = L"lblLastName";
 				 this->lblLastName->Size = System::Drawing::Size(100, 23);
 				 this->lblLastName->TabIndex = 78;
-				 this->lblLastName->UseWaitCursor = true;
 				 // 
 				 // lblFirstName
 				 // 
@@ -1402,35 +1546,32 @@ namespace V1 {
 				 this->lblFirstName->Name = L"lblFirstName";
 				 this->lblFirstName->Size = System::Drawing::Size(100, 23);
 				 this->lblFirstName->TabIndex = 79;
-				 this->lblFirstName->UseWaitCursor = true;
 				 // 
 				 // btnSave
 				 // 
-				 this->btnSave->Cursor = System::Windows::Forms::Cursors::WaitCursor;
+				 this->btnSave->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->btnSave->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 				 this->btnSave->Location = System::Drawing::Point(439, 742);
 				 this->btnSave->Name = L"btnSave";
 				 this->btnSave->Size = System::Drawing::Size(132, 28);
 				 this->btnSave->TabIndex = 11;
-				 this->btnSave->UseWaitCursor = true;
 				 this->btnSave->Click += gcnew System::EventHandler(this, &MainForm::btnSave_Click);
 				 // 
 				 // btnCancel
 				 // 
-				 this->btnCancel->Cursor = System::Windows::Forms::Cursors::WaitCursor;
+				 this->btnCancel->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->btnCancel->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 				 this->btnCancel->Location = System::Drawing::Point(576, 742);
 				 this->btnCancel->Name = L"btnCancel";
 				 this->btnCancel->Size = System::Drawing::Size(136, 28);
 				 this->btnCancel->TabIndex = 12;
-				 this->btnCancel->UseWaitCursor = true;
 				 this->btnCancel->Click += gcnew System::EventHandler(this, &MainForm::btnCancel_Click);
 				 // 
 				 // btnSaveHDD
 				 // 
 				 this->btnSaveHDD->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(22)), static_cast<System::Int32>(static_cast<System::Byte>(167)),
 					 static_cast<System::Int32>(static_cast<System::Byte>(22)));
-				 this->btnSaveHDD->Cursor = System::Windows::Forms::Cursors::WaitCursor;
+				 this->btnSaveHDD->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->btnSaveHDD->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 				 this->btnSaveHDD->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
@@ -1440,7 +1581,6 @@ namespace V1 {
 				 this->btnSaveHDD->Size = System::Drawing::Size(160, 30);
 				 this->btnSaveHDD->TabIndex = 9;
 				 this->btnSaveHDD->UseVisualStyleBackColor = false;
-				 this->btnSaveHDD->UseWaitCursor = true;
 				 this->btnSaveHDD->Click += gcnew System::EventHandler(this, &MainForm::btnSaveHDD_Click);
 				 // 
 				 // txtSearch
@@ -1452,7 +1592,6 @@ namespace V1 {
 				 this->txtSearch->Name = L"txtSearch";
 				 this->txtSearch->Size = System::Drawing::Size(300, 27);
 				 this->txtSearch->TabIndex = 1;
-				 this->txtSearch->UseWaitCursor = true;
 				 this->txtSearch->TextChanged += gcnew System::EventHandler(this, &MainForm::txtSearch_TextChanged);
 				 // 
 				 // listViewAuthors
@@ -1467,33 +1606,44 @@ namespace V1 {
 				 this->listViewAuthors->TabIndex = 0;
 				 this->listViewAuthors->TabStop = false;
 				 this->listViewAuthors->UseCompatibleStateImageBehavior = false;
-				 this->listViewAuthors->UseWaitCursor = true;
 				 this->listViewAuthors->View = System::Windows::Forms::View::List;
 				 this->listViewAuthors->SelectedIndexChanged += gcnew System::EventHandler(this, &MainForm::listViewAuthors_SelectedIndexChanged);
 				 // 
 				 // btnLanguage
 				 // 
+				 this->btnLanguage->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->btnLanguage->Location = System::Drawing::Point(805, 10);
 				 this->btnLanguage->Name = L"btnLanguage";
 				 this->btnLanguage->Size = System::Drawing::Size(127, 28);
 				 this->btnLanguage->TabIndex = 6;
 				 this->btnLanguage->UseVisualStyleBackColor = true;
-				 this->btnLanguage->UseWaitCursor = true;
 				 this->btnLanguage->Click += gcnew System::EventHandler(this, &MainForm::btnLanguage_Click);
 				 // 
 				 // btnPDF
 				 // 
+				 this->btnPDF->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->btnPDF->Location = System::Drawing::Point(938, 11);
 				 this->btnPDF->Name = L"btnPDF";
 				 this->btnPDF->Size = System::Drawing::Size(135, 27);
 				 this->btnPDF->TabIndex = 7;
 				 this->btnPDF->UseVisualStyleBackColor = true;
-				 this->btnPDF->UseWaitCursor = true;
 				 this->btnPDF->Click += gcnew System::EventHandler(this, &MainForm::btnPDF_Click);
+				 // 
+				 // btnDark
+				 // 
+				 this->btnDark->Cursor = System::Windows::Forms::Cursors::NoMove2D;
+				 this->btnDark->Location = System::Drawing::Point(354, 17);
+				 this->btnDark->Name = L"btnDark";
+				 this->btnDark->Size = System::Drawing::Size(95, 23);
+				 this->btnDark->TabIndex = 80;
+				 this->btnDark->Text = L"Darkmode";
+				 this->btnDark->UseVisualStyleBackColor = true;
+				 this->btnDark->Click += gcnew System::EventHandler(this, &MainForm::btnDark_Click);
 				 // 
 				 // MainForm
 				 // 
-				 this->ClientSize = System::Drawing::Size(1264, 823);
+				 this->ClientSize = System::Drawing::Size(1088, 823);
+				 this->Controls->Add(this->btnDark);
 				 this->Controls->Add(this->txtFirstName);
 				 this->Controls->Add(this->txtLastName);
 				 this->Controls->Add(this->btnPDF);
@@ -1515,17 +1665,16 @@ namespace V1 {
 				 this->Controls->Add(this->panelDetails);
 				 this->Controls->Add(this->lblFirstName);
 				 this->Controls->Add(this->lblLastName);
+				 this->Cursor = System::Windows::Forms::Cursors::Arrow;
 				 this->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
 				 this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
-				 this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 				 this->MaximizeBox = false;
 				 this->Name = L"MainForm";
-				 this->ShowIcon = false;
 				 this->SizeGripStyle = System::Windows::Forms::SizeGripStyle::Hide;
 				 this->Text = L"BibTexPro";
-				 this->UseWaitCursor = true;
 				 this->Load += gcnew System::EventHandler(this, &MainForm::MainForm_Load);
+				 this->Shown += gcnew System::EventHandler(this, &MainForm::MainForm_Shown);
 				 this->panelDetails->ResumeLayout(false);
 				 this->panelDetails->PerformLayout();
 				 this->ResumeLayout(false);
@@ -1563,13 +1712,19 @@ namespace V1 {
 				 using namespace System::Runtime::Serialization::Formatters::Binary;
 				 FileStream^ fs = gcnew FileStream(filename, FileMode::Create, FileAccess::Write);
 				 BinaryFormatter^ formatter = gcnew BinaryFormatter();
-
+				 String^ text;
 				 try {
 					 // Serialize the entries to the file stream
 					 formatter->Serialize(fs, entries);
 				 }
 				 catch (Exception^ ex) {
-					 MessageBox::Show("Error saving entries: " + ex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+					 if (en_de == 0) {
+						 text = nachrichten[32, 0];
+					 }
+					 else if (en_de == 1) {
+						 text = nachrichten[32, 1];
+					 }
+					 MessageBox::Show(text + ex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 				 } //Fehlermeldung wenn speichern nicht erfolgreich
 				 finally{
 					 fs->Close();
@@ -1582,6 +1737,7 @@ namespace V1 {
 				 using namespace System::Runtime::Serialization::Formatters::Binary;
 				 FileStream^ fs = nullptr;
 				 bool success = false;
+				 String^ text;
 
 				 try {
 					 if (File::Exists(filename)) {
@@ -1592,12 +1748,24 @@ namespace V1 {
 						 success = true; // Wenn das Einlesen erfolgreich ist
 					 }
 					 else {
-						 MessageBox::Show("No entries file found. Starting with an empty list.", "Information", MessageBoxButtons::OK, MessageBoxIcon::Information);
+						 if (en_de == 0) {
+							 text = nachrichten[33, 0];
+						 }
+						 else if (en_de == 1) {
+							 text = nachrichten[33, 1];
+						 }
+						 MessageBox::Show(text, "Information", MessageBoxButtons::OK, MessageBoxIcon::Information);
 						 entries = gcnew List<DataArray^>(); // Initialisiere eine leere Liste, wenn die Datei nicht existiert
 					 }
 				 }
 				 catch (Exception^ ex) {
-					 MessageBox::Show("Error loading entries: " + ex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+					 if (en_de == 0) {
+						 text = nachrichten[34, 0];
+					 }
+					 else if (en_de == 1) {
+						 text = nachrichten[34, 1];
+					 }
+					 MessageBox::Show(text + ex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 					 success = false; // Bei einer Ausnahme war das Einlesen nicht erfolgreich
 				 }
 				 finally{
@@ -1606,7 +1774,7 @@ namespace V1 {
 					 }
 				 }
 
-				 return success; // Gibt den Erfolg oder Misserfolg zurück
+				 return success; // Gibt den Erfolg oder Misserfolg zur\u00fcck
 			 }
 
 
@@ -1662,20 +1830,23 @@ namespace V1 {
 			 {
 				 if (cmbType->SelectedItem != nullptr)
 				 {
+					 /*if (txtAuthor->Text != "" || txtEditor->Text != "") {
+						 TypeChanged = true;
+					 }*/
 					 String^ selectedType = cmbType->SelectedItem->ToString();
 					 for each (DataTypeFields^ type in dataTypes)
 					 {
 						 if (type->TypeName == selectedType)
 						 {
-								int TabNumberCurrent = ShowFieldsForType(type);
-								txtFirstName->TabIndex = TabNumberCurrent++;
-								txtLastName->TabIndex = TabNumberCurrent++;
-								btnSetAuthor->TabIndex = TabNumberCurrent++;
-								btnClearAuthor->TabIndex = TabNumberCurrent++;
-								btnSave->TabIndex = TabNumberCurrent++;
-								btnCancel->TabIndex = TabNumberCurrent++;
-								btnSaveHDD->TabIndex = TabNumberCurrent++;
-								btnExportToBib->TabIndex = TabNumberCurrent;
+							 int TabNumberCurrent = ShowFieldsForType(type);
+							 txtFirstName->TabIndex = TabNumberCurrent++;
+							 txtLastName->TabIndex = TabNumberCurrent++;
+							 btnSetAuthor->TabIndex = TabNumberCurrent++;
+							 btnClearAuthor->TabIndex = TabNumberCurrent++;
+							 btnSave->TabIndex = TabNumberCurrent++;
+							 btnCancel->TabIndex = TabNumberCurrent++;
+							 btnSaveHDD->TabIndex = TabNumberCurrent++;
+							 btnExportToBib->TabIndex = TabNumberCurrent;
 							 break;
 						 }
 					 }
@@ -1741,6 +1912,7 @@ namespace V1 {
 				 btnClearAuthor->Visible = false;
 				 rbtnAuthor->Visible = false;
 				 rbtnEditor->Visible = false;
+				 listViewAuthors->Visible = false;
 				 // Author Namensblock ausblenden
 			 }
 
@@ -2016,6 +2188,7 @@ namespace V1 {
 
 				 if (Author && Editor) {
 					 txtAuthor->Visible = true;
+					 listViewAuthors->Visible = true;
 					 lblAuthor->Visible = true;
 					 txtEditor->Visible = true;
 					 lblEditor->Visible = true;
@@ -2032,6 +2205,7 @@ namespace V1 {
 				 }
 				 else if (Author) {
 					 txtAuthor->Visible = true;
+					 listViewAuthors->Visible = true;
 					 lblAuthor->Visible = true;
 					 lblFirstName->Visible = true;
 					 lblLastName->Visible = true;
@@ -2041,9 +2215,11 @@ namespace V1 {
 					 btnClearAuthor->Visible = true;
 					 rbtnAuthor->Visible = true;
 					 rbtnAuthor->Checked = true;
+					 tc_no_edit = true;
 				 }
 				 else if (Editor) {
 					 txtEditor->Visible = true;
+					 listViewAuthors->Visible = true;
 					 lblEditor->Visible = true;
 					 lblFirstName->Visible = true;
 					 lblLastName->Visible = true;
@@ -2053,6 +2229,7 @@ namespace V1 {
 					 btnClearAuthor->Visible = true;
 					 rbtnEditor->Visible = true;
 					 rbtnEditor->Checked = true;
+					 tc_no_edit = true;
 				 }
 
 				 int mandatoryY = 75;
@@ -2122,25 +2299,46 @@ namespace V1 {
 			 }
 
 	private: System::Void MainForm_Load(System::Object^  sender, System::EventArgs^  e) {
+	}
 
-		/*String^ icoName = "C:\\Downloads\\bepsi.ico";
-		this->Icon = gcnew System::Drawing::Icon(icoName);*/ //Muss noch in Resources eingebunden werden
-
+	private: System::Void MainForm_Shown(System::Object^ sender, System::EventArgs^ e) {
 		bool success = LoadEntries("entries.bin");
-		/*bool success = LoadEntries("nonexistent_file.bin");*/ //Test Fehler
+		this->BringToFront();
+		this->Activate();
+		String^ text;
 		if (success) {
-			RefreshListView(); // Aktualisiere die Anzeige der Einträge, wenn das Laden erfolgreich war
-			MessageBox::Show("Entries loaded successfully from HDD.", "Information", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			RefreshListView(); // Aktualisiere die Anzeige der Eintr\u00e4ge, wenn das Laden erfolgreich war
+			if (en_de == 0) {
+				text = nachrichten[35, 0];
+			}
+			else if (en_de == 1) {
+				text = nachrichten[35, 1];
+			}
+			MessageBox::Show(text, "Information", MessageBoxButtons::OK, MessageBoxIcon::Information);
 		}
 		else {
-			MessageBox::Show("Failed to load entries from HDD.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			if (en_de == 0) {
+				text = nachrichten[36, 0];
+			}
+			else if (en_de == 1) {
+				text = nachrichten[36, 1];
+			}
+			MessageBox::Show(text, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
+
 		RefreshListView(); // Refresh the ListView to show loaded entries
 	}
 
 	private: System::Void btnSaveHDD_Click(System::Object^  sender, System::EventArgs^  e) {
+		String^ text;
 		SaveEntries("entries.bin");
-		MessageBox::Show("Entries saved successfully to HDD.", "Information", MessageBoxButtons::OK, MessageBoxIcon::Information);
+		if (en_de == 0) {
+			text = nachrichten[37, 0];
+		}
+		else if (en_de == 1) {
+			text = nachrichten[37, 1];
+		}
+		MessageBox::Show(text, "Information", MessageBoxButtons::OK, MessageBoxIcon::Information);
 	}
 	private: System::Void txtSearch_TextChanged(System::Object^  sender, System::EventArgs^  e) { //wird automatisch durchsucht wenn etwas eingegeben wird
 		String^ searchTerm = txtSearch->Text->Trim();
@@ -2150,9 +2348,15 @@ namespace V1 {
 	private: System::Void btnSetAuthor_Click(System::Object^ sender, System::EventArgs^ e) {
 		String^ firstName = txtFirstName->Text->Trim();
 		String^ lastName = txtLastName->Text->Trim();
-
+		String^ text;
 		if (firstName->Length == 0 || lastName->Length == 0) {
-			MessageBox::Show("Please enter both first name and last name.", "Input Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			if (en_de == 0) {
+				text = nachrichten[38, 0];
+			}
+			else if (en_de == 1) {
+				text = nachrichten[38, 1];
+			}
+			MessageBox::Show(text, "Input Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			return;
 		}
 
@@ -2167,7 +2371,7 @@ namespace V1 {
 				listViewAuthors->SelectedIndices->Clear();// reset the index here
 			}
 			else {
-				listViewAuthors->Items->Add(fullName);// Neuen Eintrag hinzufügen
+				listViewAuthors->Items->Add(fullName);// Neuen Eintrag hinzuf\u00fcgen
 				txtAuthor->Text += (txtAuthor->Text->Length > 0 ? " and " : "") + fullName;
 			}
 		}
@@ -2179,13 +2383,19 @@ namespace V1 {
 				UpdateAuthorString(selectedIndex, fullName, txtEditor);
 			}
 			else {
-				listViewAuthors->Items->Add(fullName);// Neuen Eintrag hinzufügen
+				listViewAuthors->Items->Add(fullName);// Neuen Eintrag hinzuf\u00fcgen
 				txtEditor->Text += (txtEditor->Text->Length > 0 ? " and " : "") + fullName;
 			}
 		}
 
 		else {
-			MessageBox::Show("Please select Author or Editor.", "Input Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			if (en_de == 0) {
+				text = nachrichten[39, 0];
+			}
+			else if (en_de == 1) {
+				text = nachrichten[39, 1];
+			}
+			MessageBox::Show(text, "Input Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		}
 
 		txtFirstName->Clear();
@@ -2200,7 +2410,13 @@ namespace V1 {
 			txtEditor->Clear(); // Clears the editor field
 		}
 		else {
-			MessageBox::Show("Select Author or Editor!");
+			if (en_de == 0) {
+				MessageBox::Show(nachrichten[40, 0]);
+			}
+			else if (en_de == 1) {
+				MessageBox::Show(nachrichten[40, 1]);
+			}
+			//MessageBox::Show("Select Author or Editor!");
 		}
 
 	}
@@ -2210,14 +2426,14 @@ namespace V1 {
 		n = 0;
 		int size = entries->Count;
 
-		// MessageBox::Show("Die Größe des Arrays beträgt: " + size.ToString());
+		// MessageBox::Show("Die Gr\u00f6\u00dfe des Arrays betr\u00e4gt: " + size.ToString());
 
 		//meins
 		SaveFileDialog^ saveFileDialog = gcnew SaveFileDialog();
 		saveFileDialog->Filter = "Bib Dateien (*.bib)|*.bib";
 		saveFileDialog->Title = "Speicher die Bib-Datei";
 		if (saveFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
-			// Der ausgewählte Dateipfad
+			// Der ausgew\u00e4hlte Dateipfad
 			String^ filePath = saveFileDialog->FileName;
 			//meins
 
@@ -2265,7 +2481,7 @@ namespace V1 {
 				 if (listViewAuthors->SelectedItems->Count > 0 && rbtnAuthor->Checked)
 				 {
 					 String^ selectedAuthor = listViewAuthors->SelectedItems[0]->Text;
-					 // Autor in das Textfeld für Vorname und Nachname aufteilen
+					 // Autor in das Textfeld f\u00fcr Vorname und Nachname aufteilen
 					 array<String^>^ nameParts = selectedAuthor->Split(',');
 					 txtLastName->Text = nameParts[0]; // Nachname
 					 txtFirstName->Text = nameParts->Length > 1 ? nameParts[1] : ""; // Vorname
@@ -2280,7 +2496,7 @@ namespace V1 {
 				 }
 			 }
 			 void UpdateAuthorString(int index, String^ updatedEntry, TextBox^ storageTextBox) {
-				 // Den Speicherstring ("txtAuthor") in Einträge aufteilen
+				 // Den Speicherstring ("txtAuthor") in Eintr\u00e4ge aufteilen
 				 array<String^>^ authorEntries = storageTextBox->Text->Split(gcnew array<String^> { " and " }, StringSplitOptions::None);
 
 				 // Den spezifischen Eintrag aktualisieren
@@ -2292,21 +2508,100 @@ namespace V1 {
 				 storageTextBox->Text = String::Join(" and ", authorEntries);
 			 }
 			 //mein
+			 bool TypeChanged = false;
+			 bool tc_no_edit = false;
+			 //String safe_edit_auth;
 	private: System::Void rbtnAuthor_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (rbtnAuthor->Checked) {
-			if (!String::IsNullOrEmpty(txtEditor->Text)) {
-				txtAuthor->Text = txtEditor->Text;
-				txtEditor->Clear();
+
+			//if (!String::IsNullOrEmpty(txtEditor->Text)) {
+			if (cmbType->SelectedItem != "conference" && cmbType->SelectedItem != "incollection" && cmbType->SelectedItem != "inproceedings") { //incollection, inbook
+				if (!String::IsNullOrEmpty(txtEditor->Text)) {
+					if (TypeChanged == true) {
+						txtEditor->Text = "";
+						TypeChanged = false;
+					}
+					else {
+						//if (tc_no_edit == true) {
+						txtAuthor->Text = txtEditor->Text;
+						tc_no_edit = false;
+						//}
+					}
+					//txtAuthor->Text = txtEditor->Text;
+					txtEditor->Clear();
+					listViewAuthors->Items->Clear();
+					if (txtAuthor->Text != "")
+					{
+						array<String^>^ authors = txtAuthor->Text->Split(gcnew array<String^>{ " and " }, StringSplitOptions::None);
+						for each (String^ author in authors)
+						{
+							listViewAuthors->Items->Add(author->Trim());
+						}
+					}
+				}
 			}
+			else {
+				TypeChanged = true;//----------------
+				listViewAuthors->Items->Clear();
+				if (txtAuthor->Text != "")
+				{
+					array<String^>^ authors = txtAuthor->Text->Split(gcnew array<String^>{ " and " }, StringSplitOptions::None);
+					for each (String^ author in authors)
+					{
+						listViewAuthors->Items->Add(author->Trim());
+					}
+				}
+				/*TypeChanged = false;*/
+			}
+			//}
 		}
 	}
 
 	private: System::Void rbtnEditor_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (rbtnEditor->Checked) {
-			if (!String::IsNullOrEmpty(txtAuthor->Text)) {
-				txtEditor->Text = txtAuthor->Text;
-				txtAuthor->Clear();
+			//listViewAuthors->Items->Clear();
+			//if (!String::IsNullOrEmpty(txtAuthor->Text)) { //Author gef\u00fcllt
+
+			if (cmbType->SelectedItem != "conference" && cmbType->SelectedItem != "incollection" && cmbType->SelectedItem != "inproceedings") {
+				if (!String::IsNullOrEmpty(txtAuthor->Text)/* && !TypeChanged*/) {
+					if (TypeChanged == true) {
+						txtAuthor->Text = "";
+						TypeChanged = false;
+					}
+					else {
+						//if (tc_no_edit == true) {
+						txtEditor->Text = txtAuthor->Text;
+						tc_no_edit = false;
+						//}
+					}
+					//txtEditor->Text = txtAuthor->Text;
+					txtAuthor->Clear();
+
+					listViewAuthors->Items->Clear();
+					if (txtEditor->Text != "")
+					{
+						array<String^>^ editors = txtEditor->Text->Split(gcnew array<String^>{ " and " }, StringSplitOptions::None);
+						for each (String^ editor in editors)
+						{
+							listViewAuthors->Items->Add(editor->Trim());
+						}
+					}
+				}
 			}
+			else {
+				TypeChanged = true;//----------------
+				listViewAuthors->Items->Clear();
+				if (txtEditor->Text != "")
+				{
+					array<String^>^ editors = txtEditor->Text->Split(gcnew array<String^>{ " and " }, StringSplitOptions::None);
+					for each (String^ editor in editors)
+					{
+						listViewAuthors->Items->Add(editor->Trim());
+					}
+				}
+				/*TypeChanged = false;*/
+			}
+			//}
 		}
 	}
 
@@ -2371,10 +2666,10 @@ namespace V1 {
 					 this->btnExportToBib->Text = L"Exportieren zu .bib";
 					 this->btnNew->Text = L"Neu";
 					 this->btnEdit->Text = L"Bearbeiten";
-					 this->btnDelete->Text = "Löschen";
+					 this->btnDelete->Text = L"L\u00f6schen";
 					 this->rbtnEditor->Text = L"Herausgeber";
 					 this->rbtnAuthor->Text = L"Autor";
-					 this->btnClearAuthor->Text = "Autor Löschen";
+					 this->btnClearAuthor->Text = "Autor L\u00f6schen";
 					 this->lblKeyword->Text = L"Schlagwort:";
 					 this->lblAuthor->Text = L"Autor:";
 					 this->lblTitle->Text = L"Titel:";
@@ -2389,7 +2684,7 @@ namespace V1 {
 					 this->lblSeries->Text = L"Serie:";
 					 this->lblAddress->Text = L"Adresse:";
 					 this->lblEdition->Text = L"Auflage:";
-					 this->lblHowpublished->Text = "Veröffentlichungsart:";
+					 this->lblHowpublished->Text = "Ver\u00f6ffentlichungsart:";
 					 this->lblABooktitle->Text = L"Buchtitel:";
 					 this->lblEditor->Text = L"Herausgeber:";
 					 this->lblChapter->Text = L"Kapitel:";
@@ -2405,36 +2700,166 @@ namespace V1 {
 					 this->btnSaveHDD->Text = L"Speichern auf HDD";
 					 this->btnPDF->Text = L"Handbuch";
 				 }
-				 std::pair<std::string, std::string> errorMessages[] = {
-				{"Bitte füllen Sie das Feld für das Journal aus.", "Please fill in the journal field."},
+				 nachrichten = gcnew array<String^, 2>{
+					 { "Please select an entry type.\n", "Bitte w\u00e4hlen Sie einen Eintragstyp aus.\n" },
+					 { "Invalid entry type selected.\n","Ung\u00fcltiger Eintragstyp ausgew\u00e4hlt.\n" },
+					 { "Please fill in the keyword field.\n","Bitte f\u00fcllen Sie das Stichwortfeld aus.\n" },
+					 { "Please fill in the title field.\n", "Bitte f\u00fcllen Sie das Feld f\u00fcr den Titel aus.\n" },
+					 { "Please enter a number into the year field.\n", "Bitte geben Sie eine Zahl in das Jahr-Feld ein.\n" },
+					 { "Please enter a number into the volume field.\n","Bitte geben Sie eine Zahl in das Bandfeld ein.\n" },
+					 { "Please enter a number into the number field.\n","Bitte geben Sie eine Nummer in das Nummernfeld ein.\n" },
+					 { "Please enter a number into the pages field.\n","Bitte geben Sie eine Zahl in das Seitenfeld ein.\n" },
+					 { "Please fill in the month field.\n","Bitte f\u00fcllen Sie das Monatsfeld aus.\n" },
+					 { "Please fill in the note field.\n","Bitte f\u00fcllen Sie das Notizfeld aus.\n" },
+					 { "Please fill in the publisher field.\n","Bitte f\u00fcllen Sie das Herausgeberfeld aus.\n" },
+					 { "Please fill in the series field.\n","Bitte f\u00fcllen Sie das Serienfeld aus.\n" },
+					 { "Please fill in the address field.\n","Bitte f\u00fcllen Sie das Adressfeld aus.\n" },
+					 { "Please fill in the edition field.\n", "Bitte f\u00fcllen Sie das Editionsfeld aus.\n" },
+					 { "Please fill in the how published field.\n", "Bitte f\u00fcllen Sie das Publisherfeld aus.\n" },
+					 { "Please fill in the book title field.\n", "Bitte f\u00fcllen Sie das Buchtitelfeld aus.\n" },
+					 { "Please fill in the school field.\n", "Bitte f\u00fcllen Sie das Schulfeld aus.\n" },
+					 { "Please fill in the institution field.\n", "Bitte f\u00fcllen Sie das Instituionsfeld aus.\n" },
+					 { "Please fill in the organization field.\n","Bitte f\u00fcllen Sie das Organisationsfeld aus.\n" },
+					 { "Please fill in either the author or the editor field.\n","Bitte f\u00fcllen Sie entweder das Autor - oder Editorfeld aus.\n" },
+					 { "Cannot have both Author and Editor!\n", "Es k\u00f6nnen nicht sowohl Autor als auch Editor vorhanden sein!\n" },
+					 { "Please fill in the author field.\n", "Bitte f\u00fcllen Sie das Feld f\u00fcr den Autor aus.\n" },
+					 { "Please fill in the editor field.\n", "Bitte f\u00fcllen Sie das Feld f\u00fcr den Herausgeber aus.\n" },
+					 { "Please fill in either the Pages or the Chapter field.\n","Bitte f\u00fcllen Sie entweder das Feld Seiten oder das Feld Kapitel aus.\n" },
+					 { "Please fill in the pages field.\n", "Bitte f\u00fcllen Sie das Feld f\u00fcr die Seiten aus.\n" },
+					 { "Please fill in the chapter field.\n", "Bitte f\u00fcllen Sie das Feld f\u00fcr das Kapitel aus.\n" },
+					 { "Please select an entry type.\n","Bitte w\u00e4hlen Sie einen Eintragstyp aus.\n" },
+					 { "Invalid entry type selected.\n","Ung\u00fcltiger Eintragstyp ausgew\u00e4hlt.\n" },
+					 { "Year must be a number.\n","Das Jahr muss eine Zahl sein.\n" },
+					 { "Volume must be a number.\n","Das Band muss eine Zahl sein.\n" },
+					 { "Number must be a number.\n","Zahl muss eine Zahl sein.\n" },
+					 { "Pages must be a number.\n","Seiten m\u00fcssen eine Zahl sein.\n" },
+					 { "Error saving entries : ","Fehler beim Speichern der Eintr\u00e4ge : " },
+					 { "No entries file found.Starting with an empty list.\n","Keine Eintragsdatei gefunden.Beginnend mit einer leeren Liste.\n" },
+					 { "Error loading entries: ","Fehler beim Laden der Eintr\u00e4ge : " },
+					 { "Entries loaded successfully from HDD.\n", "Eintr\u00e4ge erfolgreich von der Festplatte geladen.\n" },
+					 { "Failed to load entries from HDD.\n","Eintr\u00e4ge konnten nicht von der Festplatte geladen werden.\n" },
+					 { "Entries saved successfully to HDD.\n","Eintr\u00e4ge erfolgreich auf der Festplatte gespeichert.\n" },
+					 { "Please enter both first name and last name.\n","Bitte geben Sie sowohl den Vor - als auch den Nachnamen ein.\n" },
+					 { "Please select Author or Editor.\n","Bitte w\u00e4hlen Sie Autor oder Editor aus.\n" },
+					 { "Select Author or Editor!","W\u00e4hlen Sie Autor oder Herausgeber aus!" },
+					 { "The PDF file was not found:","Die PDFDatei wurde nicht gefunden: " },
+					 { "Missing Input!", "Fehlende Eingabe!"}
+				 };
+				 /*std::pair<std::string, std::string> errorMessages[] = {
+				{"Bitte f\u00fcllen Sie das Feld f\u00fcr das Journal aus.", "Please fill in the journal field."},
 				{"Bitte geben Sie eine Zahl in das Jahr-Feld ein.", "Please enter a number into the year field."},
 				{"Es darf nicht sowohl Autor als auch Herausgeber angegeben werden!", "Cannot have both Author and Editor!"},
-				{"Bitte füllen Sie das Feld für den Autor aus.", "Please fill in the author field."},
-				{"Bitte füllen Sie das Feld für den Herausgeber aus.", "Please fill in the editor field."},
-				{"Bitte füllen Sie das Feld für das Kapitel aus.", "Please fill in the chapter field."},
-				{"Bitte füllen Sie das Feld für den Titel aus.", "Please fill in the title field."},
-				{"Bitte füllen Sie das Feld für die Seiten aus.", "Please fill in the pages field."},
+				{"Bitte f\u00fcllen Sie das Feld f\u00fcr den Autor aus.", "Please fill in the author field."},
+				{"Bitte f\u00fcllen Sie das Feld f\u00fcr den Herausgeber aus.", "Please fill in the editor field."},
+				{"Bitte f\u00fcllen Sie das Feld f\u00fcr das Kapitel aus.", "Please fill in the chapter field."},
+				{"Bitte f\u00fcllen Sie das Feld f\u00fcr den Titel aus.", "Please fill in the title field."},
+				{"Bitte f\u00fcllen Sie das Feld f\u00fcr die Seiten aus.", "Please fill in the pages field."},
 				{"Missing Input","Fehlende Eingabe"}
-				 };
+				 };*/
 
 
 			 }
-		private: System::Void btnPDF_Click(System::Object^  sender, System::EventArgs^  e) {
+	private: System::Void btnPDF_Click(System::Object^  sender, System::EventArgs^  e) {
+		String^ text;
 
-			String^ exePfad = Application::StartupPath;
+		String^ exePfad = Application::StartupPath;
 
-			String^ pdfName = "pi-314-inhalt.pdf";
+		String^ pdfName = "pi-314-inhalt.pdf";
 
-			String^ pdfPfaduName = Path::Combine(exePfad, pdfName);
+		String^ pdfPfaduName = Path::Combine(exePfad, pdfName);
 
-			if (System::IO::File::Exists(pdfPfaduName)) {
-				System::Diagnostics::Process::Start(pdfPfaduName);
-			}
-			else {
-				MessageBox::Show("Die PDFDatei wurde nicht gefunden: " + pdfPfaduName);
-			}
-
-
+		if (System::IO::File::Exists(pdfPfaduName)) {
+			System::Diagnostics::Process::Start(pdfPfaduName);
 		}
+		else {
+			if (en_de == 0) {
+				text = nachrichten[41, 0];
+			}
+			else if (en_de == 1) {
+				text = nachrichten[41, 1];
+			}
+			MessageBox::Show(text + pdfPfaduName);
+		}
+
+
+	}
+	private: System::Void btnDark_Click(System::Object^  sender, System::EventArgs^  e) {
+
+		if (this->BackColor == System::Drawing::Color::FromArgb(19, 17, 28))
+		{
+			this->BackColor = System::Drawing::Color::White;
+			panelDetails->BackColor = System::Drawing::Color::White;
+			listViewEntries->BackColor = System::Drawing::Color::White;
+			listViewAuthors->BackColor = System::Drawing::Color::White;
+			rbtnAuthor->ForeColor = System::Drawing::Color::Black;
+			rbtnEditor->ForeColor = System::Drawing::Color::Black;
+			btnSetAuthor->ForeColor = System::Drawing::Color::Black;
+			btnClearAuthor->ForeColor = System::Drawing::Color::Black;
+			lblFirstName->ForeColor = System::Drawing::Color::Black;
+			lblLastName->ForeColor = System::Drawing::Color::Black;
+			lblKeyword->ForeColor = System::Drawing::Color::Black;
+			lblAuthor->ForeColor = System::Drawing::Color::Black;
+			lblTitle->ForeColor = System::Drawing::Color::Black;
+			lblYear->ForeColor = System::Drawing::Color::Black;
+			lblJournal->ForeColor = System::Drawing::Color::Black;
+			lblVolume->ForeColor = System::Drawing::Color::Black;
+			lblNumber->ForeColor = System::Drawing::Color::Black;
+			lblPages->ForeColor = System::Drawing::Color::Black;
+			lblMonth->ForeColor = System::Drawing::Color::Black;
+			lblNote->ForeColor = System::Drawing::Color::Black;
+			lblPublisher->ForeColor = System::Drawing::Color::Black;
+			lblSeries->ForeColor = System::Drawing::Color::Black;
+			lblAddress->ForeColor = System::Drawing::Color::Black;
+			lblEdition->ForeColor = System::Drawing::Color::Black;
+			lblHowpublished->ForeColor = System::Drawing::Color::Black;
+			lblABooktitle->ForeColor = System::Drawing::Color::Black;
+			lblEditor->ForeColor = System::Drawing::Color::Black;
+			lblChapter->ForeColor = System::Drawing::Color::Black;
+			lblSchool->ForeColor = System::Drawing::Color::Black;
+			lblInstitution->ForeColor = System::Drawing::Color::Black;
+			lblOrganization->ForeColor = System::Drawing::Color::Black;
+			listViewEntries->ForeColor = System::Drawing::Color::Black;
+			listViewAuthors->ForeColor = System::Drawing::Color::Black;
+		}
+		else
+		{
+			this->BackColor = System::Drawing::Color::FromArgb(19, 17, 28);
+			panelDetails->BackColor = System::Drawing::Color::FromArgb(33, 33, 33);
+			listViewEntries->BackColor = System::Drawing::Color::FromArgb(33, 33, 33);
+			listViewAuthors->BackColor = System::Drawing::Color::FromArgb(33, 33, 33);
+			btnSave->BackColor = System::Drawing::Color::White;
+			btnCancel->BackColor = System::Drawing::Color::White;
+			rbtnAuthor->ForeColor = System::Drawing::Color::White;
+			rbtnEditor->ForeColor = System::Drawing::Color::White;
+			btnSetAuthor->ForeColor = System::Drawing::Color::White;
+			btnClearAuthor->ForeColor = System::Drawing::Color::White;
+			lblFirstName->ForeColor = System::Drawing::Color::White;
+			lblLastName->ForeColor = System::Drawing::Color::White;
+			lblKeyword->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblAuthor->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblTitle->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblYear->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblJournal->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblVolume->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblNumber->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblPages->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblMonth->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblNote->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblPublisher->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblSeries->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblAddress->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblEdition->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblHowpublished->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblABooktitle->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblEditor->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblChapter->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblSchool->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblInstitution->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			lblOrganization->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			listViewEntries->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			listViewAuthors->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+		}
+
+	}
 	};
 }
