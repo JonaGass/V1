@@ -31,6 +31,12 @@ namespace V1 {
 			t->Join(); // Wait for the SplashScreen thread to finish
 
 			InitializeComponent();
+
+			System::Reflection::Assembly^ assembly = System::Reflection::Assembly::GetExecutingAssembly();
+			System::IO::Stream^ iconStream = assembly->GetManifestResourceStream("Icon.ico");
+
+			this->Icon = gcnew System::Drawing::Icon(iconStream);
+
 			sprache_aendern();
 			this->StartPosition = FormStartPosition::CenterScreen;
 			/*this->BringToFront();
@@ -46,6 +52,18 @@ namespace V1 {
 			/*this->Shown += gcnew EventHandler(this, &MainForm::OnShown);*/
 
 		}
+	private: System::Windows::Forms::ToolStrip^  toolStrip1;
+	public:
+	private: System::Windows::Forms::ToolStripButton^  toolStripSplitButton1;
+	private: System::Windows::Forms::ToolStripButton^  toolStripButton1;
+	private: System::Windows::Forms::ToolStripButton^  toolStripButton2;
+
+	public:
+
+	public:
+
+
+
 	private:
 		array<String^, 2>^ nachrichten; //meinis
 
@@ -76,7 +94,8 @@ namespace V1 {
 		System::Windows::Forms::Button^ btnExportToBib;
 		System::Windows::Forms::Button^ btnSetAuthor;
 		System::Windows::Forms::TextBox^ txtSearch;
-		System::ComponentModel::Container^ components;
+	private: System::ComponentModel::IContainer^  components;
+
 		System::Windows::Forms::ListView^ listViewEntries;
 		System::Windows::Forms::Button^ btnNew;
 		System::Windows::Forms::Button^ btnEdit;
@@ -940,6 +959,7 @@ namespace V1 {
 			 }
 			 void InitializeComponent(void)
 			 {
+				 System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
 				 this->txtFirstName = (gcnew System::Windows::Forms::TextBox());
 				 this->txtLastName = (gcnew System::Windows::Forms::TextBox());
 				 this->btnSetAuthor = (gcnew System::Windows::Forms::Button());
@@ -1005,14 +1025,19 @@ namespace V1 {
 				 this->btnLanguage = (gcnew System::Windows::Forms::Button());
 				 this->btnPDF = (gcnew System::Windows::Forms::Button());
 				 this->btnDark = (gcnew System::Windows::Forms::Button());
+				 this->toolStrip1 = (gcnew System::Windows::Forms::ToolStrip());
+				 this->toolStripSplitButton1 = (gcnew System::Windows::Forms::ToolStripButton());
+				 this->toolStripButton1 = (gcnew System::Windows::Forms::ToolStripButton());
+				 this->toolStripButton2 = (gcnew System::Windows::Forms::ToolStripButton());
 				 this->panelDetails->SuspendLayout();
+				 this->toolStrip1->SuspendLayout();
 				 this->SuspendLayout();
 				 // 
 				 // txtFirstName
 				 // 
 				 this->txtFirstName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular,
 					 System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-				 this->txtFirstName->Location = System::Drawing::Point(680, 671);
+				 this->txtFirstName->Location = System::Drawing::Point(680, 702);
 				 this->txtFirstName->Name = L"txtFirstName";
 				 this->txtFirstName->Size = System::Drawing::Size(100, 21);
 				 this->txtFirstName->TabIndex = 30;
@@ -1021,7 +1046,7 @@ namespace V1 {
 				 // 
 				 this->txtLastName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
-				 this->txtLastName->Location = System::Drawing::Point(790, 671);
+				 this->txtLastName->Location = System::Drawing::Point(790, 702);
 				 this->txtLastName->Name = L"txtLastName";
 				 this->txtLastName->Size = System::Drawing::Size(100, 21);
 				 this->txtLastName->TabIndex = 31;
@@ -1032,7 +1057,7 @@ namespace V1 {
 				 this->btnSetAuthor->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 				 this->btnSetAuthor->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular,
 					 System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-				 this->btnSetAuthor->Location = System::Drawing::Point(900, 671);
+				 this->btnSetAuthor->Location = System::Drawing::Point(900, 702);
 				 this->btnSetAuthor->Name = L"btnSetAuthor";
 				 this->btnSetAuthor->Size = System::Drawing::Size(75, 54);
 				 this->btnSetAuthor->TabIndex = 42;
@@ -1044,7 +1069,7 @@ namespace V1 {
 				 this->listViewEntries->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.75F, System::Drawing::FontStyle::Regular,
 					 System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
 				 this->listViewEntries->HideSelection = false;
-				 this->listViewEntries->Location = System::Drawing::Point(12, 53);
+				 this->listViewEntries->Location = System::Drawing::Point(12, 84);
 				 this->listViewEntries->Name = L"listViewEntries";
 				 this->listViewEntries->Size = System::Drawing::Size(300, 545);
 				 this->listViewEntries->TabIndex = 10;
@@ -1062,7 +1087,7 @@ namespace V1 {
 				 this->btnExportToBib->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
 				 this->btnExportToBib->ForeColor = System::Drawing::Color::White;
-				 this->btnExportToBib->Location = System::Drawing::Point(79, 651);
+				 this->btnExportToBib->Location = System::Drawing::Point(79, 682);
 				 this->btnExportToBib->Name = L"btnExportToBib";
 				 this->btnExportToBib->Size = System::Drawing::Size(160, 30);
 				 this->btnExportToBib->TabIndex = 8;
@@ -1077,7 +1102,7 @@ namespace V1 {
 				 this->btnNew->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
 				 this->btnNew->ForeColor = System::Drawing::Color::White;
-				 this->btnNew->Location = System::Drawing::Point(475, 12);
+				 this->btnNew->Location = System::Drawing::Point(475, 43);
 				 this->btnNew->Name = L"btnNew";
 				 this->btnNew->Size = System::Drawing::Size(96, 28);
 				 this->btnNew->TabIndex = 2;
@@ -1092,7 +1117,7 @@ namespace V1 {
 				 this->btnEdit->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
 				 this->btnEdit->ForeColor = System::Drawing::Color::White;
-				 this->btnEdit->Location = System::Drawing::Point(576, 12);
+				 this->btnEdit->Location = System::Drawing::Point(576, 43);
 				 this->btnEdit->Name = L"btnEdit";
 				 this->btnEdit->Size = System::Drawing::Size(98, 28);
 				 this->btnEdit->TabIndex = 3;
@@ -1107,7 +1132,7 @@ namespace V1 {
 				 this->btnDelete->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
 				 this->btnDelete->ForeColor = System::Drawing::Color::White;
-				 this->btnDelete->Location = System::Drawing::Point(680, 12);
+				 this->btnDelete->Location = System::Drawing::Point(680, 43);
 				 this->btnDelete->Name = L"btnDelete";
 				 this->btnDelete->Size = System::Drawing::Size(100, 28);
 				 this->btnDelete->TabIndex = 4;
@@ -1161,7 +1186,7 @@ namespace V1 {
 				 this->panelDetails->Controls->Add(this->lblSchool);
 				 this->panelDetails->Controls->Add(this->lblInstitution);
 				 this->panelDetails->Controls->Add(this->lblOrganization);
-				 this->panelDetails->Location = System::Drawing::Point(320, 53);
+				 this->panelDetails->Location = System::Drawing::Point(320, 84);
 				 this->panelDetails->Name = L"panelDetails";
 				 this->panelDetails->Size = System::Drawing::Size(736, 545);
 				 this->panelDetails->TabIndex = 13;
@@ -1497,7 +1522,7 @@ namespace V1 {
 				 this->rbtnEditor->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->rbtnEditor->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
-				 this->rbtnEditor->Location = System::Drawing::Point(538, 679);
+				 this->rbtnEditor->Location = System::Drawing::Point(538, 710);
 				 this->rbtnEditor->Name = L"rbtnEditor";
 				 this->rbtnEditor->Size = System::Drawing::Size(14, 13);
 				 this->rbtnEditor->TabIndex = 32;
@@ -1510,7 +1535,7 @@ namespace V1 {
 				 this->rbtnAuthor->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->rbtnAuthor->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
-				 this->rbtnAuthor->Location = System::Drawing::Point(538, 656);
+				 this->rbtnAuthor->Location = System::Drawing::Point(538, 687);
 				 this->rbtnAuthor->Name = L"rbtnAuthor";
 				 this->rbtnAuthor->Size = System::Drawing::Size(14, 13);
 				 this->rbtnAuthor->TabIndex = 33;
@@ -1523,7 +1548,7 @@ namespace V1 {
 				 this->btnClearAuthor->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 				 this->btnClearAuthor->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular,
 					 System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-				 this->btnClearAuthor->Location = System::Drawing::Point(981, 671);
+				 this->btnClearAuthor->Location = System::Drawing::Point(981, 702);
 				 this->btnClearAuthor->Name = L"btnClearAuthor";
 				 this->btnClearAuthor->Size = System::Drawing::Size(92, 54);
 				 this->btnClearAuthor->TabIndex = 36;
@@ -1533,7 +1558,7 @@ namespace V1 {
 				 // 
 				 this->lblLastName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
-				 this->lblLastName->Location = System::Drawing::Point(790, 651);
+				 this->lblLastName->Location = System::Drawing::Point(790, 682);
 				 this->lblLastName->Name = L"lblLastName";
 				 this->lblLastName->Size = System::Drawing::Size(100, 23);
 				 this->lblLastName->TabIndex = 78;
@@ -1542,7 +1567,7 @@ namespace V1 {
 				 // 
 				 this->lblFirstName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular,
 					 System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-				 this->lblFirstName->Location = System::Drawing::Point(680, 651);
+				 this->lblFirstName->Location = System::Drawing::Point(680, 682);
 				 this->lblFirstName->Name = L"lblFirstName";
 				 this->lblFirstName->Size = System::Drawing::Size(100, 23);
 				 this->lblFirstName->TabIndex = 79;
@@ -1551,7 +1576,7 @@ namespace V1 {
 				 // 
 				 this->btnSave->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->btnSave->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-				 this->btnSave->Location = System::Drawing::Point(439, 742);
+				 this->btnSave->Location = System::Drawing::Point(439, 773);
 				 this->btnSave->Name = L"btnSave";
 				 this->btnSave->Size = System::Drawing::Size(132, 28);
 				 this->btnSave->TabIndex = 11;
@@ -1561,7 +1586,7 @@ namespace V1 {
 				 // 
 				 this->btnCancel->Cursor = System::Windows::Forms::Cursors::Hand;
 				 this->btnCancel->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-				 this->btnCancel->Location = System::Drawing::Point(576, 742);
+				 this->btnCancel->Location = System::Drawing::Point(576, 773);
 				 this->btnCancel->Name = L"btnCancel";
 				 this->btnCancel->Size = System::Drawing::Size(136, 28);
 				 this->btnCancel->TabIndex = 12;
@@ -1576,7 +1601,7 @@ namespace V1 {
 				 this->btnSaveHDD->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
 				 this->btnSaveHDD->ForeColor = System::Drawing::Color::White;
-				 this->btnSaveHDD->Location = System::Drawing::Point(79, 611);
+				 this->btnSaveHDD->Location = System::Drawing::Point(79, 642);
 				 this->btnSaveHDD->Name = L"btnSaveHDD";
 				 this->btnSaveHDD->Size = System::Drawing::Size(160, 30);
 				 this->btnSaveHDD->TabIndex = 9;
@@ -1588,7 +1613,7 @@ namespace V1 {
 				 this->txtSearch->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 				 this->txtSearch->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
-				 this->txtSearch->Location = System::Drawing::Point(12, 12);
+				 this->txtSearch->Location = System::Drawing::Point(12, 43);
 				 this->txtSearch->Name = L"txtSearch";
 				 this->txtSearch->Size = System::Drawing::Size(300, 27);
 				 this->txtSearch->TabIndex = 1;
@@ -1599,7 +1624,7 @@ namespace V1 {
 				 this->listViewAuthors->FullRowSelect = true;
 				 this->listViewAuthors->HideSelection = false;
 				 this->listViewAuthors->LabelWrap = false;
-				 this->listViewAuthors->Location = System::Drawing::Point(321, 625);
+				 this->listViewAuthors->Location = System::Drawing::Point(321, 656);
 				 this->listViewAuthors->MultiSelect = false;
 				 this->listViewAuthors->Name = L"listViewAuthors";
 				 this->listViewAuthors->Size = System::Drawing::Size(200, 100);
@@ -1612,7 +1637,7 @@ namespace V1 {
 				 // btnLanguage
 				 // 
 				 this->btnLanguage->Cursor = System::Windows::Forms::Cursors::Hand;
-				 this->btnLanguage->Location = System::Drawing::Point(805, 10);
+				 this->btnLanguage->Location = System::Drawing::Point(805, 41);
 				 this->btnLanguage->Name = L"btnLanguage";
 				 this->btnLanguage->Size = System::Drawing::Size(127, 28);
 				 this->btnLanguage->TabIndex = 6;
@@ -1622,7 +1647,7 @@ namespace V1 {
 				 // btnPDF
 				 // 
 				 this->btnPDF->Cursor = System::Windows::Forms::Cursors::Hand;
-				 this->btnPDF->Location = System::Drawing::Point(938, 11);
+				 this->btnPDF->Location = System::Drawing::Point(938, 42);
 				 this->btnPDF->Name = L"btnPDF";
 				 this->btnPDF->Size = System::Drawing::Size(135, 27);
 				 this->btnPDF->TabIndex = 7;
@@ -1632,7 +1657,7 @@ namespace V1 {
 				 // btnDark
 				 // 
 				 this->btnDark->Cursor = System::Windows::Forms::Cursors::NoMove2D;
-				 this->btnDark->Location = System::Drawing::Point(354, 17);
+				 this->btnDark->Location = System::Drawing::Point(354, 48);
 				 this->btnDark->Name = L"btnDark";
 				 this->btnDark->Size = System::Drawing::Size(95, 23);
 				 this->btnDark->TabIndex = 80;
@@ -1640,9 +1665,51 @@ namespace V1 {
 				 this->btnDark->UseVisualStyleBackColor = true;
 				 this->btnDark->Click += gcnew System::EventHandler(this, &MainForm::btnDark_Click);
 				 // 
+				 // toolStrip1
+				 // 
+				 this->toolStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
+					 this->toolStripSplitButton1,
+						 this->toolStripButton1, this->toolStripButton2
+				 });
+				 this->toolStrip1->Location = System::Drawing::Point(0, 0);
+				 this->toolStrip1->Name = L"toolStrip1";
+				 this->toolStrip1->Size = System::Drawing::Size(1088, 25);
+				 this->toolStrip1->TabIndex = 81;
+				 this->toolStrip1->Text = L"toolStrip1";
+				 // 
+				 // toolStripSplitButton1
+				 // 
+				 this->toolStripSplitButton1->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
+				 this->toolStripSplitButton1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripSplitButton1.Image")));
+				 this->toolStripSplitButton1->ImageTransparentColor = System::Drawing::Color::Magenta;
+				 this->toolStripSplitButton1->Name = L"toolStripSplitButton1";
+				 this->toolStripSplitButton1->Size = System::Drawing::Size(66, 22);
+				 this->toolStripSplitButton1->Text = L"Darkmode";
+				 this->toolStripSplitButton1->ToolTipText = L"Darkmode";
+				 this->toolStripSplitButton1->Click += gcnew System::EventHandler(this, &MainForm::toolStripSplitButton1_Click);
+				 // 
+				 // toolStripButton1
+				 // 
+				 this->toolStripButton1->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
+				 this->toolStripButton1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButton1.Image")));
+				 this->toolStripButton1->ImageTransparentColor = System::Drawing::Color::Magenta;
+				 this->toolStripButton1->Name = L"toolStripButton1";
+				 this->toolStripButton1->Size = System::Drawing::Size(63, 22);
+				 this->toolStripButton1->Text = L"Language";
+				 // 
+				 // toolStripButton2
+				 // 
+				 this->toolStripButton2->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
+				 this->toolStripButton2->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButton2.Image")));
+				 this->toolStripButton2->ImageTransparentColor = System::Drawing::Color::Magenta;
+				 this->toolStripButton2->Name = L"toolStripButton2";
+				 this->toolStripButton2->Size = System::Drawing::Size(51, 22);
+				 this->toolStripButton2->Text = L"Manual";
+				 // 
 				 // MainForm
 				 // 
-				 this->ClientSize = System::Drawing::Size(1088, 823);
+				 this->ClientSize = System::Drawing::Size(1088, 854);
+				 this->Controls->Add(this->toolStrip1);
 				 this->Controls->Add(this->btnDark);
 				 this->Controls->Add(this->txtFirstName);
 				 this->Controls->Add(this->txtLastName);
@@ -1677,6 +1744,8 @@ namespace V1 {
 				 this->Shown += gcnew System::EventHandler(this, &MainForm::MainForm_Shown);
 				 this->panelDetails->ResumeLayout(false);
 				 this->panelDetails->PerformLayout();
+				 this->toolStrip1->ResumeLayout(false);
+				 this->toolStrip1->PerformLayout();
 				 this->ResumeLayout(false);
 				 this->PerformLayout();
 
@@ -2861,5 +2930,9 @@ namespace V1 {
 		}
 
 	}
-	};
+	private: System::Void darkmodeLightmodeToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+	}
+private: System::Void toolStripSplitButton1_Click(System::Object^  sender, System::EventArgs^  e) {
+}
+};
 }
