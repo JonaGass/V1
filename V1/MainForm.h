@@ -53,10 +53,13 @@ namespace V1 {
 
 		}
 	private: System::Windows::Forms::ToolStrip^  toolStrip1;
+	private: System::Windows::Forms::ToolStripButton^  btnDarkmode;
 	public:
-	private: System::Windows::Forms::ToolStripButton^  toolStripSplitButton1;
-	private: System::Windows::Forms::ToolStripButton^  toolStripButton1;
-	private: System::Windows::Forms::ToolStripButton^  toolStripButton2;
+
+	private: System::Windows::Forms::ToolStripButton^  btnLanguage;
+	private: System::Windows::Forms::ToolStripButton^  btnPDF;
+
+
 
 	public:
 
@@ -159,9 +162,9 @@ namespace V1 {
 	private: System::Windows::Forms::RadioButton^  rbtnAuthor;
 	private: System::Windows::Forms::RadioButton^  rbtnEditor;
 			 bool isEditMode;
-	private: System::Windows::Forms::Button^  btnLanguage;
-	private: System::Windows::Forms::Button^  btnPDF;
-	private: System::Windows::Forms::Button^  btnDark;
+
+
+
 
 
 			 //mein
@@ -1022,13 +1025,10 @@ namespace V1 {
 				 this->btnSaveHDD = (gcnew System::Windows::Forms::Button());
 				 this->txtSearch = (gcnew System::Windows::Forms::TextBox());
 				 this->listViewAuthors = (gcnew System::Windows::Forms::ListView());
-				 this->btnLanguage = (gcnew System::Windows::Forms::Button());
-				 this->btnPDF = (gcnew System::Windows::Forms::Button());
-				 this->btnDark = (gcnew System::Windows::Forms::Button());
 				 this->toolStrip1 = (gcnew System::Windows::Forms::ToolStrip());
-				 this->toolStripSplitButton1 = (gcnew System::Windows::Forms::ToolStripButton());
-				 this->toolStripButton1 = (gcnew System::Windows::Forms::ToolStripButton());
-				 this->toolStripButton2 = (gcnew System::Windows::Forms::ToolStripButton());
+				 this->btnDarkmode = (gcnew System::Windows::Forms::ToolStripButton());
+				 this->btnLanguage = (gcnew System::Windows::Forms::ToolStripButton());
+				 this->btnPDF = (gcnew System::Windows::Forms::ToolStripButton());
 				 this->panelDetails->SuspendLayout();
 				 this->toolStrip1->SuspendLayout();
 				 this->SuspendLayout();
@@ -1634,42 +1634,11 @@ namespace V1 {
 				 this->listViewAuthors->View = System::Windows::Forms::View::List;
 				 this->listViewAuthors->SelectedIndexChanged += gcnew System::EventHandler(this, &MainForm::listViewAuthors_SelectedIndexChanged);
 				 // 
-				 // btnLanguage
-				 // 
-				 this->btnLanguage->Cursor = System::Windows::Forms::Cursors::Hand;
-				 this->btnLanguage->Location = System::Drawing::Point(805, 41);
-				 this->btnLanguage->Name = L"btnLanguage";
-				 this->btnLanguage->Size = System::Drawing::Size(127, 28);
-				 this->btnLanguage->TabIndex = 6;
-				 this->btnLanguage->UseVisualStyleBackColor = true;
-				 this->btnLanguage->Click += gcnew System::EventHandler(this, &MainForm::btnLanguage_Click);
-				 // 
-				 // btnPDF
-				 // 
-				 this->btnPDF->Cursor = System::Windows::Forms::Cursors::Hand;
-				 this->btnPDF->Location = System::Drawing::Point(938, 42);
-				 this->btnPDF->Name = L"btnPDF";
-				 this->btnPDF->Size = System::Drawing::Size(135, 27);
-				 this->btnPDF->TabIndex = 7;
-				 this->btnPDF->UseVisualStyleBackColor = true;
-				 this->btnPDF->Click += gcnew System::EventHandler(this, &MainForm::btnPDF_Click);
-				 // 
-				 // btnDark
-				 // 
-				 this->btnDark->Cursor = System::Windows::Forms::Cursors::NoMove2D;
-				 this->btnDark->Location = System::Drawing::Point(354, 48);
-				 this->btnDark->Name = L"btnDark";
-				 this->btnDark->Size = System::Drawing::Size(95, 23);
-				 this->btnDark->TabIndex = 80;
-				 this->btnDark->Text = L"Darkmode";
-				 this->btnDark->UseVisualStyleBackColor = true;
-				 this->btnDark->Click += gcnew System::EventHandler(this, &MainForm::btnDark_Click);
-				 // 
 				 // toolStrip1
 				 // 
 				 this->toolStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
-					 this->toolStripSplitButton1,
-						 this->toolStripButton1, this->toolStripButton2
+					 this->btnDarkmode, this->btnLanguage,
+						 this->btnPDF
 				 });
 				 this->toolStrip1->Location = System::Drawing::Point(0, 0);
 				 this->toolStrip1->Name = L"toolStrip1";
@@ -1677,45 +1646,44 @@ namespace V1 {
 				 this->toolStrip1->TabIndex = 81;
 				 this->toolStrip1->Text = L"toolStrip1";
 				 // 
-				 // toolStripSplitButton1
+				 // btnDarkmode
 				 // 
-				 this->toolStripSplitButton1->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
-				 this->toolStripSplitButton1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripSplitButton1.Image")));
-				 this->toolStripSplitButton1->ImageTransparentColor = System::Drawing::Color::Magenta;
-				 this->toolStripSplitButton1->Name = L"toolStripSplitButton1";
-				 this->toolStripSplitButton1->Size = System::Drawing::Size(66, 22);
-				 this->toolStripSplitButton1->Text = L"Darkmode";
-				 this->toolStripSplitButton1->ToolTipText = L"Darkmode";
-				 this->toolStripSplitButton1->Click += gcnew System::EventHandler(this, &MainForm::toolStripSplitButton1_Click);
+				 this->btnDarkmode->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
+				 this->btnDarkmode->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnDarkmode.Image")));
+				 this->btnDarkmode->ImageTransparentColor = System::Drawing::Color::Magenta;
+				 this->btnDarkmode->Name = L"btnDarkmode";
+				 this->btnDarkmode->Size = System::Drawing::Size(66, 22);
+				 this->btnDarkmode->Text = L"Darkmode";
+				 this->btnDarkmode->ToolTipText = L"Darkmode";
+				 this->btnDarkmode->Click += gcnew System::EventHandler(this, &MainForm::toolStripSplitButton1_Click);
 				 // 
-				 // toolStripButton1
+				 // btnLanguage
 				 // 
-				 this->toolStripButton1->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
-				 this->toolStripButton1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButton1.Image")));
-				 this->toolStripButton1->ImageTransparentColor = System::Drawing::Color::Magenta;
-				 this->toolStripButton1->Name = L"toolStripButton1";
-				 this->toolStripButton1->Size = System::Drawing::Size(63, 22);
-				 this->toolStripButton1->Text = L"Language";
+				 this->btnLanguage->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
+				 this->btnLanguage->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnLanguage.Image")));
+				 this->btnLanguage->ImageTransparentColor = System::Drawing::Color::Magenta;
+				 this->btnLanguage->Name = L"btnLanguage";
+				 this->btnLanguage->Size = System::Drawing::Size(63, 22);
+				 this->btnLanguage->Text = L"Language";
+				 this->btnLanguage->Click += gcnew System::EventHandler(this, &MainForm::toolStripButton1_Click);
 				 // 
-				 // toolStripButton2
+				 // btnPDF
 				 // 
-				 this->toolStripButton2->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
-				 this->toolStripButton2->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButton2.Image")));
-				 this->toolStripButton2->ImageTransparentColor = System::Drawing::Color::Magenta;
-				 this->toolStripButton2->Name = L"toolStripButton2";
-				 this->toolStripButton2->Size = System::Drawing::Size(51, 22);
-				 this->toolStripButton2->Text = L"Manual";
+				 this->btnPDF->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
+				 this->btnPDF->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnPDF.Image")));
+				 this->btnPDF->ImageTransparentColor = System::Drawing::Color::Magenta;
+				 this->btnPDF->Name = L"btnPDF";
+				 this->btnPDF->Size = System::Drawing::Size(51, 22);
+				 this->btnPDF->Text = L"Manual";
+				 this->btnPDF->Click += gcnew System::EventHandler(this, &MainForm::toolStripButton2_Click);
 				 // 
 				 // MainForm
 				 // 
 				 this->ClientSize = System::Drawing::Size(1088, 854);
 				 this->Controls->Add(this->toolStrip1);
-				 this->Controls->Add(this->btnDark);
 				 this->Controls->Add(this->txtFirstName);
 				 this->Controls->Add(this->txtLastName);
-				 this->Controls->Add(this->btnPDF);
 				 this->Controls->Add(this->rbtnEditor);
-				 this->Controls->Add(this->btnLanguage);
 				 this->Controls->Add(this->listViewAuthors);
 				 this->Controls->Add(this->rbtnAuthor);
 				 this->Controls->Add(this->btnExportToBib);
@@ -2676,19 +2644,7 @@ namespace V1 {
 
 			 //mein
 			 int en_de;
-	private: System::Void btnLanguage_Click(System::Object^  sender, System::EventArgs^  e) {
-		bool n;
-		n = false;
-		if (en_de == 0 && n == false) {
-			en_de = 1;
-			n = true;
-		}
-		if (en_de == 1 && n == false) {
-			en_de = 0;
-			n = true;
-		}
-		sprache_aendern();
-	}
+
 			 void sprache_aendern() {
 				 if (en_de == 0) {
 					 this->btnSetAuthor->Text = L"Set";
@@ -2828,111 +2784,124 @@ namespace V1 {
 
 
 			 }
-	private: System::Void btnPDF_Click(System::Object^  sender, System::EventArgs^  e) {
-		String^ text;
-
-		String^ exePfad = Application::StartupPath;
-
-		String^ pdfName = "pi-314-inhalt.pdf";
-
-		String^ pdfPfaduName = Path::Combine(exePfad, pdfName);
-
-		if (System::IO::File::Exists(pdfPfaduName)) {
-			System::Diagnostics::Process::Start(pdfPfaduName);
-		}
-		else {
-			if (en_de == 0) {
-				text = nachrichten[41, 0];
-			}
-			else if (en_de == 1) {
-				text = nachrichten[41, 1];
-			}
-			MessageBox::Show(text + pdfPfaduName);
-		}
 
 
-	}
-	private: System::Void btnDark_Click(System::Object^  sender, System::EventArgs^  e) {
-
-		if (this->BackColor == System::Drawing::Color::FromArgb(19, 17, 28))
-		{
-			this->BackColor = System::Drawing::Color::White;
-			panelDetails->BackColor = System::Drawing::Color::White;
-			listViewEntries->BackColor = System::Drawing::Color::White;
-			listViewAuthors->BackColor = System::Drawing::Color::White;
-			rbtnAuthor->ForeColor = System::Drawing::Color::Black;
-			rbtnEditor->ForeColor = System::Drawing::Color::Black;
-			btnSetAuthor->ForeColor = System::Drawing::Color::Black;
-			btnClearAuthor->ForeColor = System::Drawing::Color::Black;
-			lblFirstName->ForeColor = System::Drawing::Color::Black;
-			lblLastName->ForeColor = System::Drawing::Color::Black;
-			lblKeyword->ForeColor = System::Drawing::Color::Black;
-			lblAuthor->ForeColor = System::Drawing::Color::Black;
-			lblTitle->ForeColor = System::Drawing::Color::Black;
-			lblYear->ForeColor = System::Drawing::Color::Black;
-			lblJournal->ForeColor = System::Drawing::Color::Black;
-			lblVolume->ForeColor = System::Drawing::Color::Black;
-			lblNumber->ForeColor = System::Drawing::Color::Black;
-			lblPages->ForeColor = System::Drawing::Color::Black;
-			lblMonth->ForeColor = System::Drawing::Color::Black;
-			lblNote->ForeColor = System::Drawing::Color::Black;
-			lblPublisher->ForeColor = System::Drawing::Color::Black;
-			lblSeries->ForeColor = System::Drawing::Color::Black;
-			lblAddress->ForeColor = System::Drawing::Color::Black;
-			lblEdition->ForeColor = System::Drawing::Color::Black;
-			lblHowpublished->ForeColor = System::Drawing::Color::Black;
-			lblABooktitle->ForeColor = System::Drawing::Color::Black;
-			lblEditor->ForeColor = System::Drawing::Color::Black;
-			lblChapter->ForeColor = System::Drawing::Color::Black;
-			lblSchool->ForeColor = System::Drawing::Color::Black;
-			lblInstitution->ForeColor = System::Drawing::Color::Black;
-			lblOrganization->ForeColor = System::Drawing::Color::Black;
-			listViewEntries->ForeColor = System::Drawing::Color::Black;
-			listViewAuthors->ForeColor = System::Drawing::Color::Black;
-		}
-		else
-		{
-			this->BackColor = System::Drawing::Color::FromArgb(19, 17, 28);
-			panelDetails->BackColor = System::Drawing::Color::FromArgb(33, 33, 33);
-			listViewEntries->BackColor = System::Drawing::Color::FromArgb(33, 33, 33);
-			listViewAuthors->BackColor = System::Drawing::Color::FromArgb(33, 33, 33);
-			btnSave->BackColor = System::Drawing::Color::White;
-			btnCancel->BackColor = System::Drawing::Color::White;
-			rbtnAuthor->ForeColor = System::Drawing::Color::White;
-			rbtnEditor->ForeColor = System::Drawing::Color::White;
-			btnSetAuthor->ForeColor = System::Drawing::Color::White;
-			btnClearAuthor->ForeColor = System::Drawing::Color::White;
-			lblFirstName->ForeColor = System::Drawing::Color::White;
-			lblLastName->ForeColor = System::Drawing::Color::White;
-			lblKeyword->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblAuthor->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblTitle->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblYear->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblJournal->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblVolume->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblNumber->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblPages->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblMonth->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblNote->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblPublisher->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblSeries->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblAddress->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblEdition->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblHowpublished->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblABooktitle->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblEditor->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblChapter->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblSchool->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblInstitution->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblOrganization->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			listViewEntries->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			listViewAuthors->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-		}
-
-	}
 	private: System::Void darkmodeLightmodeToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 	}
 private: System::Void toolStripSplitButton1_Click(System::Object^  sender, System::EventArgs^  e) {
+	this->btnDarkmode->Text = L"Darkmode";
+	if (this->BackColor == System::Drawing::Color::FromArgb(19, 17, 28))
+	{
+		this->BackColor = System::Drawing::Color::White;
+		panelDetails->BackColor = System::Drawing::Color::White;
+		listViewEntries->BackColor = System::Drawing::Color::White;
+		listViewAuthors->BackColor = System::Drawing::Color::White;
+		rbtnAuthor->ForeColor = System::Drawing::Color::Black;
+		rbtnEditor->ForeColor = System::Drawing::Color::Black;
+		btnSetAuthor->ForeColor = System::Drawing::Color::Black;
+		btnClearAuthor->ForeColor = System::Drawing::Color::Black;
+		lblFirstName->ForeColor = System::Drawing::Color::Black;
+		lblLastName->ForeColor = System::Drawing::Color::Black;
+		lblKeyword->ForeColor = System::Drawing::Color::Black;
+		lblAuthor->ForeColor = System::Drawing::Color::Black;
+		lblTitle->ForeColor = System::Drawing::Color::Black;
+		lblYear->ForeColor = System::Drawing::Color::Black;
+		lblJournal->ForeColor = System::Drawing::Color::Black;
+		lblVolume->ForeColor = System::Drawing::Color::Black;
+		lblNumber->ForeColor = System::Drawing::Color::Black;
+		lblPages->ForeColor = System::Drawing::Color::Black;
+		lblMonth->ForeColor = System::Drawing::Color::Black;
+		lblNote->ForeColor = System::Drawing::Color::Black;
+		lblPublisher->ForeColor = System::Drawing::Color::Black;
+		lblSeries->ForeColor = System::Drawing::Color::Black;
+		lblAddress->ForeColor = System::Drawing::Color::Black;
+		lblEdition->ForeColor = System::Drawing::Color::Black;
+		lblHowpublished->ForeColor = System::Drawing::Color::Black;
+		lblABooktitle->ForeColor = System::Drawing::Color::Black;
+		lblEditor->ForeColor = System::Drawing::Color::Black;
+		lblChapter->ForeColor = System::Drawing::Color::Black;
+		lblSchool->ForeColor = System::Drawing::Color::Black;
+		lblInstitution->ForeColor = System::Drawing::Color::Black;
+		lblOrganization->ForeColor = System::Drawing::Color::Black;
+		listViewEntries->ForeColor = System::Drawing::Color::Black;
+		listViewAuthors->ForeColor = System::Drawing::Color::Black;
+	}
+	else
+	{
+		this->BackColor = System::Drawing::Color::FromArgb(19, 17, 28);
+		this->btnDarkmode->Text = L"Lightmode"; 
+		panelDetails->BackColor = System::Drawing::Color::FromArgb(33, 33, 33);
+		listViewEntries->BackColor = System::Drawing::Color::FromArgb(33, 33, 33);
+		listViewAuthors->BackColor = System::Drawing::Color::FromArgb(33, 33, 33);
+		btnSave->BackColor = System::Drawing::Color::White;
+		btnCancel->BackColor = System::Drawing::Color::White;
+		rbtnAuthor->ForeColor = System::Drawing::Color::White;
+		rbtnEditor->ForeColor = System::Drawing::Color::White;
+		btnSetAuthor->ForeColor = System::Drawing::Color::White;
+		btnClearAuthor->ForeColor = System::Drawing::Color::White;
+		lblFirstName->ForeColor = System::Drawing::Color::White;
+		lblLastName->ForeColor = System::Drawing::Color::White;
+		lblKeyword->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+		lblAuthor->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+		lblTitle->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+		lblYear->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+		lblJournal->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+		lblVolume->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+		lblNumber->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+		lblPages->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+		lblMonth->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+		lblNote->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+		lblPublisher->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+		lblSeries->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+		lblAddress->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+		lblEdition->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+		lblHowpublished->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+		lblABooktitle->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+		lblEditor->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+		lblChapter->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+		lblSchool->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+		lblInstitution->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+		lblOrganization->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+		listViewEntries->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+		listViewAuthors->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+	}
+}
+
+private: System::Void toolStripButton1_Click(System::Object^  sender, System::EventArgs^  e) {
+	bool n;
+	n = false;
+	if (en_de == 0 && n == false) {
+		en_de = 1;
+		n = true;
+	}
+	if (en_de == 1 && n == false) {
+		en_de = 0;
+		n = true;
+	}
+	sprache_aendern();
+}
+
+private: System::Void toolStripButton2_Click(System::Object^  sender, System::EventArgs^  e) {
+	String^ text;
+
+	String^ exePfad = Application::StartupPath;
+
+	String^ pdfName = "pi-314-inhalt.pdf";
+
+	String^ pdfPfaduName = Path::Combine(exePfad, pdfName);
+
+	if (System::IO::File::Exists(pdfPfaduName)) {
+		System::Diagnostics::Process::Start(pdfPfaduName);
+	}
+	else {
+		if (en_de == 0) {
+			text = nachrichten[41, 0];
+		}
+		else if (en_de == 1) {
+			text = nachrichten[41, 1];
+		}
+		MessageBox::Show(text + pdfPfaduName);
+	}
 }
 };
 }
