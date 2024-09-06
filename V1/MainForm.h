@@ -19,6 +19,10 @@ namespace V1 {
 	using namespace System::Data;
 	using namespace System::Drawing;
 	using namespace System::Threading;
+	using namespace System::Diagnostics;
+	using namespace System::IO;
+	using namespace System::Reflection;
+	using namespace System::Windows::Forms;
 
 	public ref class MainForm : public System::Windows::Forms::Form {
 	public:
@@ -1655,7 +1659,7 @@ namespace V1 {
 				 this->btnDarkmode->Size = System::Drawing::Size(66, 22);
 				 this->btnDarkmode->Text = L"Darkmode";
 				 this->btnDarkmode->ToolTipText = L"Darkmode";
-				 this->btnDarkmode->Click += gcnew System::EventHandler(this, &MainForm::toolStripSplitButton1_Click);
+				 this->btnDarkmode->Click += gcnew System::EventHandler(this, &MainForm::btnDarkmode_Click);
 				 // 
 				 // btnLanguage
 				 // 
@@ -1665,7 +1669,7 @@ namespace V1 {
 				 this->btnLanguage->Name = L"btnLanguage";
 				 this->btnLanguage->Size = System::Drawing::Size(63, 22);
 				 this->btnLanguage->Text = L"Language";
-				 this->btnLanguage->Click += gcnew System::EventHandler(this, &MainForm::toolStripButton1_Click);
+				 this->btnLanguage->Click += gcnew System::EventHandler(this, &MainForm::btnLanguage_Click);
 				 // 
 				 // btnPDF
 				 // 
@@ -1675,7 +1679,7 @@ namespace V1 {
 				 this->btnPDF->Name = L"btnPDF";
 				 this->btnPDF->Size = System::Drawing::Size(51, 22);
 				 this->btnPDF->Text = L"Manual";
-				 this->btnPDF->Click += gcnew System::EventHandler(this, &MainForm::toolStripButton2_Click);
+				 this->btnPDF->Click += gcnew System::EventHandler(this, &MainForm::btnPDF_Click);
 				 // 
 				 // MainForm
 				 // 
@@ -2767,7 +2771,7 @@ namespace V1 {
 					 { "Please enter both first name and last name.\n","Bitte geben Sie sowohl den Vor - als auch den Nachnamen ein.\n" },
 					 { "Please select Author or Editor.\n","Bitte w\u00e4hlen Sie Autor oder Editor aus.\n" },
 					 { "Select Author or Editor!","W\u00e4hlen Sie Autor oder Herausgeber aus!" },
-					 { "The PDF file was not found:","Die PDFDatei wurde nicht gefunden: " },
+					 { "The PDF file was not found:","Die PDF Datei wurde nicht gefunden: " },
 					 { "Missing Input!", "Fehlende Eingabe!"}
 				 };
 				 /*std::pair<std::string, std::string> errorMessages[] = {
@@ -2788,7 +2792,7 @@ namespace V1 {
 
 	private: System::Void darkmodeLightmodeToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 	}
-private: System::Void toolStripSplitButton1_Click(System::Object^  sender, System::EventArgs^  e) {
+private: System::Void btnDarkmode_Click(System::Object^  sender, System::EventArgs^  e) {
 	this->btnDarkmode->Text = L"Darkmode";
 	if (this->BackColor == System::Drawing::Color::FromArgb(19, 17, 28))
 	{
@@ -2867,7 +2871,7 @@ private: System::Void toolStripSplitButton1_Click(System::Object^  sender, Syste
 	}
 }
 
-private: System::Void toolStripButton1_Click(System::Object^  sender, System::EventArgs^  e) {
+private: System::Void btnLanguage_Click(System::Object^  sender, System::EventArgs^  e) {
 	bool n;
 	n = false;
 	if (en_de == 0 && n == false) {
@@ -2881,26 +2885,36 @@ private: System::Void toolStripButton1_Click(System::Object^  sender, System::Ev
 	sprache_aendern();
 }
 
-private: System::Void toolStripButton2_Click(System::Object^  sender, System::EventArgs^  e) {
-	String^ text;
+private: System::Void btnPDF_Click(System::Object^  sender, System::EventArgs^  e) {
 
-	String^ exePfad = Application::StartupPath;
+	Assembly^ assembly = Assembly::GetExecutingAssembly();
 
-	String^ pdfName = "pi-314-inhalt.pdf";
+	// Lese die eingebettete PDF-Ressource als Stream
+	Stream^ pdfStream = assembly->GetManifestResourceStream("PDF_file.pdf");
 
-	String^ pdfPfaduName = Path::Combine(exePfad, pdfName);
+	if (pdfStream != nullptr)
+	{
+		// Temporäre Datei erstellen
+		String^ tempFilePath = Path::GetTempFileName() + ".pdf";
 
-	if (System::IO::File::Exists(pdfPfaduName)) {
-		System::Diagnostics::Process::Start(pdfPfaduName);
+		// PDF-Daten in die temporäre Datei schreiben
+		FileStream^ fileStream = gcnew FileStream(tempFilePath, FileMode::Create, FileAccess::Write);
+		pdfStream->CopyTo(fileStream);
+		fileStream->Close();
+
+		// PDF öffnen
+		Process::Start(tempFilePath);
+
 	}
-	else {
+	else
+	{
 		if (en_de == 0) {
-			text = nachrichten[41, 0];
+			MessageBox::Show(nachrichten[41, 0]);
 		}
 		else if (en_de == 1) {
-			text = nachrichten[41, 1];
+			MessageBox::Show(nachrichten[41, 1]);
 		}
-		MessageBox::Show(text + pdfPfaduName);
+		
 	}
 }
 };
