@@ -1619,6 +1619,7 @@ namespace V1 {
 					 static_cast<System::Byte>(0)));
 				 this->txtSearch->Location = System::Drawing::Point(12, 43);
 				 this->txtSearch->Name = L"txtSearch";
+				 this->txtSearch->RightToLeft = System::Windows::Forms::RightToLeft::No;
 				 this->txtSearch->Size = System::Drawing::Size(300, 27);
 				 this->txtSearch->TabIndex = 1;
 				 this->txtSearch->TextChanged += gcnew System::EventHandler(this, &MainForm::txtSearch_TextChanged);
@@ -2793,6 +2794,16 @@ namespace V1 {
 	private: System::Void darkmodeLightmodeToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 	}
 private: System::Void btnDarkmode_Click(System::Object^  sender, System::EventArgs^  e) {
+
+	array<System::Windows::Forms::TextBox^>^ textBoxes = {
+	this->txtKeyword, this->txtAuthor, this->txtTitle, this->txtYear,
+	this->txtJournal, this->txtVolume, this->txtNumber, this->txtPages,
+	this->txtMonth, this->txtNote, this->txtPublisher, this->txtSeries,
+	this->txtAddress, this->txtEdition, this->txtHowpublished, this->txtBooktitle,
+	this->txtEditor, this->txtChapter, this->txtSchool, this->txtInstitution,
+	this->txtOrganization, this->txtSearch
+	};
+
 	this->btnDarkmode->Text = L"Darkmode";
 	if (this->BackColor == System::Drawing::Color::FromArgb(19, 17, 28))
 	{
@@ -2829,6 +2840,12 @@ private: System::Void btnDarkmode_Click(System::Object^  sender, System::EventAr
 		lblOrganization->ForeColor = System::Drawing::Color::Black;
 		listViewEntries->ForeColor = System::Drawing::Color::Black;
 		listViewAuthors->ForeColor = System::Drawing::Color::Black;
+
+		for each (System::Windows::Forms::TextBox^ textBox in textBoxes)
+		{
+			textBox->BackColor = System::Drawing::Color::White;
+			textBox->ForeColor = System::Drawing::Color::Black;
+		}
 	}
 	else
 	{
@@ -2868,6 +2885,14 @@ private: System::Void btnDarkmode_Click(System::Object^  sender, System::EventAr
 		lblOrganization->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
 		listViewEntries->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
 		listViewAuthors->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+
+		for each (System::Windows::Forms::TextBox^ textBox in textBoxes)
+		{
+			textBox->BackColor = System::Drawing::Color::FromArgb(33, 33, 33);
+			textBox->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+		}
+
+
 	}
 }
 
