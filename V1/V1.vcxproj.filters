@@ -45,6 +45,9 @@
     <None Include="SplashAnimation.html">
       <Filter>Ressourcendateien</Filter>
     </None>
+    <None Include="PDF_file.pdf">
+      <Filter>Ressourcendateien</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Media Include="Startup.wav">
