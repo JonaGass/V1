@@ -24,11 +24,11 @@ namespace V1 {
 	public:
 		MainForm(void) {
 
-			// Start the splash screen in a separate thread
+			// Splashscreen wird in separatem Thread gestartet
 			Thread^ t = gcnew Thread(gcnew ThreadStart(this, &MainForm::StartForm));
 			t->SetApartmentState(ApartmentState::STA);
 			t->Start();
-			t->Join(); // Wait for the SplashScreen thread to finish
+			t->Join(); // Warte bis Spalshscreen fertig ist
 
 			InitializeComponent();
 
@@ -48,8 +48,6 @@ namespace V1 {
 			HideAllFields();
 			UpdateUIState(false);
 
-			// Ensure MainForm is shown and brought to the foreground
-			/*this->Shown += gcnew EventHandler(this, &MainForm::OnShown);*/
 
 		}
 	private: System::Windows::Forms::ToolStrip^  toolStrip1;
@@ -90,7 +88,7 @@ namespace V1 {
 		}
 
 	private:
-		List<int>^ displayedEntryIndices; // To store the indices of displayed entries after searching
+		List<int>^ displayedEntryIndices; // Um Indizes nach Suche zu speichern
 	private:
 		System::Windows::Forms::TextBox^ txtFirstName;
 		System::Windows::Forms::TextBox^ txtLastName;
@@ -176,7 +174,7 @@ namespace V1 {
 			 }
 
 
-			 //Function to initialize the type dropdown with entry types
+			 //Funktion um Dropdown mit auswählbaren Referenztypen zu füllen
 			 void PopulateTypeDropdown()
 			 {
 				 for each (DataTypeFields ^ type in dataTypes)
@@ -185,7 +183,7 @@ namespace V1 {
 				 }
 			 }
 
-			 // Function to display entry details in the panel
+			 // Funktion zum Anzeigen der EntryDetails
 			 void DisplayEntryDetails(DataArray^ entry)
 			 {
 				 cmbType->SelectedItem = entry->type;
@@ -240,7 +238,7 @@ namespace V1 {
 
 			 }
 
-			 // Function to clear entry details from the panel
+			 // Funktion zum Bereinigen der EntryDetails
 			 void ClearEntryDetails()
 			 {
 				 currentEntry = nullptr;
@@ -269,7 +267,7 @@ namespace V1 {
 				 SetFieldsReadOnly(false);
 			 }
 
-			 // Function to toggle read-only state of fields
+			 // Funktion zum Ändern des ReadOnly Status
 			 void SetFieldsReadOnly(bool readOnly)
 			 {
 				 txtKeyword->ReadOnly = readOnly;
@@ -303,7 +301,7 @@ namespace V1 {
 				 btnClearAuthor->Visible = !readOnly;
 			 }
 
-			 // Event handler for new entry button click
+			 // Event New Entry
 			 void btnNew_Click(System::Object^ sender, System::EventArgs^ e) {
 				 listViewAuthors->Items->Clear();
 				 ClearEntryDetails();
@@ -311,7 +309,7 @@ namespace V1 {
 				 UpdateUIState(true);
 			 }
 
-			 // Event handler for edit button click
+			 // Event Edit Button
 			 void btnEdit_Click(System::Object^ sender, System::EventArgs^ e) {
 				 if (listViewEntries->SelectedIndices->Count > 0) {
 					 listViewAuthors->Items->Clear();
@@ -322,12 +320,12 @@ namespace V1 {
 				 }
 			 }
 
-			 // Event handler for save button click
+			 // Event Save Button
 			 void btnSave_Click(System::Object^ sender, System::EventArgs^ e) {
 				 if (ValidateEntry() && ValidateOptional()) {
 					 currentEntry->type = cmbType->SelectedItem->ToString();
 
-					 // Clear existing entries to avoid overwriting
+					 // Existierende Einträge bereinigen
 					 currentEntry->keyword = "";
 					 currentEntry->author = "";
 					 currentEntry->title = "";
@@ -350,11 +348,11 @@ namespace V1 {
 					 currentEntry->institution = "";
 					 currentEntry->organization = "";
 
-					 // Get the selected type
+					 // Ausgewählten Typen holen
 					 String^ selectedType = cmbType->SelectedItem->ToString();
 					 DataTypeFields^ selectedTypeFields = nullptr;
 
-					 // Find the selected type in the dataTypes array
+					 // Find ausgewählten Typen in dataTypes finden
 					 for each (DataTypeFields^ type in dataTypes) {
 						 if (type->TypeName == selectedType) {
 							 selectedTypeFields = type;
@@ -363,7 +361,7 @@ namespace V1 {
 					 }
 
 					 if (selectedTypeFields != nullptr) {
-						 // Assign values for required fields
+						 // Werte für erforderliche Felder zuweisen
 						 for each (String^ field in selectedTypeFields->RequiredFields) {
 							 if (field == "keyword") currentEntry->keyword = txtKeyword->Text;
 							 if (field == "author") currentEntry->author = txtAuthor->Text;
@@ -388,7 +386,7 @@ namespace V1 {
 							 if (field == "organization") currentEntry->organization = txtOrganization->Text;
 						 }
 
-						 // Assign values for optional fields
+						 // Werte für optionale Felder zuweisen
 						 for each (String^ field in selectedTypeFields->OptionalFields) {
 							 if (field == "keyword" && currentEntry->keyword->Trim() == String::Empty) currentEntry->keyword = txtKeyword->Text;
 							 if (field == "author" && currentEntry->author->Trim() == String::Empty) currentEntry->author = txtAuthor->Text;
@@ -413,7 +411,7 @@ namespace V1 {
 							 if (field == "organization" && currentEntry->organization->Trim() == String::Empty) currentEntry->organization = txtOrganization->Text;
 						 }
 
-						 // Add or update the entry in the list
+						 // Hinzufügen oder updaten des Eintrags
 						 if (entries->IndexOf(currentEntry) == -1) {
 							 entries->Add(currentEntry);
 						 }
@@ -430,7 +428,7 @@ namespace V1 {
 			 }
 
 
-			 // Event handler for cancel button click
+			 // Event Cancel Button
 			 void btnCancel_Click(System::Object^ sender, System::EventArgs^ e) {
 				 ClearEntryDetails();
 				 UpdateUIState(false);
@@ -1728,7 +1726,7 @@ namespace V1 {
 				 btnEdit->Enabled = !inEditMode && listViewEntries->SelectedItems->Count > 0;
 				 btnDelete->Enabled = !inEditMode && listViewEntries->SelectedItems->Count > 0;
 
-				 SetFieldsReadOnly(!inEditMode);
+				 SetFieldsReadOnly(!inEditMode); // Felder werden freigeschaltet oder gesperrt
 				 txtAuthor->ReadOnly = true;
 				 txtEditor->ReadOnly = true;
 
@@ -1751,7 +1749,7 @@ namespace V1 {
 				 BinaryFormatter^ formatter = gcnew BinaryFormatter();
 				 String^ text;
 				 try {
-					 // Serialize the entries to the file stream
+					 // Für Speichern in Binärdatei Serialize der Daten
 					 formatter->Serialize(fs, entries);
 				 }
 				 catch (Exception^ ex) {
@@ -1780,7 +1778,7 @@ namespace V1 {
 					 if (File::Exists(filename)) {
 						 fs = gcnew FileStream(filename, FileMode::Open, FileAccess::Read);
 						 BinaryFormatter^ formatter = gcnew BinaryFormatter();
-						 // Deserialize the file stream into the entries list
+						 // Deserialize um Datei wieder zu öffnen
 						 entries = (List<DataArray^>^)formatter->Deserialize(fs);
 						 success = true; // Wenn das Einlesen erfolgreich ist
 					 }
@@ -1811,11 +1809,11 @@ namespace V1 {
 					 }
 				 }
 
-				 return success; // Gibt den Erfolg oder Misserfolg zur\u00fcck
+				 return success; // Gibt den Erfolg oder Misserfolg zurück
 			 }
 
 
-			 // Event handler for ListView selection change
+			 // Änderung der angezeigten Felder wenn der Referenztyp geändert wird
 			 void listViewEntries_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 				 if (listViewEntries->SelectedIndices->Count > 0 && !isEditMode) {
 					 int index = listViewEntries->SelectedIndices[0];
@@ -1832,37 +1830,37 @@ namespace V1 {
 
 
 
-			 // Event handler for Delete button click
+			 // Event Löschen Button wird gedrückt
 			 void btnDelete_Click(System::Object^ sender, System::EventArgs^ e) {
 				 if (listViewEntries->SelectedIndices->Count > 0) {
 					 int index = listViewEntries->SelectedIndices[0];
-					 entries->RemoveAt(index);
-					 RefreshListView();
-					 ClearEntryDetails();
+					 entries->RemoveAt(index); // Eintrag mit entsprechendem Index wird gelöscht
+					 RefreshListView();	// Listenansicht wird aktualisiert	
+					 ClearEntryDetails();	// Textfelder werden bereinigt
 				 }
 			 }
 
 			 void PerformSearch(String^ searchTerm) {
-				 listViewEntries->Items->Clear(); // Clear existing entries
-				 displayedEntryIndices->Clear(); // Clear previous indices
+				 listViewEntries->Items->Clear(); // Zurücksetzen der angezeigten Listenelemente
+				 displayedEntryIndices->Clear(); 
 
 				 for (int i = 0; i < entries->Count; i++) {
 					 DataArray^ entry = entries[i];
 					 if ((entry->keyword->IndexOf(searchTerm, StringComparison::CurrentCultureIgnoreCase) >= 0) ||
 						 (entry->title->IndexOf(searchTerm, StringComparison::CurrentCultureIgnoreCase) >= 0) ||
-						 (entry->author->IndexOf(searchTerm, StringComparison::CurrentCultureIgnoreCase) >= 0)) {
+						 (entry->author->IndexOf(searchTerm, StringComparison::CurrentCultureIgnoreCase) >= 0)) { // Vergleich des SearchTerm mit den Feldern keyword, title, author; theoretisch erweiterbar
 
-						 // If a match is found, add to the ListView
+						 // Wenn übereinstimmung gefunden wird der entsprechedne eintrag in die anzuzeigende Liste aufgenommen
 						 String^ itemText = entry->keyword;
 						 listViewEntries->Items->Add(gcnew ListViewItem(itemText));
 
-						 // Store the original index for the displayed entry
+						 // Ürsprünglicher Index wird gespeichert
 						 displayedEntryIndices->Add(i);
 					 }
 				 }
 			 }
 
-			 // Event handler for ComboBox Type selection change
+			 // Event Referenztyp Auswahl
 			 void cmbType_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e)
 			 {
 				 if (cmbType->SelectedItem != nullptr)
@@ -1954,19 +1952,19 @@ namespace V1 {
 			 }
 
 
-			 // Function to show fields based on entry type
-			 int ShowFieldsForType(DataTypeFields^ type)
+			 // Funktion Anzeigen der Textfelder nach ausgewähltem Referenztypen
+			 int ShowFieldsForType(DataTypeFields^ type)	// Rückgabewert =  TabIndex des letzten Feldes
 			 {
-				 // Hide all fields initially
+				 // Alle Felder erstmal ausblenden
 				 HideAllFields();
-				 int TabNumber = 10;
-				 bool Author = false;
+				 int TabNumber = 10;	//	TabIndex des ersten Felders wird vergeben, danach werden die TabIndizes dynamisch vergeben
+				 bool Author = false;	//	Author und Editor müssen gesondert behandelt werden
 				 bool Editor = false;
 
-				 // Show only the fields relevant to the selected type
+				 // Nur relevante Felder werden eingeblendet
 				 for each (String^ mandatoryField in type -> RequiredFields)
 				 {
-					 if (mandatoryField == "keyword") {
+					 if (mandatoryField == "keyword") {	// Visibility wird gesetzt, TabIndex aufsteigend vergeben
 						 txtKeyword->Visible = true;
 						 lblKeyword->Visible = true;
 						 txtKeyword->TabStop = true;
@@ -2062,7 +2060,7 @@ namespace V1 {
 						 txtBooktitle->TabIndex = TabNumber++;
 					 }
 					 if (mandatoryField == "editor") {
-						 Editor = true;
+						 Editor = true;							// Editor und Author werden später gesetzt, je nachdem ob beide Felder erforderlich sind
 						 txtEditor->TabStop = true;
 						 txtEditor->TabIndex = TabNumber++;
 					 }
@@ -2223,7 +2221,7 @@ namespace V1 {
 					 }
 				 }
 
-				 if (Author && Editor) {
+				 if (Author && Editor) {					// Spezialfall Author && Editor mit EingabeUI Vor- und Nachname
 					 txtAuthor->Visible = true;
 					 listViewAuthors->Visible = true;
 					 lblAuthor->Visible = true;
@@ -2240,7 +2238,7 @@ namespace V1 {
 					 rbtnAuthor->Checked = false;
 					 rbtnEditor->Checked = false;
 				 }
-				 else if (Author) {
+				 else if (Author) {							// Spezialfall Author mit EingabeUI Vor- und Nachname
 					 txtAuthor->Visible = true;
 					 listViewAuthors->Visible = true;
 					 lblAuthor->Visible = true;
@@ -2254,7 +2252,7 @@ namespace V1 {
 					 rbtnAuthor->Checked = true;
 					 tc_no_edit = true;
 				 }
-				 else if (Editor) {
+				 else if (Editor) {							// Spezialfall Editor mit EingabeUI Vor- und Nachname
 					 txtEditor->Visible = true;
 					 listViewAuthors->Visible = true;
 					 lblEditor->Visible = true;
@@ -2275,7 +2273,7 @@ namespace V1 {
 				 int xOffsetOptional = 350;
 				 int verticalSpacing = 30;
 
-				 for each (String^ field in type->RequiredFields) {
+				 for each (String^ field in type->RequiredFields) {		// dynamische Platzierung der Felder und Labels
 					 if (field == "keyword") PositionFieldWithLabel(lblKeyword, txtKeyword, mandatoryY, xOffsetMandatory);
 					 if (field == "author") PositionFieldWithLabel(lblAuthor, txtAuthor, mandatoryY, xOffsetMandatory);
 					 if (field == "title") PositionFieldWithLabel(lblTitle, txtTitle, mandatoryY, xOffsetMandatory);
@@ -2322,7 +2320,7 @@ namespace V1 {
 					 if (field == "institution") PositionFieldWithLabel(lblInstitution, txtInstitution, optionalY, xOffsetOptional);
 					 if (field == "organization") PositionFieldWithLabel(lblOrganization, txtOrganization, optionalY, xOffsetOptional);
 				 }
-				 return TabNumber;
+				 return TabNumber;		// erreichter TabIndex wird zurückgegeben
 			 }
 
 
@@ -2363,7 +2361,7 @@ namespace V1 {
 			MessageBox::Show(text, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 
-		RefreshListView(); // Refresh the ListView to show loaded entries
+		RefreshListView(); // Refresh um geladene Inhalte zu zeigen
 	}
 
 	private: System::Void btnSaveHDD_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -2377,18 +2375,18 @@ namespace V1 {
 		}
 		MessageBox::Show(text, "Information", MessageBoxButtons::OK, MessageBoxIcon::Information);
 	}
-	private: System::Void txtSearch_TextChanged(System::Object^  sender, System::EventArgs^  e) { //wird automatisch durchsucht wenn etwas eingegeben wird
+	private: System::Void txtSearch_TextChanged(System::Object^  sender, System::EventArgs^  e) { // wird automatisch durchsucht wenn etwas eingegeben wird
 		String^ searchTerm = txtSearch->Text->Trim();
 		PerformSearch(searchTerm);
 
 	}
 	private: System::Void btnSetAuthor_Click(System::Object^ sender, System::EventArgs^ e) {
-		String^ firstName = txtFirstName->Text->Trim();
+		String^ firstName = txtFirstName->Text->Trim();	// separate Strings für Vor- und Nachname
 		String^ lastName = txtLastName->Text->Trim();
 		String^ text;
 		if (firstName->Length == 0 || lastName->Length == 0) {
 			if (en_de == 0) {
-				text = nachrichten[38, 0];
+				text = nachrichten[38, 0];	// Fehlermeldung Deutsch oder Englisch
 			}
 			else if (en_de == 1) {
 				text = nachrichten[38, 1];
@@ -2397,22 +2395,22 @@ namespace V1 {
 			return;
 		}
 
-		String^ fullName = lastName + ", " + firstName;
+		String^ fullName = lastName + ", " + firstName;	// Name wird im Format Nachname, Vorname gespeichert
 		/*listViewAuthors->Items->Clear();*/
-		if (rbtnAuthor->Checked) {
-			if (listViewAuthors->SelectedItems->Count > 0) { //always falls into this if loop
+		if (rbtnAuthor->Checked) {								// Author ausgewählt
+			if (listViewAuthors->SelectedItems->Count > 0) {
 				int selectedIndex = listViewAuthors->SelectedIndices[0];
 				listViewAuthors->Items[selectedIndex]->Text = fullName;
 
 				UpdateAuthorString(selectedIndex, fullName, txtAuthor);
-				listViewAuthors->SelectedIndices->Clear();// reset the index here
+				listViewAuthors->SelectedIndices->Clear();// Index wird zurückgesetzt
 			}
 			else {
-				listViewAuthors->Items->Add(fullName);// Neuen Eintrag hinzuf\u00fcgen
-				txtAuthor->Text += (txtAuthor->Text->Length > 0 ? " and " : "") + fullName;
+				listViewAuthors->Items->Add(fullName);// Neuen Eintrag hinzufügen
+				txtAuthor->Text += (txtAuthor->Text->Length > 0 ? " and " : "") + fullName; // wenn bereits ein Author vorhanden ist wird der String addiert
 			}
 		}
-		else if (rbtnEditor->Checked) {
+		else if (rbtnEditor->Checked) {							// Editor ausgewählt
 			if (listViewAuthors->SelectedItems->Count > 0) {
 				int selectedIndex = listViewAuthors->SelectedIndices[0];
 				listViewAuthors->Items[selectedIndex]->Text = fullName;
@@ -2420,7 +2418,7 @@ namespace V1 {
 				UpdateAuthorString(selectedIndex, fullName, txtEditor);
 			}
 			else {
-				listViewAuthors->Items->Add(fullName);// Neuen Eintrag hinzuf\u00fcgen
+				listViewAuthors->Items->Add(fullName);// Neuen Eintrag hinzufügen
 				txtEditor->Text += (txtEditor->Text->Length > 0 ? " and " : "") + fullName;
 			}
 		}
@@ -2435,16 +2433,16 @@ namespace V1 {
 			MessageBox::Show(text, "Input Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		}
 
-		txtFirstName->Clear();
+		txtFirstName->Clear();		// Zurücksetzen der TextBoxen
 		txtLastName->Clear();
 	}
 	private: System::Void btnClearAuthor_Click(System::Object^  sender, System::EventArgs^  e) {
 		listViewAuthors->Items->Clear();
 		if (rbtnAuthor->Checked) {
-			txtAuthor->Clear(); // Clears the author field
+			txtAuthor->Clear(); // AuthorFeld zurücksetzen
 		}
 		else if (rbtnEditor->Checked) {
-			txtEditor->Clear(); // Clears the editor field
+			txtEditor->Clear(); // EditorFeld zurücksetzen
 		}
 		else {
 			if (en_de == 0) {
@@ -2470,7 +2468,7 @@ namespace V1 {
 		saveFileDialog->Filter = "Bib Dateien (*.bib)|*.bib";
 		saveFileDialog->Title = "Speicher die Bib-Datei";
 		if (saveFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
-			// Der ausgew\u00e4hlte Dateipfad
+			// Der ausgewählte Dateipfad
 			String^ filePath = saveFileDialog->FileName;
 			//meins
 
@@ -2533,7 +2531,7 @@ namespace V1 {
 				 }
 			 }
 			 void UpdateAuthorString(int index, String^ updatedEntry, TextBox^ storageTextBox) {
-				 // Den Speicherstring ("txtAuthor") in Eintr\u00e4ge aufteilen
+				 // Den Speicherstring ("txtAuthor") in Einträge aufteilen
 				 array<String^>^ authorEntries = storageTextBox->Text->Split(gcnew array<String^> { " and " }, StringSplitOptions::None);
 
 				 // Den spezifischen Eintrag aktualisieren
@@ -2790,7 +2788,7 @@ namespace V1 {
 	}
 private: System::Void toolStripSplitButton1_Click(System::Object^  sender, System::EventArgs^  e) {
 	this->btnDarkmode->Text = L"Darkmode";
-	if (this->BackColor == System::Drawing::Color::FromArgb(19, 17, 28))
+	if (this->BackColor == System::Drawing::Color::FromArgb(19, 17, 28))	// BackColor wird als Abfrage in welchem Mode das Programm ist verwendet
 	{
 		this->BackColor = System::Drawing::Color::White;
 		panelDetails->BackColor = System::Drawing::Color::White;
@@ -2881,7 +2879,7 @@ private: System::Void toolStripButton1_Click(System::Object^  sender, System::Ev
 	sprache_aendern();
 }
 
-private: System::Void toolStripButton2_Click(System::Object^  sender, System::EventArgs^  e) {
+private: System::Void toolStripButton2_Click(System::Object^  sender, System::EventArgs^  e) { // Manual PDF kann aus dem Programm aufgerufen werden
 	String^ text;
 
 	String^ exePfad = Application::StartupPath;
