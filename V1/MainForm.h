@@ -41,6 +41,14 @@ namespace V1 {
 
 			this->Icon = gcnew System::Drawing::Icon(iconStream);
 
+			Assembly^ assemblyHTML = Assembly::GetExecutingAssembly();
+			Stream^ streamHTML = assemblyHTML->GetManifestResourceStream("lightmode.html");
+			StreamReader^ reader = gcnew StreamReader(streamHTML);
+			String^ htmlContent = reader->ReadToEnd();
+
+			// Navigate to the HTML content
+			webBrowser1->DocumentText = htmlContent;
+
 			sprache_aendern();
 			this->StartPosition = FormStartPosition::CenterScreen;
 			/*this->BringToFront();
@@ -62,6 +70,7 @@ namespace V1 {
 
 	private: System::Windows::Forms::ToolStripButton^  btnLanguage;
 	private: System::Windows::Forms::ToolStripButton^  btnPDF;
+	private: System::Windows::Forms::WebBrowser^  webBrowser1;
 
 
 
@@ -1033,6 +1042,7 @@ namespace V1 {
 				 this->btnDarkmode = (gcnew System::Windows::Forms::ToolStripButton());
 				 this->btnLanguage = (gcnew System::Windows::Forms::ToolStripButton());
 				 this->btnPDF = (gcnew System::Windows::Forms::ToolStripButton());
+				 this->webBrowser1 = (gcnew System::Windows::Forms::WebBrowser());
 				 this->panelDetails->SuspendLayout();
 				 this->toolStrip1->SuspendLayout();
 				 this->SuspendLayout();
@@ -1041,7 +1051,7 @@ namespace V1 {
 				 // 
 				 this->txtFirstName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular,
 					 System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-				 this->txtFirstName->Location = System::Drawing::Point(680, 702);
+				 this->txtFirstName->Location = System::Drawing::Point(621, 702);
 				 this->txtFirstName->Name = L"txtFirstName";
 				 this->txtFirstName->Size = System::Drawing::Size(100, 21);
 				 this->txtFirstName->TabIndex = 30;
@@ -1050,7 +1060,7 @@ namespace V1 {
 				 // 
 				 this->txtLastName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
-				 this->txtLastName->Location = System::Drawing::Point(790, 702);
+				 this->txtLastName->Location = System::Drawing::Point(731, 702);
 				 this->txtLastName->Name = L"txtLastName";
 				 this->txtLastName->Size = System::Drawing::Size(100, 21);
 				 this->txtLastName->TabIndex = 31;
@@ -1061,9 +1071,9 @@ namespace V1 {
 				 this->btnSetAuthor->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 				 this->btnSetAuthor->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular,
 					 System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-				 this->btnSetAuthor->Location = System::Drawing::Point(900, 702);
+				 this->btnSetAuthor->Location = System::Drawing::Point(853, 695);
 				 this->btnSetAuthor->Name = L"btnSetAuthor";
-				 this->btnSetAuthor->Size = System::Drawing::Size(75, 54);
+				 this->btnSetAuthor->Size = System::Drawing::Size(75, 28);
 				 this->btnSetAuthor->TabIndex = 42;
 				 this->btnSetAuthor->Click += gcnew System::EventHandler(this, &MainForm::btnSetAuthor_Click);
 				 // 
@@ -1194,6 +1204,7 @@ namespace V1 {
 				 this->panelDetails->Name = L"panelDetails";
 				 this->panelDetails->Size = System::Drawing::Size(736, 545);
 				 this->panelDetails->TabIndex = 13;
+				 this->panelDetails->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MainForm::panelDetails_Paint);
 				 // 
 				 // cmbType
 				 // 
@@ -1552,9 +1563,9 @@ namespace V1 {
 				 this->btnClearAuthor->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 				 this->btnClearAuthor->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular,
 					 System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-				 this->btnClearAuthor->Location = System::Drawing::Point(981, 702);
+				 this->btnClearAuthor->Location = System::Drawing::Point(934, 695);
 				 this->btnClearAuthor->Name = L"btnClearAuthor";
-				 this->btnClearAuthor->Size = System::Drawing::Size(92, 54);
+				 this->btnClearAuthor->Size = System::Drawing::Size(74, 28);
 				 this->btnClearAuthor->TabIndex = 36;
 				 this->btnClearAuthor->Click += gcnew System::EventHandler(this, &MainForm::btnClearAuthor_Click);
 				 // 
@@ -1562,7 +1573,7 @@ namespace V1 {
 				 // 
 				 this->lblLastName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
-				 this->lblLastName->Location = System::Drawing::Point(790, 682);
+				 this->lblLastName->Location = System::Drawing::Point(731, 682);
 				 this->lblLastName->Name = L"lblLastName";
 				 this->lblLastName->Size = System::Drawing::Size(100, 23);
 				 this->lblLastName->TabIndex = 78;
@@ -1571,7 +1582,7 @@ namespace V1 {
 				 // 
 				 this->lblFirstName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular,
 					 System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-				 this->lblFirstName->Location = System::Drawing::Point(680, 682);
+				 this->lblFirstName->Location = System::Drawing::Point(621, 682);
 				 this->lblFirstName->Name = L"lblFirstName";
 				 this->lblFirstName->Size = System::Drawing::Size(100, 23);
 				 this->lblFirstName->TabIndex = 79;
@@ -1641,12 +1652,15 @@ namespace V1 {
 				 // 
 				 // toolStrip1
 				 // 
+				 this->toolStrip1->BackColor = System::Drawing::Color::White;
+				 this->toolStrip1->GripStyle = System::Windows::Forms::ToolStripGripStyle::Hidden;
 				 this->toolStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
 					 this->btnDarkmode, this->btnLanguage,
 						 this->btnPDF
 				 });
 				 this->toolStrip1->Location = System::Drawing::Point(0, 0);
 				 this->toolStrip1->Name = L"toolStrip1";
+				 this->toolStrip1->RenderMode = System::Windows::Forms::ToolStripRenderMode::Professional;
 				 this->toolStrip1->Size = System::Drawing::Size(1088, 25);
 				 this->toolStrip1->TabIndex = 81;
 				 this->toolStrip1->Text = L"toolStrip1";
@@ -1682,9 +1696,19 @@ namespace V1 {
 				 this->btnPDF->Text = L"Manual";
 				 this->btnPDF->Click += gcnew System::EventHandler(this, &MainForm::btnPDF_Click);
 				 // 
+				 // webBrowser1
+				 // 
+				 this->webBrowser1->Location = System::Drawing::Point(0, 0);
+				 this->webBrowser1->MinimumSize = System::Drawing::Size(20, 20);
+				 this->webBrowser1->Name = L"webBrowser1";
+				 this->webBrowser1->ScrollBarsEnabled = false;
+				 this->webBrowser1->Size = System::Drawing::Size(1088, 821);
+				 this->webBrowser1->TabIndex = 82;
+				 this->webBrowser1->DocumentCompleted += gcnew System::Windows::Forms::WebBrowserDocumentCompletedEventHandler(this, &MainForm::webBrowser1_DocumentCompleted);
+				 // 
 				 // MainForm
 				 // 
-				 this->ClientSize = System::Drawing::Size(1088, 854);
+				 this->ClientSize = System::Drawing::Size(1088, 818);
 				 this->Controls->Add(this->toolStrip1);
 				 this->Controls->Add(this->txtFirstName);
 				 this->Controls->Add(this->txtLastName);
@@ -1705,6 +1729,7 @@ namespace V1 {
 				 this->Controls->Add(this->panelDetails);
 				 this->Controls->Add(this->lblFirstName);
 				 this->Controls->Add(this->lblLastName);
+				 this->Controls->Add(this->webBrowser1);
 				 this->Cursor = System::Windows::Forms::Cursors::Arrow;
 				 this->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
@@ -2793,108 +2818,88 @@ namespace V1 {
 
 	private: System::Void darkmodeLightmodeToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 	}
-private: System::Void btnDarkmode_Click(System::Object^  sender, System::EventArgs^  e) {
-
+private: System::Void btnDarkmode_Click(System::Object^ sender, System::EventArgs^ e) {
 	array<System::Windows::Forms::TextBox^>^ textBoxes = {
-	this->txtKeyword, this->txtAuthor, this->txtTitle, this->txtYear,
-	this->txtJournal, this->txtVolume, this->txtNumber, this->txtPages,
-	this->txtMonth, this->txtNote, this->txtPublisher, this->txtSeries,
-	this->txtAddress, this->txtEdition, this->txtHowpublished, this->txtBooktitle,
-	this->txtEditor, this->txtChapter, this->txtSchool, this->txtInstitution,
-	this->txtOrganization, this->txtSearch
+		this->txtKeyword, this->txtAuthor, this->txtTitle, this->txtYear,
+		this->txtJournal, this->txtVolume, this->txtNumber, this->txtPages,
+		this->txtMonth, this->txtNote, this->txtPublisher, this->txtSeries,
+		this->txtAddress, this->txtEdition, this->txtHowpublished, this->txtBooktitle,
+		this->txtEditor, this->txtChapter, this->txtSchool, this->txtInstitution,
+		this->txtOrganization, this->txtSearch
 	};
 
-	this->btnDarkmode->Text = L"Darkmode";
-	if (this->BackColor == System::Drawing::Color::FromArgb(19, 17, 28))
-	{
-		this->BackColor = System::Drawing::Color::White;
-		panelDetails->BackColor = System::Drawing::Color::White;
-		listViewEntries->BackColor = System::Drawing::Color::White;
-		listViewAuthors->BackColor = System::Drawing::Color::White;
-		rbtnAuthor->ForeColor = System::Drawing::Color::Black;
-		rbtnEditor->ForeColor = System::Drawing::Color::Black;
-		btnSetAuthor->ForeColor = System::Drawing::Color::Black;
-		btnClearAuthor->ForeColor = System::Drawing::Color::Black;
-		lblFirstName->ForeColor = System::Drawing::Color::Black;
-		lblLastName->ForeColor = System::Drawing::Color::Black;
-		lblKeyword->ForeColor = System::Drawing::Color::Black;
-		lblAuthor->ForeColor = System::Drawing::Color::Black;
-		lblTitle->ForeColor = System::Drawing::Color::Black;
-		lblYear->ForeColor = System::Drawing::Color::Black;
-		lblJournal->ForeColor = System::Drawing::Color::Black;
-		lblVolume->ForeColor = System::Drawing::Color::Black;
-		lblNumber->ForeColor = System::Drawing::Color::Black;
-		lblPages->ForeColor = System::Drawing::Color::Black;
-		lblMonth->ForeColor = System::Drawing::Color::Black;
-		lblNote->ForeColor = System::Drawing::Color::Black;
-		lblPublisher->ForeColor = System::Drawing::Color::Black;
-		lblSeries->ForeColor = System::Drawing::Color::Black;
-		lblAddress->ForeColor = System::Drawing::Color::Black;
-		lblEdition->ForeColor = System::Drawing::Color::Black;
-		lblHowpublished->ForeColor = System::Drawing::Color::Black;
-		lblABooktitle->ForeColor = System::Drawing::Color::Black;
-		lblEditor->ForeColor = System::Drawing::Color::Black;
-		lblChapter->ForeColor = System::Drawing::Color::Black;
-		lblSchool->ForeColor = System::Drawing::Color::Black;
-		lblInstitution->ForeColor = System::Drawing::Color::Black;
-		lblOrganization->ForeColor = System::Drawing::Color::Black;
-		listViewEntries->ForeColor = System::Drawing::Color::Black;
-		listViewAuthors->ForeColor = System::Drawing::Color::Black;
+	if (this->BackColor == System::Drawing::Color::FromArgb(30, 30, 30)) { // Dark Mode Farben
+		// Setze auf Lightmode
 
-		for each (System::Windows::Forms::TextBox^ textBox in textBoxes)
-		{
+		Assembly^ assemblyHTML = Assembly::GetExecutingAssembly();
+		Stream^ streamHTML = assemblyHTML->GetManifestResourceStream("lightmode.html");
+		StreamReader^ reader = gcnew StreamReader(streamHTML);
+		String^ htmlContent = reader->ReadToEnd();
+		webBrowser1->DocumentText = htmlContent;
+
+		this->BackColor = System::Drawing::Color::WhiteSmoke;
+		this->btnDarkmode->Text = L"Darkmode";
+		panelDetails->BackColor = System::Drawing::Color::WhiteSmoke;
+		listViewEntries->BackColor = System::Drawing::Color::WhiteSmoke;
+		listViewAuthors->BackColor = System::Drawing::Color::WhiteSmoke;
+
+
+		for each (System::Windows::Forms::TextBox^ textBox in textBoxes) {
 			textBox->BackColor = System::Drawing::Color::White;
 			textBox->ForeColor = System::Drawing::Color::Black;
 		}
-	}
-	else
-	{
-		this->BackColor = System::Drawing::Color::FromArgb(19, 17, 28);
-		this->btnDarkmode->Text = L"Lightmode"; 
-		panelDetails->BackColor = System::Drawing::Color::FromArgb(33, 33, 33);
-		listViewEntries->BackColor = System::Drawing::Color::FromArgb(33, 33, 33);
-		listViewAuthors->BackColor = System::Drawing::Color::FromArgb(33, 33, 33);
-		btnSave->BackColor = System::Drawing::Color::White;
-		btnCancel->BackColor = System::Drawing::Color::White;
-		rbtnAuthor->ForeColor = System::Drawing::Color::White;
-		rbtnEditor->ForeColor = System::Drawing::Color::White;
-		btnSetAuthor->ForeColor = System::Drawing::Color::White;
-		btnClearAuthor->ForeColor = System::Drawing::Color::White;
-		lblFirstName->ForeColor = System::Drawing::Color::White;
-		lblLastName->ForeColor = System::Drawing::Color::White;
-		lblKeyword->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-		lblAuthor->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-		lblTitle->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-		lblYear->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-		lblJournal->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-		lblVolume->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-		lblNumber->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-		lblPages->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-		lblMonth->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-		lblNote->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-		lblPublisher->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-		lblSeries->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-		lblAddress->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-		lblEdition->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-		lblHowpublished->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-		lblABooktitle->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-		lblEditor->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-		lblChapter->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-		lblSchool->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-		lblInstitution->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-		lblOrganization->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-		listViewEntries->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-		listViewAuthors->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
 
-		for each (System::Windows::Forms::TextBox^ textBox in textBoxes)
-		{
-			textBox->BackColor = System::Drawing::Color::FromArgb(33, 33, 33);
-			textBox->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+		// Setze Farben für Labels und Buttons
+		array<System::Windows::Forms::Control^>^ controls = {
+			rbtnAuthor, rbtnEditor, btnSetAuthor, btnClearAuthor,
+			lblFirstName, lblLastName, lblKeyword, lblAuthor, lblTitle, lblYear,
+			lblJournal, lblVolume, lblNumber, lblPages, lblMonth, lblNote,
+			lblPublisher, lblSeries, lblAddress, lblEdition, lblHowpublished,
+			lblABooktitle, lblEditor, lblChapter, lblSchool, lblInstitution, lblOrganization,
+			listViewEntries, listViewAuthors, btnCancel, btnSave, toolStrip1
+		};
+
+		for each (System::Windows::Forms::Control^ control in controls) {
+			control->ForeColor = System::Drawing::Color::Black;
 		}
 
+	}
+	else { // Light Mode Farben
+	 // Setze auf Darkmode
+		Assembly^ assemblyHTML = Assembly::GetExecutingAssembly();
+		Stream^ streamHTML = assemblyHTML->GetManifestResourceStream("darkmode.html");
+		StreamReader^ reader = gcnew StreamReader(streamHTML);
+		String^ htmlContent = reader->ReadToEnd();
+		webBrowser1->DocumentText = htmlContent;
 
+		this->BackColor = System::Drawing::Color::FromArgb(30, 30, 30);
+		this->btnDarkmode->Text = L"Lightmode";
+		panelDetails->BackColor = System::Drawing::Color::FromArgb(45, 45, 45);
+		listViewEntries->BackColor = System::Drawing::Color::FromArgb(45, 45, 45);
+		listViewAuthors->BackColor = System::Drawing::Color::FromArgb(45, 45, 45);
+
+
+		for each (System::Windows::Forms::TextBox^ textBox in textBoxes) {
+			textBox->BackColor = System::Drawing::Color::FromArgb(45, 45, 45);
+			textBox->ForeColor = System::Drawing::Color::White;
+		}
+
+		// Setze Farben für Labels und Buttons
+		array<System::Windows::Forms::Control^>^ controls = {
+			rbtnAuthor, rbtnEditor, btnSetAuthor, btnClearAuthor,
+			lblFirstName, lblLastName, lblKeyword, lblAuthor, lblTitle, lblYear,
+			lblJournal, lblVolume, lblNumber, lblPages, lblMonth, lblNote,
+			lblPublisher, lblSeries, lblAddress, lblEdition, lblHowpublished,
+			lblABooktitle, lblEditor, lblChapter, lblSchool, lblInstitution, lblOrganization,
+			listViewEntries, listViewAuthors, btnCancel, btnSave
+		};
+
+		for each (System::Windows::Forms::Control^ control in controls) {
+			control->ForeColor = System::Drawing::Color::White;
+		}
 	}
 }
+
 
 private: System::Void btnLanguage_Click(System::Object^  sender, System::EventArgs^  e) {
 	bool n;
@@ -2941,6 +2946,10 @@ private: System::Void btnPDF_Click(System::Object^  sender, System::EventArgs^  
 		}
 		
 	}
+}
+private: System::Void webBrowser1_DocumentCompleted(System::Object^  sender, System::Windows::Forms::WebBrowserDocumentCompletedEventArgs^  e) {
+}
+private: System::Void panelDetails_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
 }
 };
 }
