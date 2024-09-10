@@ -1057,18 +1057,18 @@ namespace V1 {
 				 // 
 				 this->txtFirstName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular,
 					 System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-				 this->txtFirstName->Location = System::Drawing::Point(320, 52);
+				 this->txtFirstName->Location = System::Drawing::Point(357, 59);
 				 this->txtFirstName->Name = L"txtFirstName";
-				 this->txtFirstName->Size = System::Drawing::Size(128, 21);
+				 this->txtFirstName->Size = System::Drawing::Size(118, 21);
 				 this->txtFirstName->TabIndex = 30;
 				 // 
 				 // txtLastName
 				 // 
 				 this->txtLastName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
-				 this->txtLastName->Location = System::Drawing::Point(469, 52);
+				 this->txtLastName->Location = System::Drawing::Point(484, 59);
 				 this->txtLastName->Name = L"txtLastName";
-				 this->txtLastName->Size = System::Drawing::Size(128, 21);
+				 this->txtLastName->Size = System::Drawing::Size(118, 21);
 				 this->txtLastName->TabIndex = 31;
 				 // 
 				 // btnSetAuthor
@@ -1283,7 +1283,7 @@ namespace V1 {
 				 this->lblFirstName->BackColor = System::Drawing::Color::Transparent;
 				 this->lblFirstName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular,
 					 System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-				 this->lblFirstName->Location = System::Drawing::Point(320, 24);
+				 this->lblFirstName->Location = System::Drawing::Point(357, 31);
 				 this->lblFirstName->Name = L"lblFirstName";
 				 this->lblFirstName->Size = System::Drawing::Size(100, 23);
 				 this->lblFirstName->TabIndex = 79;
@@ -1306,7 +1306,7 @@ namespace V1 {
 				 // 
 				 this->lblLastName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.999999F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
-				 this->lblLastName->Location = System::Drawing::Point(469, 24);
+				 this->lblLastName->Location = System::Drawing::Point(484, 31);
 				 this->lblLastName->Name = L"lblLastName";
 				 this->lblLastName->Size = System::Drawing::Size(100, 23);
 				 this->lblLastName->TabIndex = 78;
