@@ -1148,9 +1148,9 @@ namespace V1 {
 
 		int mandatoryY = 75;
 		int optionalY = 75;
-		int xOffsetMandatory = 100;
-		int xOffsetOptional = 350;
-		int verticalSpacing = 30;
+		int xOffsetMandatory = 98;
+		int xOffsetOptional = 368;
+
 
 		for each (String^ field in type->RequiredFields) {
 			if (field == "keyword") PositionFieldWithLabel(lblKeyword, txtKeyword, mandatoryY, xOffsetMandatory);
@@ -1211,6 +1211,7 @@ namespace V1 {
 		}
 	}
 
+
 	void MainForm::sprache_aendern()
 	{
 		if (en_de == 0) {
@@ -1261,7 +1262,7 @@ namespace V1 {
 			this->btnDelete->Text = L"L\u00f6schen";
 			this->rbtnEditor->Text = L"Herausgeber";
 			this->rbtnAuthor->Text = L"Autor";
-			this->btnClearAuthor->Text = "Autor L\u00f6schen";
+			this->btnClearAuthor->Text = "Löschen";
 			this->lblKeyword->Text = L"Schlagwort:";
 			this->lblAuthor->Text = L"Autor:";
 			this->lblTitle->Text = L"Titel:";
