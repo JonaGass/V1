@@ -182,6 +182,8 @@ namespace V1 {
 			 void OpenPDF();
 			 void ExportToBib();
 			 void UpdateAuthorString(int index, String^ updatedEntry, TextBox^ storageTextBox);
+			 void SetAuthor();
+			 void ValidateSave();
 			 //FunktionenDeklaration
 			 //mein
 
@@ -210,109 +212,7 @@ namespace V1 {
 
 			 // Event handler for save button click
 			 void btnSave_Click(System::Object^ sender, System::EventArgs^ e) {
-				 if (ValidateEntry() && ValidateOptional()) {
-					 currentEntry->type = cmbType->SelectedItem->ToString();
-
-					 // Existierende Einträge bereinigen
-					 currentEntry->keyword = "";
-					 currentEntry->author = "";
-					 currentEntry->title = "";
-					 currentEntry->year = "";
-					 currentEntry->journal = "";
-					 currentEntry->volume = "";
-					 currentEntry->number = "";
-					 currentEntry->pages = "";
-					 currentEntry->month = "";
-					 currentEntry->note = "";
-					 currentEntry->publisher = "";
-					 currentEntry->series = "";
-					 currentEntry->address = "";
-					 currentEntry->edition = "";
-					 currentEntry->howpublished = "";
-					 currentEntry->booktitle = "";
-					 currentEntry->editor = "";
-					 currentEntry->chapter = "";
-					 currentEntry->school = "";
-					 currentEntry->institution = "";
-					 currentEntry->organization = "";
-
-					 // Ausgewählten Typen holen
-					 String^ selectedType = cmbType->SelectedItem->ToString();
-					 DataTypeFields^ selectedTypeFields = nullptr;
-
-					 // Find ausgewählten Typen in dataTypes finden
-					 for each (DataTypeFields^ type in dataTypes) {
-						 if (type->TypeName == selectedType) {
-							 selectedTypeFields = type;
-							 break;
-						 }
-					 }
-
-					 if (selectedTypeFields != nullptr) {
-						 // Werte für erforderliche Felder zuweisen
-						 for each (String^ field in selectedTypeFields->RequiredFields) {
-							 if (field == "keyword") currentEntry->keyword = txtKeyword->Text;
-							 if (field == "author") currentEntry->author = txtAuthor->Text;
-							 if (field == "title") currentEntry->title = txtTitle->Text;
-							 if (field == "year") currentEntry->year = txtYear->Text;
-							 if (field == "journal") currentEntry->journal = txtJournal->Text;
-							 if (field == "volume") currentEntry->volume = txtVolume->Text;
-							 if (field == "number") currentEntry->number = txtNumber->Text;
-							 if (field == "pages") currentEntry->pages = txtPages->Text;
-							 if (field == "month") currentEntry->month = txtMonth->Text;
-							 if (field == "note") currentEntry->note = txtNote->Text;
-							 if (field == "publisher") currentEntry->publisher = txtPublisher->Text;
-							 if (field == "series") currentEntry->series = txtSeries->Text;
-							 if (field == "address") currentEntry->address = txtAddress->Text;
-							 if (field == "edition") currentEntry->edition = txtEdition->Text;
-							 if (field == "howpublished") currentEntry->howpublished = txtHowpublished->Text;
-							 if (field == "booktitle") currentEntry->booktitle = txtBooktitle->Text;
-							 if (field == "editor") currentEntry->editor = txtEditor->Text;
-							 if (field == "chapter") currentEntry->chapter = txtChapter->Text;
-							 if (field == "school") currentEntry->school = txtSchool->Text;
-							 if (field == "institution") currentEntry->institution = txtInstitution->Text;
-							 if (field == "organization") currentEntry->organization = txtOrganization->Text;
-						 }
-
-						 // Werte für optionale Felder zuweisen
-						 for each (String^ field in selectedTypeFields->OptionalFields) {
-							 if (field == "keyword" && currentEntry->keyword->Trim() == String::Empty) currentEntry->keyword = txtKeyword->Text;
-							 if (field == "author" && currentEntry->author->Trim() == String::Empty) currentEntry->author = txtAuthor->Text;
-							 if (field == "title" && currentEntry->title->Trim() == String::Empty) currentEntry->title = txtTitle->Text;
-							 if (field == "year" && currentEntry->year->Trim() == String::Empty) currentEntry->year = txtYear->Text;
-							 if (field == "journal" && currentEntry->journal->Trim() == String::Empty) currentEntry->journal = txtJournal->Text;
-							 if (field == "volume" && currentEntry->volume->Trim() == String::Empty) currentEntry->volume = txtVolume->Text;
-							 if (field == "number" && currentEntry->number->Trim() == String::Empty) currentEntry->number = txtNumber->Text;
-							 if (field == "pages" && currentEntry->pages->Trim() == String::Empty) currentEntry->pages = txtPages->Text;
-							 if (field == "month" && currentEntry->month->Trim() == String::Empty) currentEntry->month = txtMonth->Text;
-							 if (field == "note" && currentEntry->note->Trim() == String::Empty) currentEntry->note = txtNote->Text;
-							 if (field == "publisher" && currentEntry->publisher->Trim() == String::Empty) currentEntry->publisher = txtPublisher->Text;
-							 if (field == "series" && currentEntry->series->Trim() == String::Empty) currentEntry->series = txtSeries->Text;
-							 if (field == "address" && currentEntry->address->Trim() == String::Empty) currentEntry->address = txtAddress->Text;
-							 if (field == "edition" && currentEntry->edition->Trim() == String::Empty) currentEntry->edition = txtEdition->Text;
-							 if (field == "howpublished" && currentEntry->howpublished->Trim() == String::Empty) currentEntry->howpublished = txtHowpublished->Text;
-							 if (field == "booktitle" && currentEntry->booktitle->Trim() == String::Empty) currentEntry->booktitle = txtBooktitle->Text;
-							 if (field == "editor" && currentEntry->editor->Trim() == String::Empty) currentEntry->editor = txtEditor->Text;
-							 if (field == "chapter" && currentEntry->chapter->Trim() == String::Empty) currentEntry->chapter = txtChapter->Text;
-							 if (field == "school" && currentEntry->school->Trim() == String::Empty) currentEntry->school = txtSchool->Text;
-							 if (field == "institution" && currentEntry->institution->Trim() == String::Empty) currentEntry->institution = txtInstitution->Text;
-							 if (field == "organization" && currentEntry->organization->Trim() == String::Empty) currentEntry->organization = txtOrganization->Text;
-						 }
-
-						 // Hinzufügen oder updaten des Eintrags
-						 if (entries->IndexOf(currentEntry) == -1) {
-							 entries->Add(currentEntry);
-						 }
-						 else {
-							 int index = entries->IndexOf(currentEntry);
-							 entries[index] = currentEntry;
-						 }
-
-						 RefreshListView();
-						 UpdateUIState(false);
-						 ClearEntryDetails();
-					 }
-				 }
+				 ValidateSave();
 			 }
 
 
@@ -1203,59 +1103,7 @@ namespace V1 {
 	}
 	private:	System::Void btnSetAuthor_Click(System::Object^ sender, System::EventArgs^ e)
 	{
-		String^ firstName = txtFirstName->Text->Trim();
-		String^ lastName = txtLastName->Text->Trim();
-		String^ text;
-		if (firstName->Length == 0 || lastName->Length == 0) {
-			if (en_de == 0) {
-				text = nachrichten[38, 0];
-			}
-			else if (en_de == 1) {
-				text = nachrichten[38, 1];
-			}
-			MessageBox::Show(text, "Input Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			return;
-		}
-
-		String^ fullName = lastName + ", " + firstName;
-		if (rbtnAuthor->Checked) {
-			if (listViewAuthors->SelectedItems->Count > 0) { //geht immer in diese if Abfrage
-				int selectedIndex = listViewAuthors->SelectedIndices[0];
-				listViewAuthors->Items[selectedIndex]->Text = fullName;
-
-				UpdateAuthorString(selectedIndex, fullName, txtAuthor);
-				listViewAuthors->SelectedIndices->Clear();// Index wird zurückgesetzt
-			}
-			else {
-				listViewAuthors->Items->Add(fullName);// Neuen Eintrag hinzufügen
-				txtAuthor->Text += (txtAuthor->Text->Length > 0 ? " and " : "") + fullName;
-			}
-		}
-		else if (rbtnEditor->Checked) {
-			if (listViewAuthors->SelectedItems->Count > 0) {
-				int selectedIndex = listViewAuthors->SelectedIndices[0];
-				listViewAuthors->Items[selectedIndex]->Text = fullName;
-
-				UpdateAuthorString(selectedIndex, fullName, txtEditor);
-			}
-			else {
-				listViewAuthors->Items->Add(fullName);// Neuen Eintrag hinzufügen
-				txtEditor->Text += (txtEditor->Text->Length > 0 ? " and " : "") + fullName;
-			}
-		}
-
-		else {
-			if (en_de == 0) {
-				text = nachrichten[39, 0];
-			}
-			else if (en_de == 1) {
-				text = nachrichten[39, 1];
-			}
-			MessageBox::Show(text, "Input Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-		}
-
-		txtFirstName->Clear();
-		txtLastName->Clear();
+		SetAuthor();
 	}
 	private: System::Void btnClearAuthor_Click(System::Object^  sender, System::EventArgs^  e) {
 		listViewAuthors->Items->Clear();
