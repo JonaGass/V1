@@ -13,7 +13,7 @@ namespace V1 {
 	using namespace System::Drawing;
 	using namespace System::Reflection;
 	using namespace System::IO;
-	using namespace System::Media;
+	using namespace System::Media; // Benötigt um Sound abzuspielen
 	/// <summary>
 	/// Zusammenfassung für SplashScreen
 	/// </summary>
@@ -25,29 +25,28 @@ namespace V1 {
 		{
 			InitializeComponent();
 
+			// Splashscreen zentral auf Bildschirm anzeigen
 			this->StartPosition = FormStartPosition::CenterScreen;
 
-			// Load embedded HTML resource
+			// Eingebettete HTML Animation laden
 			Assembly^ assemblyHTML = Assembly::GetExecutingAssembly();
 			Stream^ streamHTML = assemblyHTML->GetManifestResourceStream("SplashAnimation.html");
 			StreamReader^ reader = gcnew StreamReader(streamHTML);
 			String^ htmlContent = reader->ReadToEnd();
 
-			// Navigate to the HTML content
+			// HTML Code in Browser laden
 			webBrowser1->DocumentText = htmlContent;
 
-
+			// Eingebettete Sounddatei laden
 			Assembly^ assemblySound = Assembly::GetExecutingAssembly();
 			Stream^ streamSound = assemblySound->GetManifestResourceStream("Startup.wav");
 
-			if (streamSound != nullptr)
-			{
-				SoundPlayer^ player = gcnew SoundPlayer(streamSound);
-				player->Play();
-			}
+			// Startup Sound abspielen
+			SoundPlayer^ player = gcnew SoundPlayer(streamSound);
+			player->Play();
+		
 
-
-
+			// 5 Sekunden Timer starten
 			System::Windows::Forms::Timer^ timer = gcnew System::Windows::Forms::Timer();
 			timer->Interval = 5000; // 5 Sekunden
 			timer->Tick += gcnew EventHandler(this, &SplashScreen::OnTimerTick);
@@ -56,7 +55,7 @@ namespace V1 {
 
 	private:
 		void OnTimerTick(System::Object^ sender, System::EventArgs^ e) {
-			// Timer stoppen und Formular schließen
+			// Splashscreen schließen wenn Timer abgelaufen ist
 			((System::Windows::Forms::Timer^)sender)->Stop();
 			this->Close();
 		}

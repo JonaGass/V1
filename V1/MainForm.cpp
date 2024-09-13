@@ -3,7 +3,7 @@
 namespace V1 {
 
 
-	// Function to clear entry details from the panel
+	// Funktion zum Bereinigen der Textfelder
 	void MainForm::ClearEntryDetails()
 	{
 		currentEntry = nullptr;
@@ -29,10 +29,11 @@ namespace V1 {
 		txtSchool->Clear();
 		txtInstitution->Clear();
 		txtOrganization->Clear();
+		listViewAuthors->Items->Clear();
 		SetFieldsReadOnly(false);
 	}
 
-	// Function to toggle read-only state of fields
+	// Funktion zum Ändern des ReadOnly Status
 	void MainForm::SetFieldsReadOnly(bool readOnly)
 	{
 		txtKeyword->ReadOnly = readOnly;
@@ -66,7 +67,7 @@ namespace V1 {
 		btnClearAuthor->Visible = !readOnly;
 	}
 
-	//Function to initialize the type dropdown with entry types
+	//Funktion um Dropdown mit auswählbaren Referenztypen zu füllen
 	void MainForm::PopulateTypeDropdown()
 	{
 		for each (DataTypeFields ^ type in dataTypes)
@@ -75,7 +76,7 @@ namespace V1 {
 		}
 	}
 
-	// Function to display entry details in the panel
+	// Funktion zum Anzeigen der EntryDetails
 	void MainForm::DisplayEntryDetails(DataArray^ entry)
 	{
 		cmbType->SelectedItem = entry->type;
@@ -103,29 +104,26 @@ namespace V1 {
 		SetFieldsReadOnly(true);
 
 
-		//mein
 		listViewAuthors->Items->Clear();
 
-		if (entry->author != nullptr)
+		if (entry->author != nullptr) // Überprüft ob ein Autor vorhanden ist
 		{
-			array<String^>^ authors = entry->author->Split(gcnew array<String^>{ " and " }, StringSplitOptions::None);
-			for each (String^ author in authors)
+			array<String^>^ authors = entry->author->Split(gcnew array<String^>{ " and " }, StringSplitOptions::None); // Teilt die Autornamen am Wort "and"
+			for each (String^ author in authors) // Läuft einmal durch jeden Autor durch
 			{
-				listViewAuthors->Items->Add(author->Trim());
+				listViewAuthors->Items->Add(author->Trim()); // Fügt jeden Autor der ListView hinzu
 			}
 		}
 
-		if (entry->editor != nullptr)
+		if (entry->editor != nullptr) // Überprüft ob ein Editor vorhanden ist
 		{
-			array<String^>^ editors = entry->editor->Split(gcnew array<String^>{ " and " }, StringSplitOptions::None);
-			for each (String^ editor in editors)
+			array<String^>^ editors = entry->editor->Split(gcnew array<String^>{ " and " }, StringSplitOptions::None); // Teilt die Editornamen am Wort "and"
+			for each (String^ editor in editors) // Läuft einmal durch jeden Editor durch
 			{
-				listViewAuthors->Items->Add(editor->Trim());
+				listViewAuthors->Items->Add(editor->Trim()); // Fügt jeden Editor der ListView hinzu
 			}
 		}
 
-
-		//mein
 
 
 	}
@@ -143,7 +141,6 @@ namespace V1 {
 			else if (en_de == 1) {
 				MessageBox::Show(nachrichten[0, 1]);
 			}
-			//MessageBox::Show("Please select an entry type.");
 			stateMandatory = false;
 		}
 		else {
@@ -168,7 +165,6 @@ namespace V1 {
 				else if (en_de == 1) {
 					MessageBox::Show(nachrichten[1, 1]);
 				}
-				//MessageBox::Show("Invalid entry type selected.");
 				stateMandatory = false;
 			}
 
@@ -192,17 +188,14 @@ namespace V1 {
 					else if (en_de == 1) {
 						errorMessage += nachrichten[2, 1];
 					}
-					//errorMessage += "Please fill in the keyword field.\n";
 					stateMandatory = false;
 				}
 				if (field == "author") {
 					AuthorMandatory = true;
 					if (txtAuthor->Text->Trim() == String::Empty) {
-						//errorMessage += "Please fill in the author field.\n";
-						//stateMandatory = false;
 					}
 					else {
-						hasAuthor = true; // Author is present
+						hasAuthor = true; // Author ist da
 					}
 				}
 				if (field == "title" && txtTitle->Text->Trim() == String::Empty) {
@@ -212,7 +205,6 @@ namespace V1 {
 					else if (en_de == 1) {
 						errorMessage += nachrichten[3, 1];
 					}
-					//errorMessage += "Please fill in the title field.\n";
 					stateMandatory = false;
 				}
 				int year;
@@ -223,11 +215,9 @@ namespace V1 {
 					else if (en_de == 1) {
 						errorMessage += nachrichten[4, 1];
 					}
-					//errorMessage += "Please enter a number into the year field.\n";
 					stateMandatory = false;
 				}
 				if (field == "journal" && txtJournal->Text->Trim() == String::Empty) {
-					//errorMessage += "Please fill in the journal field.\n";
 					stateMandatory = false;
 				}
 				int volume;
@@ -238,7 +228,6 @@ namespace V1 {
 					else if (en_de == 1) {
 						errorMessage += nachrichten[5, 1];
 					}
-					//errorMessage += "Please enter a number into the volume field.\n";
 					stateMandatory = false;
 				}
 				int number;
@@ -249,19 +238,12 @@ namespace V1 {
 					else if (en_de == 1) {
 						errorMessage += nachrichten[6, 1];
 					}
-					//errorMessage += "Please enter a number into the number field.\n";
 					stateMandatory = false;
 				}
 				int pages;
-				/*if ((field == "pages" && txtPages->Text->Trim() == String::Empty) || (field == "pages" && !Int32::TryParse(txtPages->Text, pages))) {
-					errorMessage += "Please enter a number into the pages field.\n";
-					stateMandatory = false;
-				}*/
 				if (field == "pages") {
 					PagesMandatory = true;
 					if (txtPages->Text->Trim() == String::Empty) {
-						//errorMessage += "Please enter a number into the pages field.\n";
-						//stateMandatory = false;
 					}
 					else if (!Int32::TryParse(txtPages->Text, pages)) {
 						if (en_de == 0) {
@@ -270,10 +252,9 @@ namespace V1 {
 						else if (en_de == 1) {
 							errorMessage += nachrichten[7, 1];
 						}
-						//errorMessage += "Please enter a number into the pages field.\n";
 					}
 					else {
-						hasPages = true; // Pages is present
+						hasPages = true; // Pages ist da
 					}
 				}
 				if (field == "month" && txtMonth->Text->Trim() == String::Empty) {
@@ -283,7 +264,6 @@ namespace V1 {
 					else if (en_de == 1) {
 						errorMessage += nachrichten[8, 1];
 					}
-					//errorMessage += "Please fill in the month field.\n";
 					stateMandatory = false;
 				}
 				if (field == "note" && txtNote->Text->Trim() == String::Empty) {
@@ -293,7 +273,6 @@ namespace V1 {
 					else if (en_de == 1) {
 						errorMessage += nachrichten[9, 1];
 					}
-					//errorMessage += "Please fill in the note field.\n";
 					stateMandatory = false;
 				}
 				if (field == "publisher" && txtPublisher->Text->Trim() == String::Empty) {
@@ -303,7 +282,6 @@ namespace V1 {
 					else if (en_de == 1) {
 						errorMessage += nachrichten[10, 1];
 					}
-					//errorMessage += "Please fill in the publisher field.\n";
 					stateMandatory = false;
 				}
 				if (field == "series" && txtSeries->Text->Trim() == String::Empty) {
@@ -313,7 +291,6 @@ namespace V1 {
 					else if (en_de == 1) {
 						errorMessage += nachrichten[11, 1];
 					}
-					//errorMessage += "Please fill in the series field.\n";
 					stateMandatory = false;
 				}
 				if (field == "address" && txtAddress->Text->Trim() == String::Empty) {
@@ -323,7 +300,6 @@ namespace V1 {
 					else if (en_de == 1) {
 						errorMessage += nachrichten[12, 1];
 					}
-					//errorMessage += "Please fill in the address field.\n";
 					stateMandatory = false;
 				}
 				if (field == "edition" && txtEdition->Text->Trim() == String::Empty) {
@@ -333,7 +309,6 @@ namespace V1 {
 					else if (en_de == 1) {
 						errorMessage += nachrichten[13, 1];
 					}
-					//errorMessage += "Please fill in the edition field.\n";
 					stateMandatory = false;
 				}
 				if (field == "howpublished" && txtHowpublished->Text->Trim() == String::Empty) {
@@ -343,7 +318,6 @@ namespace V1 {
 					else if (en_de == 1) {
 						errorMessage += nachrichten[14, 1];
 					}
-					//errorMessage += "Please fill in the how published field.\n";
 					stateMandatory = false;
 				}
 				if (field == "booktitle" && txtBooktitle->Text->Trim() == String::Empty) {
@@ -353,31 +327,22 @@ namespace V1 {
 					else if (en_de == 1) {
 						errorMessage += nachrichten[15, 1];
 					}
-					//errorMessage += "Please fill in the book title field.\n";
 					stateMandatory = false;
 				}
 				if (field == "editor") {
 					EditorMandatory = true;
 					if (txtEditor->Text->Trim() == String::Empty) {
-						//errorMessage += "Please fill in the editor field.\n";
-						//stateMandatory = false;
 					}
 					else {
-						hasEditor = true; // Editor is present
+						hasEditor = true; // Editor ist da
 					}
 				}
-				/*if (field == "chapter" && txtChapter->Text->Trim() == String::Empty) {
-					errorMessage += "Please fill in the chapter field.\n";
-					stateMandatory = false;
-				}*/
 				if (field == "chapter") {
 					ChapterMandatory = true;
 					if (txtChapter->Text->Trim() == String::Empty) {
-						//errorMessage += "Please fill in the Chapter field.\n";
-						//stateMandatory = false;
 					}
 					else {
-						hasChapter = true; // Chapter is present
+						hasChapter = true; // Chapter ist da
 					}
 				}
 
@@ -388,7 +353,6 @@ namespace V1 {
 					else if (en_de == 1) {
 						errorMessage += nachrichten[16, 1];
 					}
-					//errorMessage += "Please fill in the school field.\n";
 					stateMandatory = false;
 				}
 				if (field == "institution" && txtInstitution->Text->Trim() == String::Empty) {
@@ -398,7 +362,6 @@ namespace V1 {
 					else if (en_de == 1) {
 						errorMessage += nachrichten[17, 1];
 					}
-					//errorMessage += "Please fill in the institution field.\n";
 					stateMandatory = false;
 				}
 				if (field == "organization" && txtOrganization->Text->Trim() == String::Empty) {
@@ -408,7 +371,6 @@ namespace V1 {
 					else if (en_de == 1) {
 						errorMessage += nachrichten[18, 1];
 					}
-					//errorMessage += "Please fill in the organization field.\n";
 					stateMandatory = false;
 				}
 			}
@@ -423,7 +385,6 @@ namespace V1 {
 					else if (en_de == 1) {
 						errorMessage += nachrichten[19, 1];
 					}
-					//errorMessage += "Please fill in either the author or the editor field.\n";
 					stateMandatory = false;
 				}
 				else if (hasAuthor && hasEditor) {
@@ -433,7 +394,6 @@ namespace V1 {
 					else if (en_de == 1) {
 						errorMessage += nachrichten[20, 1];
 					}
-					//errorMessage += "Cannot have both Author and Editor!\n";
 					stateMandatory = false;
 				}
 			}
@@ -445,7 +405,6 @@ namespace V1 {
 					else if (en_de == 1) {
 						errorMessage += nachrichten[21, 1];
 					}
-					//errorMessage += "Please fill in the author field.\n";
 					stateMandatory = false;
 				}
 			}
@@ -457,7 +416,6 @@ namespace V1 {
 					else if (en_de == 1) {
 						errorMessage += nachrichten[22, 1];
 					}
-					//errorMessage += "Please fill in the editor field.\n";
 					stateMandatory = false;
 				}
 			}
@@ -471,7 +429,6 @@ namespace V1 {
 					else if (en_de == 1) {
 						errorMessage += nachrichten[23, 1];
 					}
-					//errorMessage += "Please fill in either the Pages or the Chapter field.\n";
 					stateMandatory = false;
 				}
 			}
@@ -483,7 +440,6 @@ namespace V1 {
 					else if (en_de == 1) {
 						errorMessage += nachrichten[24, 1];
 					}
-					//errorMessage += "Please fill in the Pages field.\n";
 					stateMandatory = false;
 				}
 			}
@@ -495,7 +451,6 @@ namespace V1 {
 					else if (en_de == 1) {
 						errorMessage += nachrichten[25, 1];
 					}
-					//errorMessage += "Please fill in the Chapter field.\n";
 					stateMandatory = false;
 				}
 			}
@@ -519,7 +474,6 @@ namespace V1 {
 			else if (en_de == 1) {
 				MessageBox::Show(nachrichten[26, 1]);
 			}
-			//MessageBox::Show("Please select an entry type.");
 			return false;
 		}
 
@@ -544,22 +498,12 @@ namespace V1 {
 			else if (en_de == 1) {
 				MessageBox::Show(nachrichten[27, 1]);
 			}
-			//MessageBox::Show("Invalid entry type selected.");
 			return false;
 		}
 		String^ errorMessageOptional = "";
 		// Check each optional field; leave conditions empty
 		for each (String^ field in selectedTypeFields->OptionalFields)
 		{
-			if (field == "keyword") {
-				// zu erg\u00e4nzen
-			}
-			if (field == "author") {
-				// zu erg\u00e4nzen
-			}
-			if (field == "title") {
-				// zu erg\u00e4nzen
-			}
 			int year;
 			if (field == "year" && !Int32::TryParse(txtYear->Text, year) && !(txtYear->Text->Trim() == String::Empty)) {
 				stateOptional = false;
@@ -569,11 +513,8 @@ namespace V1 {
 				else if (en_de == 1) {
 					errorMessageOptional += nachrichten[28, 1];
 				}
-				//errorMessageOptional += "Year must be a number.\n";
 			}
-			if (field == "journal") {
-				// zu erg\u00e4nzen
-			}
+
 			int volume;
 			if (field == "volume" && !Int32::TryParse(txtVolume->Text, volume) && !(txtVolume->Text->Trim() == String::Empty)) {
 				stateOptional = false;
@@ -583,7 +524,6 @@ namespace V1 {
 				else if (en_de == 1) {
 					errorMessageOptional += nachrichten[29, 1];
 				}
-				//errorMessageOptional += "Volume must be a number.\n";
 			}
 			int number;
 			if (field == "number" && !Int32::TryParse(txtNumber->Text, number) && !(txtNumber->Text->Trim() == String::Empty)) {
@@ -594,7 +534,6 @@ namespace V1 {
 				else if (en_de == 1) {
 					errorMessageOptional += nachrichten[30, 1];
 				}
-				//errorMessageOptional += "Number must be a number.\n";
 			}
 			int pages;
 			if (field == "pages" && !Int32::TryParse(txtPages->Text, pages) && !(txtPages->Text->Trim() == String::Empty)) {
@@ -605,46 +544,6 @@ namespace V1 {
 				else if (en_de == 1) {
 					errorMessageOptional += nachrichten[31, 1];
 				}
-				//errorMessageOptional += "Pages must be a number.\n";
-			}
-			if (field == "month") {
-				// zu erg\u00e4nzen
-			}
-			if (field == "note") {
-				// zu erg\u00e4nzen
-			}
-			if (field == "publisher") {
-				// zu erg\u00e4nzen
-			}
-			if (field == "series") {
-				// zu erg\u00e4nzen
-			}
-			if (field == "address") {
-				// zu erg\u00e4nzen
-			}
-			if (field == "edition") {
-				// zu erg\u00e4nzen
-			}
-			if (field == "howpublished") {
-				// zu erg\u00e4nzen
-			}
-			if (field == "booktitle") {
-				// zu erg\u00e4nzen
-			}
-			if (field == "editor") {
-				// zu erg\u00e4nzen
-			}
-			if (field == "chapter") {
-				// zu erg\u00e4nzen
-			}
-			if (field == "school") {
-				// zu erg\u00e4nzen
-			}
-			if (field == "institution") {
-				// zu erg\u00e4nzen
-			}
-			if (field == "organization") {
-				// zu erg\u00e4nzen
 			}
 		}
 		if (!stateOptional) {
@@ -653,8 +552,9 @@ namespace V1 {
 		return stateOptional;
 	}
 
-	void MainForm::UpdateUIState(bool inEditMode) 
+	void MainForm::UpdateUIState(bool inEditMode)
 	{
+		// Toggelt die UI-Elemente für EditMode bzw. nicht-EditMode
 		isEditMode = inEditMode;
 		cmbType->Enabled = inEditMode;
 		btnSave->Visible = inEditMode;
@@ -672,15 +572,15 @@ namespace V1 {
 
 	void MainForm::RefreshListView()
 	{
+		// Alle Einträge aus "entries" in Liste anzeigen
 		listViewEntries->Items->Clear();
 		for each (DataArray^ entry in entries) {
 			String^ itemText = entry->keyword;
 			listViewEntries->Items->Add(gcnew ListViewItem(itemText));
-			//Console::WriteLine("Added: {0}", itemText);
 		}
 	}
 
-	// hide all fields
+	// Alle Textfelder ausblenden
 	void MainForm::HideAllFields()
 	{
 		txtKeyword->Visible = false;
@@ -736,7 +636,6 @@ namespace V1 {
 		rbtnAuthor->Visible = false;
 		rbtnEditor->Visible = false;
 		listViewAuthors->Visible = false;
-		// Author Namensblock ausblenden
 	}
 
 	void MainForm::SaveEntries(String^ filename)
@@ -747,7 +646,7 @@ namespace V1 {
 		BinaryFormatter^ formatter = gcnew BinaryFormatter();
 		String^ text;
 		try {
-			// Serialize the entries to the file stream
+			// Für Speichern in Binärdatei Serialize der Daten
 			formatter->Serialize(fs, entries);
 		}
 		catch (Exception^ ex) {
@@ -758,7 +657,7 @@ namespace V1 {
 				text = nachrichten[32, 1];
 			}
 			MessageBox::Show(text + ex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-		} //Fehlermeldung wenn speichern nicht erfolgreich
+		} //Fehlermeldung wenn Speichern nicht erfolgreich
 		finally{
 			fs->Close();
 		}
@@ -776,7 +675,7 @@ namespace V1 {
 			if (File::Exists(filename)) {
 				fs = gcnew FileStream(filename, FileMode::Open, FileAccess::Read);
 				BinaryFormatter^ formatter = gcnew BinaryFormatter();
-				// Deserialize the file stream into the entries list
+				// Deserialisieren des Dateistream in die Eintragsliste
 				entries = (List<DataArray^>^)formatter->Deserialize(fs);
 				success = true; // Wenn das Einlesen erfolgreich ist
 			}
@@ -807,40 +706,39 @@ namespace V1 {
 			}
 		}
 
-		return success; // Gibt den Erfolg oder Misserfolg zur\u00fcck
+		return success; // Gibt den Erfolg oder Misserfolg zurück
 	}
 
-	void MainForm::PerformSearch(String^ searchTerm)
-	{
-		listViewEntries->Items->Clear(); // Clear existing entries
-		displayedEntryIndices->Clear(); // Clear previous indices
+	void MainForm::PerformSearch(String^ searchTerm) {
+		listViewEntries->Items->Clear(); // Zurücksetzen der angezeigten Listenelemente
+		displayedEntryIndices->Clear();
 
 		for (int i = 0; i < entries->Count; i++) {
 			DataArray^ entry = entries[i];
 			if ((entry->keyword->IndexOf(searchTerm, StringComparison::CurrentCultureIgnoreCase) >= 0) ||
 				(entry->title->IndexOf(searchTerm, StringComparison::CurrentCultureIgnoreCase) >= 0) ||
-				(entry->author->IndexOf(searchTerm, StringComparison::CurrentCultureIgnoreCase) >= 0)) {
+				(entry->author->IndexOf(searchTerm, StringComparison::CurrentCultureIgnoreCase) >= 0)) { // Vergleich des SearchTerm mit den Feldern keyword, title, author; theoretisch erweiterbar
 
-				// If a match is found, add to the ListView
+				// Wenn übereinstimmung gefunden wird der entsprechedne Eintrag in die anzuzeigende Liste aufgenommen
 				String^ itemText = entry->keyword;
 				listViewEntries->Items->Add(gcnew ListViewItem(itemText));
 
-				// Store the original index for the displayed entry
+				// Ursprünglicher Index wird gespeichert
 				displayedEntryIndices->Add(i);
 			}
 		}
 	}
 
-	// Function to show fields based on entry type
-	int MainForm::ShowFieldsForType(DataTypeFields^ type)
+	// Funktion Anzeigen der Textfelder nach ausgewähltem Referenztypen
+	int MainForm::ShowFieldsForType(DataTypeFields^ type)	// Rückgabewert =  TabIndex des letzten Feldes
 	{
-		// Hide all fields initially
+		// Alle Felder erstmal ausblenden
 		HideAllFields();
-		int TabNumber = 10;
-		bool Author = false;
+		int TabNumber = 10;	//	TabIndex des ersten Feldes wird vergeben, danach werden die TabIndizes dynamisch vergeben
+		bool Author = false;	//	Author und Editor müssen gesondert behandelt werden
 		bool Editor = false;
 
-		// Show only the fields relevant to the selected type
+		// Nur relevante Felder werden eingeblendet
 		for each (String^ mandatoryField in type -> RequiredFields)
 		{
 			if (mandatoryField == "keyword") {
@@ -1100,7 +998,7 @@ namespace V1 {
 			}
 		}
 
-		if (Author && Editor) {
+		if (Author && Editor) {					// Spezialfall Author && Editor mit EingabeUI Vor- und Nachname
 			txtAuthor->Visible = true;
 			listViewAuthors->Visible = true;
 			lblAuthor->Visible = true;
@@ -1117,7 +1015,7 @@ namespace V1 {
 			rbtnAuthor->Checked = false;
 			rbtnEditor->Checked = false;
 		}
-		else if (Author) {
+		else if (Author) {							// Spezialfall Author mit EingabeUI Vor- und Nachname
 			txtAuthor->Visible = true;
 			listViewAuthors->Visible = true;
 			lblAuthor->Visible = true;
@@ -1131,7 +1029,7 @@ namespace V1 {
 			rbtnAuthor->Checked = true;
 			tc_no_edit = true;
 		}
-		else if (Editor) {
+		else if (Editor) {							// Spezialfall Editor mit EingabeUI Vor- und Nachname
 			txtEditor->Visible = true;
 			listViewAuthors->Visible = true;
 			lblEditor->Visible = true;
@@ -1148,10 +1046,10 @@ namespace V1 {
 
 		int mandatoryY = 75;
 		int optionalY = 75;
-		int xOffsetMandatory = 100;
-		int xOffsetOptional = 350;
-		int verticalSpacing = 30;
+		int xOffsetMandatory = 98;
+		int xOffsetOptional = 368;
 
+		// Zwingende Felder auf der linken Seite einblenden
 		for each (String^ field in type->RequiredFields) {
 			if (field == "keyword") PositionFieldWithLabel(lblKeyword, txtKeyword, mandatoryY, xOffsetMandatory);
 			if (field == "author") PositionFieldWithLabel(lblAuthor, txtAuthor, mandatoryY, xOffsetMandatory);
@@ -1175,7 +1073,7 @@ namespace V1 {
 			if (field == "institution") PositionFieldWithLabel(lblInstitution, txtInstitution, mandatoryY, xOffsetMandatory);
 			if (field == "organization") PositionFieldWithLabel(lblOrganization, txtOrganization, mandatoryY, xOffsetMandatory);
 		}
-
+		// Optionale Felder auf der rechten Seite einblenden
 		for each (String^ field in type->OptionalFields) {
 			if (field == "keyword") PositionFieldWithLabel(lblKeyword, txtKeyword, optionalY, xOffsetOptional);
 			if (field == "author") PositionFieldWithLabel(lblAuthor, txtAuthor, optionalY, xOffsetOptional);
@@ -1199,9 +1097,10 @@ namespace V1 {
 			if (field == "institution") PositionFieldWithLabel(lblInstitution, txtInstitution, optionalY, xOffsetOptional);
 			if (field == "organization") PositionFieldWithLabel(lblOrganization, txtOrganization, optionalY, xOffsetOptional);
 		}
-		return TabNumber;
+		return TabNumber; // erreichter TabIndex wird zurückgegeben
 	}
 
+	// UI-Elemente dynamisch positionieren
 	void MainForm::PositionFieldWithLabel(Label^ label, TextBox^ field, int% yOffset, int xOffset)
 	{
 		if (field->Visible) {
@@ -1213,7 +1112,8 @@ namespace V1 {
 
 	void MainForm::sprache_aendern()
 	{
-		if (en_de == 0) {
+		if (en_de == 0) {// Wenn die Sprache auf Englisch eingestellt ist
+					 // Ändere die Texte der UI-Elemente auf Englisch
 			this->btnSetAuthor->Text = L"Set";
 			this->btnExportToBib->Text = L"Export to .bib";
 			this->btnNew->Text = L"New";
@@ -1253,7 +1153,8 @@ namespace V1 {
 			this->btnPDF->Text = L"Manual";
 		}
 
-		if (en_de == 1) {
+		if (en_de == 1) {// Wenn die Sprache auf Deutsch eingestellt ist
+					 // Ändere die Texte der UI-Elemente auf Deutsch
 			this->btnSetAuthor->Text = L"Setzen";
 			this->btnExportToBib->Text = L"Exportieren zu .bib";
 			this->btnNew->Text = L"Neu";
@@ -1261,7 +1162,7 @@ namespace V1 {
 			this->btnDelete->Text = L"L\u00f6schen";
 			this->rbtnEditor->Text = L"Herausgeber";
 			this->rbtnAuthor->Text = L"Autor";
-			this->btnClearAuthor->Text = "Autor L\u00f6schen";
+			this->btnClearAuthor->Text = "Löschen";
 			this->lblKeyword->Text = L"Schlagwort:";
 			this->lblAuthor->Text = L"Autor:";
 			this->lblTitle->Text = L"Titel:";
@@ -1292,7 +1193,7 @@ namespace V1 {
 			this->btnSaveHDD->Text = L"Speichern auf HDD";
 			this->btnPDF->Text = L"Handbuch";
 		}
-		nachrichten = gcnew array<String^, 2>{
+		nachrichten = gcnew array<String^, 2>{ //füllt den Array für die Nachrichten mit einem deutschen und einem englischen Text 
 			{ "Please select an entry type.\n", "Bitte w\u00e4hlen Sie einen Eintragstyp aus.\n" },
 			{ "Invalid entry type selected.\n","Ung\u00fcltiger Eintragstyp ausgew\u00e4hlt.\n" },
 			{ "Please fill in the keyword field.\n","Bitte f\u00fcllen Sie das Stichwortfeld aus.\n" },
@@ -1337,19 +1238,352 @@ namespace V1 {
 			{ "The PDF file was not found:","Die PDF Datei wurde nicht gefunden: " },
 			{ "Missing Input!", "Fehlende Eingabe!" }
 		};
-		/*std::pair<std::string, std::string> errorMessages[] = {
-	   {"Bitte f\u00fcllen Sie das Feld f\u00fcr das Journal aus.", "Please fill in the journal field."},
-	   {"Bitte geben Sie eine Zahl in das Jahr-Feld ein.", "Please enter a number into the year field."},
-	   {"Es darf nicht sowohl Autor als auch Herausgeber angegeben werden!", "Cannot have both Author and Editor!"},
-	   {"Bitte f\u00fcllen Sie das Feld f\u00fcr den Autor aus.", "Please fill in the author field."},
-	   {"Bitte f\u00fcllen Sie das Feld f\u00fcr den Herausgeber aus.", "Please fill in the editor field."},
-	   {"Bitte f\u00fcllen Sie das Feld f\u00fcr das Kapitel aus.", "Please fill in the chapter field."},
-	   {"Bitte f\u00fcllen Sie das Feld f\u00fcr den Titel aus.", "Please fill in the title field."},
-	   {"Bitte f\u00fcllen Sie das Feld f\u00fcr die Seiten aus.", "Please fill in the pages field."},
-	   {"Missing Input","Fehlende Eingabe"}
-		};*/
-
-
 	}
-	
+
+	void MainForm::DarkMode()
+	{
+		// Array aller Textboxen
+		array<System::Windows::Forms::TextBox^>^ textBoxes = {
+			this->txtKeyword, this->txtAuthor, this->txtTitle, this->txtYear,
+			this->txtJournal, this->txtVolume, this->txtNumber, this->txtPages,
+			this->txtMonth, this->txtNote, this->txtPublisher, this->txtSeries,
+			this->txtAddress, this->txtEdition, this->txtHowpublished, this->txtBooktitle,
+			this->txtEditor, this->txtChapter, this->txtSchool, this->txtInstitution,
+			this->txtOrganization, this->txtSearch, this->txtFirstName, this->txtLastName
+		};
+
+		if (this->BackColor == System::Drawing::Color::FromArgb(30, 30, 30)) { // Wenn Dark Mode Farben
+			// Setze auf Lightmode
+
+			Assembly^ assemblyHTML = Assembly::GetExecutingAssembly();
+			Stream^ streamHTML = assemblyHTML->GetManifestResourceStream("lightmode.html");
+			StreamReader^ reader = gcnew StreamReader(streamHTML);
+			String^ htmlContent = reader->ReadToEnd();
+			webBrowser1->DocumentText = htmlContent;
+
+			this->BackColor = System::Drawing::Color::WhiteSmoke;
+			this->btnDarkmode->Text = L"Darkmode";
+			panelDetails->BackColor = System::Drawing::Color::WhiteSmoke;
+			listViewEntries->BackColor = System::Drawing::Color::WhiteSmoke;
+			listViewAuthors->BackColor = System::Drawing::Color::WhiteSmoke;
+
+
+			for each (System::Windows::Forms::TextBox^ textBox in textBoxes) {
+				textBox->BackColor = System::Drawing::Color::White;
+				textBox->ForeColor = System::Drawing::Color::Black;
+			}
+
+			// Setze Farben für Labels und Buttons
+			array<System::Windows::Forms::Control^>^ controls = {
+				rbtnAuthor, rbtnEditor, btnSetAuthor, btnClearAuthor,
+				lblFirstName, lblLastName, lblKeyword, lblAuthor, lblTitle, lblYear,
+				lblJournal, lblVolume, lblNumber, lblPages, lblMonth, lblNote,
+				lblPublisher, lblSeries, lblAddress, lblEdition, lblHowpublished,
+				lblABooktitle, lblEditor, lblChapter, lblSchool, lblInstitution, lblOrganization,
+				listViewEntries, listViewAuthors, btnCancel, btnSave
+			};
+
+			for each (System::Windows::Forms::Control^ control in controls) {
+				control->ForeColor = System::Drawing::Color::Black;
+			}
+
+		}
+		else { // Light Mode Farben
+		 // Setze auf Darkmode
+			Assembly^ assemblyHTML = Assembly::GetExecutingAssembly();
+			Stream^ streamHTML = assemblyHTML->GetManifestResourceStream("darkmode.html");
+			StreamReader^ reader = gcnew StreamReader(streamHTML);
+			String^ htmlContent = reader->ReadToEnd();
+			webBrowser1->DocumentText = htmlContent;
+
+			this->BackColor = System::Drawing::Color::FromArgb(30, 30, 30);
+			this->btnDarkmode->Text = L"Lightmode";
+			panelDetails->BackColor = System::Drawing::Color::FromArgb(45, 45, 45);
+			listViewEntries->BackColor = System::Drawing::Color::FromArgb(45, 45, 45);
+			listViewAuthors->BackColor = System::Drawing::Color::FromArgb(45, 45, 45);
+
+
+			for each (System::Windows::Forms::TextBox^ textBox in textBoxes) {
+				textBox->BackColor = System::Drawing::Color::FromArgb(45, 45, 45);
+				textBox->ForeColor = System::Drawing::Color::White;
+			}
+
+			// Setze Farben für Labels und Buttons
+			array<System::Windows::Forms::Control^>^ controls = {
+				rbtnAuthor, rbtnEditor, btnSetAuthor, btnClearAuthor,
+				lblFirstName, lblLastName, lblKeyword, lblAuthor, lblTitle, lblYear,
+				lblJournal, lblVolume, lblNumber, lblPages, lblMonth, lblNote,
+				lblPublisher, lblSeries, lblAddress, lblEdition, lblHowpublished,
+				lblABooktitle, lblEditor, lblChapter, lblSchool, lblInstitution, lblOrganization,
+				listViewEntries, listViewAuthors, btnCancel, btnSave
+			};
+
+			for each (System::Windows::Forms::Control^ control in controls) {
+				control->ForeColor = System::Drawing::Color::White;
+			}
+		}
+	}
+
+	void MainForm::OpenPDF()
+	{
+		Assembly^ assembly = Assembly::GetExecutingAssembly();
+
+		// Lese die eingebettete PDF-Ressource als Stream
+		Stream^ pdfStream = assembly->GetManifestResourceStream("PDF_file.pdf");
+
+		if (pdfStream != nullptr)
+		{
+			// Temporäre Datei erstellen
+			String^ tempFilePath = Path::GetTempFileName() + ".pdf";
+
+			// PDF-Daten in die temporäre Datei schreiben
+			FileStream^ fileStream = gcnew FileStream(tempFilePath, FileMode::Create, FileAccess::Write);
+			pdfStream->CopyTo(fileStream);
+			fileStream->Close();
+
+			// PDF öffnen
+			Process::Start(tempFilePath);
+
+		}
+		else
+		{
+			if (en_de == 0) {
+				MessageBox::Show(nachrichten[41, 0]);
+			}
+			else if (en_de == 1) {
+				MessageBox::Show(nachrichten[41, 1]);
+			}
+
+		}
+	}
+
+	void MainForm::ExportToBib() 
+	{
+		int n;  // Zähler für Einträge 
+		n = 0; // Setze den Zähler auf 0
+		int size = entries->Count; // Anzahl der Einträge (Größe des Arrays)
+
+		//meins
+		SaveFileDialog^ saveFileDialog = gcnew SaveFileDialog();
+		saveFileDialog->Filter = "Bib Dateien (*.bib)|*.bib"; //nur.bib-Dateien können gespeichert werden
+		saveFileDialog->Title = "Speicher die Bib-Datei";  // Titel des Speicherdialogs
+		if (saveFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK) { // Wenn der Benutzer im Dialog auf OK klickt
+
+			String^ filePath = saveFileDialog->FileName; // Der ausgewählte Dateipfad wird gespeichert
+
+
+			FILE* Quelle; // Datei zum Schreiben öffnen
+			Quelle = fopen((const char*)(void*)System::Runtime::InteropServices::Marshal::StringToHGlobalAnsi(filePath), "w"); // Konvertiere den Dateipfad von einem managed String zu einem C-String
+
+			while (n < size) // Schleife die durch alle Einträge in der Liste läuft
+			{
+
+				fprintf(Quelle, "@%s{%s", entries[n]->type, entries[n]->keyword); // Beginne mit dem Schreiben eines Bib-Eintrags
+
+				// Überprüft, ob die Felder gefüllt sind und wenn ja schreibe dann in die Datei
+				if (entries[n]->title != "") { fprintf(Quelle, ",\ntitle = {{%s}}", entries[n]->title); }
+				if (entries[n]->journal != "") { fprintf(Quelle, ",\njournal = {%s}", entries[n]->journal); }
+				if (entries[n]->year != "") { fprintf(Quelle, ",\nyear = {%s}", entries[n]->year); }
+				if (entries[n]->author != "") { fprintf(Quelle, ",\nauthor = {%s}", entries[n]->author); }
+				if (entries[n]->volume != "") { fprintf(Quelle, ",\nvolume = {%s}", entries[n]->volume); }
+				if (entries[n]->number != "") { fprintf(Quelle, ",\nnumber = {%s}", entries[n]->number); }
+				if (entries[n]->pages != "") { fprintf(Quelle, ",\npages = {%s}", entries[n]->pages); }
+				if (entries[n]->month != "") { fprintf(Quelle, ",\nmonth = {%s}", entries[n]->month); }
+				if (entries[n]->note != "") { fprintf(Quelle, ",\nnote = {%s}", entries[n]->note); }
+				if (entries[n]->publisher != "") { fprintf(Quelle, ",\npublisher = {%s}", entries[n]->publisher); }
+				if (entries[n]->series != "") { fprintf(Quelle, ",\nseries = {%s}", entries[n]->series); }
+				if (entries[n]->address != "") { fprintf(Quelle, ",\naddress = {%s}", entries[n]->address); }
+				if (entries[n]->edition != "") { fprintf(Quelle, ",\nedition = {%s}", entries[n]->edition); }
+				if (entries[n]->howpublished != "") { fprintf(Quelle, ",\nhowpublished = {%s}", entries[n]->howpublished); }
+				if (entries[n]->booktitle != "") { fprintf(Quelle, ",\nbooktitle = {%s}", entries[n]->booktitle); }
+				if (entries[n]->editor != "") { fprintf(Quelle, ",\neditor = {%s}", entries[n]->editor); }
+				if (entries[n]->chapter != "") { fprintf(Quelle, ",\nchapter = {%s}", entries[n]->chapter); }
+				if (entries[n]->school != "") { fprintf(Quelle, ",\nschool = {%s}", entries[n]->school); }
+				if (entries[n]->institution != "") { fprintf(Quelle, ",\ninstitution = {%s}", entries[n]->institution); }
+				if (entries[n]->organization != "") { fprintf(Quelle, ",\norganization = {%s}", entries[n]->organization); }
+
+				fprintf(Quelle, "\n}\n\n"); // Schließt den Bib-Eintrag ab
+
+				n++; // Erhöht den Zähler für den nächsten Eintrag
+
+			}
+			fclose(Quelle); // Schließt die Datei nach dem Schreiben
+		}
+	}
+
+	void MainForm::UpdateAuthorString(int index, String^ updatedEntry, TextBox^ storageTextBox) {
+		// Den Speicherstring in Einträge aufteilen
+		array<String^>^ authorEntries = storageTextBox->Text->Split(gcnew array<String^> { " and " }, StringSplitOptions::None);
+
+		if (index >= 0 && index < authorEntries->Length) {
+			authorEntries[index] = updatedEntry; // Den spezifischen Eintrag aktualisieren
+		}
+
+		storageTextBox->Text = String::Join(" and ", authorEntries);// Den Speicherstring neu zusammensetzen
+	}
+
+	void MainForm::SetAuthor() 
+	{
+		String^ firstName = txtFirstName->Text->Trim();
+		String^ lastName = txtLastName->Text->Trim();
+		String^ text;
+		if (firstName->Length == 0 || lastName->Length == 0) {
+			if (en_de == 0) {
+				text = nachrichten[38, 0];
+			}
+			else if (en_de == 1) {
+				text = nachrichten[38, 1];
+			}
+			MessageBox::Show(text, "Input Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+
+		String^ fullName = lastName + ", " + firstName;
+		if (rbtnAuthor->Checked) {
+			if (listViewAuthors->SelectedItems->Count > 0) { //geht immer in diese if Abfrage
+				int selectedIndex = listViewAuthors->SelectedIndices[0];
+				listViewAuthors->Items[selectedIndex]->Text = fullName;
+
+				UpdateAuthorString(selectedIndex, fullName, txtAuthor);
+				listViewAuthors->SelectedIndices->Clear();// Index wird zurückgesetzt
+			}
+			else {
+				listViewAuthors->Items->Add(fullName);// Neuen Eintrag hinzufügen
+				txtAuthor->Text += (txtAuthor->Text->Length > 0 ? " and " : "") + fullName;
+			}
+		}
+		else if (rbtnEditor->Checked) {
+			if (listViewAuthors->SelectedItems->Count > 0) {
+				int selectedIndex = listViewAuthors->SelectedIndices[0];
+				listViewAuthors->Items[selectedIndex]->Text = fullName;
+
+				UpdateAuthorString(selectedIndex, fullName, txtEditor);
+			}
+			else {
+				listViewAuthors->Items->Add(fullName);// Neuen Eintrag hinzufügen
+				txtEditor->Text += (txtEditor->Text->Length > 0 ? " and " : "") + fullName;
+			}
+		}
+
+		else {
+			if (en_de == 0) {
+				text = nachrichten[39, 0];
+			}
+			else if (en_de == 1) {
+				text = nachrichten[39, 1];
+			}
+			MessageBox::Show(text, "Input Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		}
+
+		txtFirstName->Clear();
+		txtLastName->Clear();
+	}
+
+	void MainForm::ValidateSave() 
+	{
+		if (ValidateEntry() && ValidateOptional()) {
+			currentEntry->type = cmbType->SelectedItem->ToString();
+
+			// Existierende Einträge bereinigen
+			currentEntry->keyword = "";
+			currentEntry->author = "";
+			currentEntry->title = "";
+			currentEntry->year = "";
+			currentEntry->journal = "";
+			currentEntry->volume = "";
+			currentEntry->number = "";
+			currentEntry->pages = "";
+			currentEntry->month = "";
+			currentEntry->note = "";
+			currentEntry->publisher = "";
+			currentEntry->series = "";
+			currentEntry->address = "";
+			currentEntry->edition = "";
+			currentEntry->howpublished = "";
+			currentEntry->booktitle = "";
+			currentEntry->editor = "";
+			currentEntry->chapter = "";
+			currentEntry->school = "";
+			currentEntry->institution = "";
+			currentEntry->organization = "";
+
+			// Ausgewählten Typen holen
+			String^ selectedType = cmbType->SelectedItem->ToString();
+			DataTypeFields^ selectedTypeFields = nullptr;
+
+			// Find ausgewählten Typen in dataTypes finden
+			for each (DataTypeFields^ type in dataTypes) {
+				if (type->TypeName == selectedType) {
+					selectedTypeFields = type;
+					break;
+				}
+			}
+
+			if (selectedTypeFields != nullptr) {
+				// Werte für erforderliche Felder zuweisen
+				for each (String^ field in selectedTypeFields->RequiredFields) {
+					if (field == "keyword") currentEntry->keyword = txtKeyword->Text;
+					if (field == "author") currentEntry->author = txtAuthor->Text;
+					if (field == "title") currentEntry->title = txtTitle->Text;
+					if (field == "year") currentEntry->year = txtYear->Text;
+					if (field == "journal") currentEntry->journal = txtJournal->Text;
+					if (field == "volume") currentEntry->volume = txtVolume->Text;
+					if (field == "number") currentEntry->number = txtNumber->Text;
+					if (field == "pages") currentEntry->pages = txtPages->Text;
+					if (field == "month") currentEntry->month = txtMonth->Text;
+					if (field == "note") currentEntry->note = txtNote->Text;
+					if (field == "publisher") currentEntry->publisher = txtPublisher->Text;
+					if (field == "series") currentEntry->series = txtSeries->Text;
+					if (field == "address") currentEntry->address = txtAddress->Text;
+					if (field == "edition") currentEntry->edition = txtEdition->Text;
+					if (field == "howpublished") currentEntry->howpublished = txtHowpublished->Text;
+					if (field == "booktitle") currentEntry->booktitle = txtBooktitle->Text;
+					if (field == "editor") currentEntry->editor = txtEditor->Text;
+					if (field == "chapter") currentEntry->chapter = txtChapter->Text;
+					if (field == "school") currentEntry->school = txtSchool->Text;
+					if (field == "institution") currentEntry->institution = txtInstitution->Text;
+					if (field == "organization") currentEntry->organization = txtOrganization->Text;
+				}
+
+				// Werte für optionale Felder zuweisen
+				for each (String^ field in selectedTypeFields->OptionalFields) {
+					if (field == "keyword" && currentEntry->keyword->Trim() == String::Empty) currentEntry->keyword = txtKeyword->Text;
+					if (field == "author" && currentEntry->author->Trim() == String::Empty) currentEntry->author = txtAuthor->Text;
+					if (field == "title" && currentEntry->title->Trim() == String::Empty) currentEntry->title = txtTitle->Text;
+					if (field == "year" && currentEntry->year->Trim() == String::Empty) currentEntry->year = txtYear->Text;
+					if (field == "journal" && currentEntry->journal->Trim() == String::Empty) currentEntry->journal = txtJournal->Text;
+					if (field == "volume" && currentEntry->volume->Trim() == String::Empty) currentEntry->volume = txtVolume->Text;
+					if (field == "number" && currentEntry->number->Trim() == String::Empty) currentEntry->number = txtNumber->Text;
+					if (field == "pages" && currentEntry->pages->Trim() == String::Empty) currentEntry->pages = txtPages->Text;
+					if (field == "month" && currentEntry->month->Trim() == String::Empty) currentEntry->month = txtMonth->Text;
+					if (field == "note" && currentEntry->note->Trim() == String::Empty) currentEntry->note = txtNote->Text;
+					if (field == "publisher" && currentEntry->publisher->Trim() == String::Empty) currentEntry->publisher = txtPublisher->Text;
+					if (field == "series" && currentEntry->series->Trim() == String::Empty) currentEntry->series = txtSeries->Text;
+					if (field == "address" && currentEntry->address->Trim() == String::Empty) currentEntry->address = txtAddress->Text;
+					if (field == "edition" && currentEntry->edition->Trim() == String::Empty) currentEntry->edition = txtEdition->Text;
+					if (field == "howpublished" && currentEntry->howpublished->Trim() == String::Empty) currentEntry->howpublished = txtHowpublished->Text;
+					if (field == "booktitle" && currentEntry->booktitle->Trim() == String::Empty) currentEntry->booktitle = txtBooktitle->Text;
+					if (field == "editor" && currentEntry->editor->Trim() == String::Empty) currentEntry->editor = txtEditor->Text;
+					if (field == "chapter" && currentEntry->chapter->Trim() == String::Empty) currentEntry->chapter = txtChapter->Text;
+					if (field == "school" && currentEntry->school->Trim() == String::Empty) currentEntry->school = txtSchool->Text;
+					if (field == "institution" && currentEntry->institution->Trim() == String::Empty) currentEntry->institution = txtInstitution->Text;
+					if (field == "organization" && currentEntry->organization->Trim() == String::Empty) currentEntry->organization = txtOrganization->Text;
+				}
+
+				// Hinzufügen oder updaten des Eintrags
+				if (entries->IndexOf(currentEntry) == -1) {
+					entries->Add(currentEntry);
+				}
+				else {
+					int index = entries->IndexOf(currentEntry);
+					entries[index] = currentEntry;
+				}
+
+				RefreshListView();
+				UpdateUIState(false);
+				ClearEntryDetails();
+			}
+		}
+	}
+
 }
