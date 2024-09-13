@@ -1,13 +1,13 @@
 #pragma once
 
 using namespace System;
-using namespace System::Collections::Generic; // For List<T>
+using namespace System::Collections::Generic;
 
 namespace DataNamespace {
-	[Serializable]
-	// Define DataArray as a managed type
-	public ref class DataArray {
+	[Serializable] 
+	public ref class DataArray {  // Definition der Klasse "DataArray"
 	public:
+		// Datenfelder für die verschiedene Informationen
 		String^ keyword;
 		String^ title;
 		String^ journal;
@@ -29,8 +29,9 @@ namespace DataNamespace {
 		String^ school;
 		String^ institution;
 		String^ organization;
-		String^ type; // To store the entry type (e.g., article, book, etc.)
+		String^ type;
 
+		// Konstruktor, der alle Eigenschaften mit "" initialisiert
 		DataArray() {
 			keyword = "";
 			title = "";
@@ -57,13 +58,14 @@ namespace DataNamespace {
 		}
 	};
 
-	// Define DataTypeFields as a managed type with a constructor
-	public ref struct DataTypeFields {
+	public ref struct DataTypeFields {  // Definition der Struktur "DataTypeFields"
+
+		// Felder für den Quellentypen und die erforderlichen/optionalen Infos
 		String^ TypeName;
 		array<String^>^ RequiredFields;
 		array<String^>^ OptionalFields;
 
-		// Constructor to initialize the fields
+		// Konstruktor für "DataTypeFields"
 		DataTypeFields(String^ typeName, array<String^>^ requiredFields, array<String^>^ optionalFields) {
 			TypeName = typeName;
 			RequiredFields = requiredFields;
@@ -71,12 +73,12 @@ namespace DataNamespace {
 		}
 	};
 
-	// Function to initialize and return the data types
+	// Gibt ein Array von "DataTypeFields" zurück
 	inline array<DataTypeFields^>^ GetDataTypes() {
 		return gcnew array<DataTypeFields^> {
 			gcnew DataTypeFields("article",
-				gcnew array<String^>{"keyword", "title", "journal", "year", "author"}, // Mandatory fields
-				gcnew array<String^>{"volume", "number", "pages", "month", "note"}     // Optional fields
+				gcnew array<String^>{"keyword", "title", "journal", "year", "author"},
+				gcnew array<String^>{"volume", "number", "pages", "month", "note"}     
 			),
 				gcnew DataTypeFields("book",
 					gcnew array<String^>{"keyword", "title", "publisher", "year", "author", "editor"},

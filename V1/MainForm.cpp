@@ -3,7 +3,7 @@
 namespace V1 {
 
 
-	// Funktion zum Bereinigen der EntryDetails
+	// Funktion zum Bereinigen der Textfelder
 	void MainForm::ClearEntryDetails()
 	{
 		currentEntry = nullptr;
@@ -29,6 +29,7 @@ namespace V1 {
 		txtSchool->Clear();
 		txtInstitution->Clear();
 		txtOrganization->Clear();
+		listViewAuthors->Items->Clear();
 		SetFieldsReadOnly(false);
 	}
 
@@ -503,15 +504,6 @@ namespace V1 {
 		// Check each optional field; leave conditions empty
 		for each (String^ field in selectedTypeFields->OptionalFields)
 		{
-			if (field == "keyword") {
-				// zu erg\u00e4nzen
-			}
-			if (field == "author") {
-				// zu erg\u00e4nzen
-			}
-			if (field == "title") {
-				// zu erg\u00e4nzen
-			}
 			int year;
 			if (field == "year" && !Int32::TryParse(txtYear->Text, year) && !(txtYear->Text->Trim() == String::Empty)) {
 				stateOptional = false;
@@ -522,9 +514,7 @@ namespace V1 {
 					errorMessageOptional += nachrichten[28, 1];
 				}
 			}
-			if (field == "journal") {
-				// zu erg\u00e4nzen
-			}
+
 			int volume;
 			if (field == "volume" && !Int32::TryParse(txtVolume->Text, volume) && !(txtVolume->Text->Trim() == String::Empty)) {
 				stateOptional = false;
@@ -555,45 +545,6 @@ namespace V1 {
 					errorMessageOptional += nachrichten[31, 1];
 				}
 			}
-			if (field == "month") {
-				// zu erg\u00e4nzen
-			}
-			if (field == "note") {
-				// zu erg\u00e4nzen
-			}
-			if (field == "publisher") {
-				// zu erg\u00e4nzen
-			}
-			if (field == "series") {
-				// zu erg\u00e4nzen
-			}
-			if (field == "address") {
-				// zu erg\u00e4nzen
-			}
-			if (field == "edition") {
-				// zu erg\u00e4nzen
-			}
-			if (field == "howpublished") {
-				// zu erg\u00e4nzen
-			}
-			if (field == "booktitle") {
-				// zu erg\u00e4nzen
-			}
-			if (field == "editor") {
-				// zu erg\u00e4nzen
-			}
-			if (field == "chapter") {
-				// zu erg\u00e4nzen
-			}
-			if (field == "school") {
-				// zu erg\u00e4nzen
-			}
-			if (field == "institution") {
-				// zu erg\u00e4nzen
-			}
-			if (field == "organization") {
-				// zu erg\u00e4nzen
-			}
 		}
 		if (!stateOptional) {
 			MessageBox::Show(errorMessageOptional, nachrichten[42, en_de], MessageBoxButtons::OK, MessageBoxIcon::Warning);
@@ -603,6 +554,7 @@ namespace V1 {
 
 	void MainForm::UpdateUIState(bool inEditMode)
 	{
+		// Toggelt die UI-Elemente für EditMode bzw. nicht-EditMode
 		isEditMode = inEditMode;
 		cmbType->Enabled = inEditMode;
 		btnSave->Visible = inEditMode;
@@ -620,6 +572,7 @@ namespace V1 {
 
 	void MainForm::RefreshListView()
 	{
+		// Alle Einträge aus "entries" in Liste anzeigen
 		listViewEntries->Items->Clear();
 		for each (DataArray^ entry in entries) {
 			String^ itemText = entry->keyword;
@@ -627,7 +580,7 @@ namespace V1 {
 		}
 	}
 
-	// hide all fields
+	// Alle Textfelder ausblenden
 	void MainForm::HideAllFields()
 	{
 		txtKeyword->Visible = false;
@@ -683,7 +636,6 @@ namespace V1 {
 		rbtnAuthor->Visible = false;
 		rbtnEditor->Visible = false;
 		listViewAuthors->Visible = false;
-		// Author Namensblock ausblenden
 	}
 
 	void MainForm::SaveEntries(String^ filename)
@@ -782,7 +734,7 @@ namespace V1 {
 	{
 		// Alle Felder erstmal ausblenden
 		HideAllFields();
-		int TabNumber = 10;	//	TabIndex des ersten Felders wird vergeben, danach werden die TabIndizes dynamisch vergeben
+		int TabNumber = 10;	//	TabIndex des ersten Feldes wird vergeben, danach werden die TabIndizes dynamisch vergeben
 		bool Author = false;	//	Author und Editor müssen gesondert behandelt werden
 		bool Editor = false;
 
@@ -1094,10 +1046,10 @@ namespace V1 {
 
 		int mandatoryY = 75;
 		int optionalY = 75;
-		int xOffsetMandatory = 100;
-		int xOffsetOptional = 350;
-		int verticalSpacing = 30;
+		int xOffsetMandatory = 98;
+		int xOffsetOptional = 368;
 
+		// Zwingende Felder auf der linken Seite einblenden
 		for each (String^ field in type->RequiredFields) {
 			if (field == "keyword") PositionFieldWithLabel(lblKeyword, txtKeyword, mandatoryY, xOffsetMandatory);
 			if (field == "author") PositionFieldWithLabel(lblAuthor, txtAuthor, mandatoryY, xOffsetMandatory);
@@ -1121,7 +1073,7 @@ namespace V1 {
 			if (field == "institution") PositionFieldWithLabel(lblInstitution, txtInstitution, mandatoryY, xOffsetMandatory);
 			if (field == "organization") PositionFieldWithLabel(lblOrganization, txtOrganization, mandatoryY, xOffsetMandatory);
 		}
-
+		// Optionale Felder auf der rechten Seite einblenden
 		for each (String^ field in type->OptionalFields) {
 			if (field == "keyword") PositionFieldWithLabel(lblKeyword, txtKeyword, optionalY, xOffsetOptional);
 			if (field == "author") PositionFieldWithLabel(lblAuthor, txtAuthor, optionalY, xOffsetOptional);
@@ -1148,6 +1100,7 @@ namespace V1 {
 		return TabNumber; // erreichter TabIndex wird zurückgegeben
 	}
 
+	// UI-Elemente dynamisch positionieren
 	void MainForm::PositionFieldWithLabel(Label^ label, TextBox^ field, int% yOffset, int xOffset)
 	{
 		if (field->Visible) {
@@ -1209,7 +1162,7 @@ namespace V1 {
 			this->btnDelete->Text = L"L\u00f6schen";
 			this->rbtnEditor->Text = L"Herausgeber";
 			this->rbtnAuthor->Text = L"Autor";
-			this->btnClearAuthor->Text = "Autor L\u00f6schen";
+			this->btnClearAuthor->Text = "Löschen";
 			this->lblKeyword->Text = L"Schlagwort:";
 			this->lblAuthor->Text = L"Autor:";
 			this->lblTitle->Text = L"Titel:";
@@ -1289,104 +1242,85 @@ namespace V1 {
 
 	void MainForm::DarkMode()
 	{
+		// Array aller Textboxen
 		array<System::Windows::Forms::TextBox^>^ textBoxes = {
-		this->txtKeyword, this->txtAuthor, this->txtTitle, this->txtYear,
-		this->txtJournal, this->txtVolume, this->txtNumber, this->txtPages,
-		this->txtMonth, this->txtNote, this->txtPublisher, this->txtSeries,
-		this->txtAddress, this->txtEdition, this->txtHowpublished, this->txtBooktitle,
-		this->txtEditor, this->txtChapter, this->txtSchool, this->txtInstitution,
-		this->txtOrganization, this->txtSearch
+			this->txtKeyword, this->txtAuthor, this->txtTitle, this->txtYear,
+			this->txtJournal, this->txtVolume, this->txtNumber, this->txtPages,
+			this->txtMonth, this->txtNote, this->txtPublisher, this->txtSeries,
+			this->txtAddress, this->txtEdition, this->txtHowpublished, this->txtBooktitle,
+			this->txtEditor, this->txtChapter, this->txtSchool, this->txtInstitution,
+			this->txtOrganization, this->txtSearch, this->txtFirstName, this->txtLastName
 		};
 
-		this->btnDarkmode->Text = L"Darkmode";
-		if (this->BackColor == System::Drawing::Color::FromArgb(19, 17, 28))
-		{
-			this->BackColor = System::Drawing::Color::White;
-			panelDetails->BackColor = System::Drawing::Color::White;
-			listViewEntries->BackColor = System::Drawing::Color::White;
-			listViewAuthors->BackColor = System::Drawing::Color::White;
-			rbtnAuthor->ForeColor = System::Drawing::Color::Black;
-			rbtnEditor->ForeColor = System::Drawing::Color::Black;
-			btnSetAuthor->ForeColor = System::Drawing::Color::Black;
-			btnClearAuthor->ForeColor = System::Drawing::Color::Black;
-			lblFirstName->ForeColor = System::Drawing::Color::Black;
-			lblLastName->ForeColor = System::Drawing::Color::Black;
-			lblKeyword->ForeColor = System::Drawing::Color::Black;
-			lblAuthor->ForeColor = System::Drawing::Color::Black;
-			lblTitle->ForeColor = System::Drawing::Color::Black;
-			lblYear->ForeColor = System::Drawing::Color::Black;
-			lblJournal->ForeColor = System::Drawing::Color::Black;
-			lblVolume->ForeColor = System::Drawing::Color::Black;
-			lblNumber->ForeColor = System::Drawing::Color::Black;
-			lblPages->ForeColor = System::Drawing::Color::Black;
-			lblMonth->ForeColor = System::Drawing::Color::Black;
-			lblNote->ForeColor = System::Drawing::Color::Black;
-			lblPublisher->ForeColor = System::Drawing::Color::Black;
-			lblSeries->ForeColor = System::Drawing::Color::Black;
-			lblAddress->ForeColor = System::Drawing::Color::Black;
-			lblEdition->ForeColor = System::Drawing::Color::Black;
-			lblHowpublished->ForeColor = System::Drawing::Color::Black;
-			lblABooktitle->ForeColor = System::Drawing::Color::Black;
-			lblEditor->ForeColor = System::Drawing::Color::Black;
-			lblChapter->ForeColor = System::Drawing::Color::Black;
-			lblSchool->ForeColor = System::Drawing::Color::Black;
-			lblInstitution->ForeColor = System::Drawing::Color::Black;
-			lblOrganization->ForeColor = System::Drawing::Color::Black;
-			listViewEntries->ForeColor = System::Drawing::Color::Black;
-			listViewAuthors->ForeColor = System::Drawing::Color::Black;
+		if (this->BackColor == System::Drawing::Color::FromArgb(30, 30, 30)) { // Wenn Dark Mode Farben
+			// Setze auf Lightmode
 
-			for each (System::Windows::Forms::TextBox^ textBox in textBoxes)
-			{
+			Assembly^ assemblyHTML = Assembly::GetExecutingAssembly();
+			Stream^ streamHTML = assemblyHTML->GetManifestResourceStream("lightmode.html");
+			StreamReader^ reader = gcnew StreamReader(streamHTML);
+			String^ htmlContent = reader->ReadToEnd();
+			webBrowser1->DocumentText = htmlContent;
+
+			this->BackColor = System::Drawing::Color::WhiteSmoke;
+			this->btnDarkmode->Text = L"Darkmode";
+			panelDetails->BackColor = System::Drawing::Color::WhiteSmoke;
+			listViewEntries->BackColor = System::Drawing::Color::WhiteSmoke;
+			listViewAuthors->BackColor = System::Drawing::Color::WhiteSmoke;
+
+
+			for each (System::Windows::Forms::TextBox^ textBox in textBoxes) {
 				textBox->BackColor = System::Drawing::Color::White;
 				textBox->ForeColor = System::Drawing::Color::Black;
 			}
-		}
-		else
-		{
-			this->BackColor = System::Drawing::Color::FromArgb(19, 17, 28);
-			this->btnDarkmode->Text = L"Lightmode";
-			panelDetails->BackColor = System::Drawing::Color::FromArgb(33, 33, 33);
-			listViewEntries->BackColor = System::Drawing::Color::FromArgb(33, 33, 33);
-			listViewAuthors->BackColor = System::Drawing::Color::FromArgb(33, 33, 33);
-			btnSave->BackColor = System::Drawing::Color::White;
-			btnCancel->BackColor = System::Drawing::Color::White;
-			rbtnAuthor->ForeColor = System::Drawing::Color::White;
-			rbtnEditor->ForeColor = System::Drawing::Color::White;
-			btnSetAuthor->ForeColor = System::Drawing::Color::White;
-			btnClearAuthor->ForeColor = System::Drawing::Color::White;
-			lblFirstName->ForeColor = System::Drawing::Color::White;
-			lblLastName->ForeColor = System::Drawing::Color::White;
-			lblKeyword->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblAuthor->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblTitle->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblYear->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblJournal->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblVolume->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblNumber->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblPages->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblMonth->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblNote->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblPublisher->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblSeries->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblAddress->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblEdition->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblHowpublished->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblABooktitle->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblEditor->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblChapter->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblSchool->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblInstitution->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			lblOrganization->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			listViewEntries->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
-			listViewAuthors->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
 
-			for each (System::Windows::Forms::TextBox^ textBox in textBoxes)
-			{
-				textBox->BackColor = System::Drawing::Color::FromArgb(33, 33, 33);
-				textBox->ForeColor = System::Drawing::Color::FromArgb(88, 110, 214);
+			// Setze Farben für Labels und Buttons
+			array<System::Windows::Forms::Control^>^ controls = {
+				rbtnAuthor, rbtnEditor, btnSetAuthor, btnClearAuthor,
+				lblFirstName, lblLastName, lblKeyword, lblAuthor, lblTitle, lblYear,
+				lblJournal, lblVolume, lblNumber, lblPages, lblMonth, lblNote,
+				lblPublisher, lblSeries, lblAddress, lblEdition, lblHowpublished,
+				lblABooktitle, lblEditor, lblChapter, lblSchool, lblInstitution, lblOrganization,
+				listViewEntries, listViewAuthors, btnCancel, btnSave
+			};
+
+			for each (System::Windows::Forms::Control^ control in controls) {
+				control->ForeColor = System::Drawing::Color::Black;
 			}
 
+		}
+		else { // Light Mode Farben
+		 // Setze auf Darkmode
+			Assembly^ assemblyHTML = Assembly::GetExecutingAssembly();
+			Stream^ streamHTML = assemblyHTML->GetManifestResourceStream("darkmode.html");
+			StreamReader^ reader = gcnew StreamReader(streamHTML);
+			String^ htmlContent = reader->ReadToEnd();
+			webBrowser1->DocumentText = htmlContent;
 
+			this->BackColor = System::Drawing::Color::FromArgb(30, 30, 30);
+			this->btnDarkmode->Text = L"Lightmode";
+			panelDetails->BackColor = System::Drawing::Color::FromArgb(45, 45, 45);
+			listViewEntries->BackColor = System::Drawing::Color::FromArgb(45, 45, 45);
+			listViewAuthors->BackColor = System::Drawing::Color::FromArgb(45, 45, 45);
+
+
+			for each (System::Windows::Forms::TextBox^ textBox in textBoxes) {
+				textBox->BackColor = System::Drawing::Color::FromArgb(45, 45, 45);
+				textBox->ForeColor = System::Drawing::Color::White;
+			}
+
+			// Setze Farben für Labels und Buttons
+			array<System::Windows::Forms::Control^>^ controls = {
+				rbtnAuthor, rbtnEditor, btnSetAuthor, btnClearAuthor,
+				lblFirstName, lblLastName, lblKeyword, lblAuthor, lblTitle, lblYear,
+				lblJournal, lblVolume, lblNumber, lblPages, lblMonth, lblNote,
+				lblPublisher, lblSeries, lblAddress, lblEdition, lblHowpublished,
+				lblABooktitle, lblEditor, lblChapter, lblSchool, lblInstitution, lblOrganization,
+				listViewEntries, listViewAuthors, btnCancel, btnSave
+			};
+
+			for each (System::Windows::Forms::Control^ control in controls) {
+				control->ForeColor = System::Drawing::Color::White;
+			}
 		}
 	}
 
